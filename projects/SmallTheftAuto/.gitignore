@@ -13,6 +13,8 @@
 .idea/**/dictionaries
 .idea/**/shelf
 
+
+
 # AWS User-specific
 .idea/**/aws.xml
 
@@ -543,3 +545,5 @@ FodyWeavers.xsd
 # Additional files built by Visual Studio
 
 # End of https://www.toptal.com/developers/gitignore/api/unity,visualstudio,visualstudiocode,rider
+# Do not ignore Unity packages.
+!/Packages/*
