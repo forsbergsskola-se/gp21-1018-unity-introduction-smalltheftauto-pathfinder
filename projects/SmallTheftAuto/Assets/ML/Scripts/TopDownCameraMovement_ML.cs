@@ -2,12 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TopDownCameraMovement : MonoBehaviour
+public class TopDownCameraMovement_ML : MonoBehaviour
 {
     
-    private static float  zoomLevel = Mathf.Clamp(zoomLevel, 0, 30);
+    private static float  zoomLevel = 10;
+    
+    float yaw = 0f;
+    float pitch = 0f;
+    private float turnSpeed = 20;
     public float zoomPosition;
     
+
+    public float sensitivity=1;
+    public float maxZoom=30;
+
     [SerializeField] private float speed = 20;
 
     [SerializeField] Vector2 minimumLimit = -Vector2.one;
@@ -15,32 +23,28 @@ public class TopDownCameraMovement : MonoBehaviour
     [SerializeField] Vector2 maximumLimit = Vector2.one;
 
     [SerializeField]  private GameObject thePlayer;
-    
-    [SerializeField] 
+    private Camera theCamera;
+    Quaternion bodyStartOrientation;
     
     void Start()
     {
-        
+        theCamera = GetComponentInChildren<Camera>();
+        theCamera.orthographicSize = 10;
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
+        
+        zoomLevel += Input.mouseScrollDelta.y * sensitivity;
+        zoomLevel = Mathf.Clamp(zoomLevel, 10, 30);
+        theCamera.orthographicSize = zoomLevel;
+
         var horizontal = Input.GetAxis("Horizontal");
         var vertical = Input.GetAxis("Vertical");
-        
-   
+
         var offset = new Vector3(horizontal, 0, vertical)
                      * Time.deltaTime * speed;
         
-        var newPosition = transform.position + offset;
         transform.position = thePlayer.transform.position + new Vector3(0,200,0);
-        
-   //     zoomPosition = Mathf.MoveTowards(zoomPosition, zoomLevel, 30 * Time.deltaTime);
-   //     transform.position = transform.position + (transform.forward * zoomPosition);
-        
-
     }
-
-
 }
