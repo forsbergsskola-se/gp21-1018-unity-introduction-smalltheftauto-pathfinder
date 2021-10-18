@@ -6,6 +6,7 @@ public class TopDownCameraMovement : MonoBehaviour
 {
     
     private static float  zoomLevel = Mathf.Clamp(zoomLevel, 0, 30);
+    public float zoomPosition;
     
     [SerializeField] private float speed = 20;
     // Start is called before the first frame update
@@ -39,20 +40,10 @@ public class TopDownCameraMovement : MonoBehaviour
         var newPosition = transform.position + offset;
         transform.position = thePlayer.transform.position + new Vector3(0,200,0);
         
-        zoomPosition = Mathf.MoveTowards(zoomPosition, zoomLevel, 30 * Time.deltaTime);
-        transform.position = parentObject.position + (transform.forward * zoomPosition);
+   //     zoomPosition = Mathf.MoveTowards(zoomPosition, zoomLevel, 30 * Time.deltaTime);
+   //     transform.position = transform.position + (transform.forward * zoomPosition);
         
-        // Is this new position within our permitted bounds?
-        if (bounds.Contains(newPosition)) 
-        {
-            // Then move to it.
-         //   transform.position = newPosition;
-        } else 
-        {
-            // Otherwise, figure out the closest point to the boundary,
-            // and move there instead.
-        //    transform.position = bounds.ClosestPoint(newPosition);
-        }
+
     }
 
     // Computes the bounding box that the camera is allowed to be in.
