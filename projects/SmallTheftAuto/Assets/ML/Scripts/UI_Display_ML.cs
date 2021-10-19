@@ -11,7 +11,7 @@ enum AmmoType
     Machinegun
 }
 
-public class TheInventory_ML : MonoBehaviour
+public class UI_Display_ML : MonoBehaviour
 {
     private AmmoType ammoType;
     private int NumberHandgunBullets = 0;
@@ -23,12 +23,7 @@ public class TheInventory_ML : MonoBehaviour
     private Text AmmoCounter;
 
   
-
-
-    public void OnPickupPicked(object source, EventArgs e)
-    {
-        
-    }
+    
 
     private void HandgunPickedup()
     {
@@ -44,13 +39,9 @@ public class TheInventory_ML : MonoBehaviour
     {
         canvas = GetComponent<Canvas>();
         AmmoCounter = GetComponent<Text>();
-        PickupScript_ML.PickupPicked += HandgunPickedup;
+        PickupScript_ML.HandgunPickedUp += HandgunPickedup;
         
-
         AmmoCounter.fontSize = 50;
-        
-    //    PrintAmmoCounter();
-
     }
 
 

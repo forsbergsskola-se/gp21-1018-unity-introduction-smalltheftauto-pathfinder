@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3904428486291406635}
+  - component: {fileID: 7162493507098902634}
   m_Layer: 0
   m_Name: CameraRig
   m_TagString: Untagged
@@ -26,11 +27,31 @@ Transform:
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 13.7, y: 20.1, z: 10.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3904428487621031027}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &7162493507098902634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3904428486291406633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 273df84b2238d1d42a8f0e81681f6faf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zoomPosition: 0
+  sensitivity: 1
+  maxZoom: 30
+  speed: 20
+  minimumLimit: {x: -1, y: -1}
+  maximumLimit: {x: 1, y: 1}
+  thePlayer: {fileID: 7672474646895741118, guid: 9fa706140427dbb4980b718b7c7fa89e, type: 3}
 --- !u!1 &3904428487621031024
 GameObject:
   m_ObjectHideFlags: 0
@@ -59,6 +80,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3904428486291406635}
   m_RootOrder: 0

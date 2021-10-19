@@ -13,7 +13,6 @@ enum ArmState
 public class Movement_ML : MonoBehaviour
 {
     private ArmState theArmState;
-    // The speed at which we can move, in units per second.
     [Range(5, 30), SerializeField] float moveSpeed = 6f;
 
     [Range(0.0f, 10.0f), SerializeField] float acceleration = 0.5f;
@@ -32,6 +31,7 @@ public class Movement_ML : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         bodyStartOrientation = transform.localRotation;
+        
 
         arm = GameObject.FindWithTag("Arm");
 

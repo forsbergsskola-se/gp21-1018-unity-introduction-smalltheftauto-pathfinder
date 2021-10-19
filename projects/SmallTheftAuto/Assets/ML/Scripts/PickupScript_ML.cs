@@ -13,16 +13,19 @@ public class PickupScript_ML : MonoBehaviour
     public delegate void PickupEventHandler();
     public static event PickupEventHandler PickupPicked;
     
+    public delegate void PickupHandgunEventHandler();
+    public static event PickupHandgunEventHandler HandgunPickedUp;
+    
     void Start()
     {
         
     }
 
-    protected virtual void OnPickupPicked()
+    protected virtual void OnHandgunPicked()
     {
-        if (PickupPicked != null)
+        if (HandgunPickedUp != null)
         {
-            PickupPicked();
+            HandgunPickedUp();
         }
     }
 
@@ -31,7 +34,7 @@ public class PickupScript_ML : MonoBehaviour
 
         if (CompareTag("Handgun"))
         {
-            OnPickupPicked();
+            OnHandgunPicked();
         }
         else if (CompareTag("Machinegun"))
         {

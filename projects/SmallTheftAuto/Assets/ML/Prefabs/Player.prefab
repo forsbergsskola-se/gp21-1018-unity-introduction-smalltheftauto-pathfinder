@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4712089978084487909
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8478099970783345617}
+  m_Layer: 0
+  m_Name: PlayerGunSocket
+  m_TagString: PlayerGunSocket
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8478099970783345617
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4712089978084487909}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.806, z: 0.1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2228719020600210332}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7672474646895741118
 GameObject:
   m_ObjectHideFlags: 0
@@ -10,6 +41,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7672474646895741117}
   - component: {fileID: 7672474646895741116}
+  - component: {fileID: 4475978540923509082}
+  - component: {fileID: 4973987951658032251}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -52,10 +85,41 @@ CharacterController:
   m_Height: 2
   m_Radius: 0.66
   m_SlopeLimit: 45
-  m_StepOffset: 0.3
+  m_StepOffset: 0.27
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.6, z: 0}
+--- !u!114 &4475978540923509082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7672474646895741118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce6ff87a274ea2e47815ed7acc674d03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 6
+  acceleration: 0.5
+  minSpeed: 6
+  maxSpeed: 15
+  turnSpeed: 120
+--- !u!114 &4973987951658032251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7672474646895741118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 118c08568b7029d47b93e84525b69742, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handgunEquip: {fileID: 6651539262806736495, guid: f9ecdeb07e237124c93f229ed169bfbc, type: 3}
+  gun: {fileID: 1607795017356138476, guid: 75ae5696a8b816f43a1d3eaa620e9b05, type: 3}
 --- !u!1001 &157453997223418808
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -172,6 +236,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: c42bb2e63de132c49a723bbd005380d3, type: 3}
       propertyPath: m_Name
       value: leftArm (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c42bb2e63de132c49a723bbd005380d3, type: 3}
+      propertyPath: m_TagString
+      value: Arm
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c42bb2e63de132c49a723bbd005380d3, type: 3}
