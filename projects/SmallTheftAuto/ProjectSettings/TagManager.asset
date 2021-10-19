@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Arm
   - Pickup
+  - Canvas
+  - Handgun
+  - Machinegun
+  - Health
   layers:
   - Default
   - TransparentFX
