@@ -15,12 +15,9 @@ public class Movement_ML : MonoBehaviour
     Vector3 moveDirection = Vector3.zero;
     
     float yaw = 0f;
-
-    // A cached reference to the character controller, which we'll be
-    // using often.
+    
     CharacterController controller;
     
-    // Start is called before the first frame update
     void Start()
     {
         controller = GetComponent<CharacterController>();
