@@ -1,10 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
+using System.Collections;
 using UnityEngine;
+
+enum ArmState
+{
+    Lowered,
+    Raised
+}
 
 public class Movement_ML : MonoBehaviour
 {
+    private ArmState theArmState;
     // The speed at which we can move, in units per second.
     [Range(5, 30), SerializeField] float moveSpeed = 6f;
 
@@ -19,7 +27,7 @@ public class Movement_ML : MonoBehaviour
     float yaw = 0f;
     
     CharacterController controller;
-    
+
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -58,9 +66,11 @@ public class Movement_ML : MonoBehaviour
 
         if (Input.GetButtonDown("Fire1"))
         {
-            if (arm != null)
+            if (arm != null && theArmState == ArmState.Lowered)
             {
-                arm.transform.Rotate(90,0,0);
+                arm.transform.Rotate(-90, 0, 0);
+                theArmState = ArmState.Raised;
+                StartCoroutine("Delay");
             }
         }
         
@@ -83,5 +93,12 @@ public class Movement_ML : MonoBehaviour
         
         controller.Move(move * moveSpeed * Time.deltaTime);
 
+    }
+    
+    public IEnumerator Delay()
+    {
+        yield return new WaitForSeconds(3);
+        arm.transform.Rotate(90, 0, 0);
+        theArmState = ArmState.Lowered;
     }
 }

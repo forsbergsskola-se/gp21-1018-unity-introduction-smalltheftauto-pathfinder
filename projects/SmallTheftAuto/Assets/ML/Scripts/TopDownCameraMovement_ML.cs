@@ -29,14 +29,14 @@ public class TopDownCameraMovement_ML : MonoBehaviour
     void Start()
     {
         theCamera = GetComponentInChildren<Camera>();
-        theCamera.orthographicSize = 3;
+        theCamera.orthographicSize = 1;
     }
 
     void Update()
     {
         
         zoomLevel += Input.mouseScrollDelta.y * sensitivity;
-        zoomLevel = Mathf.Clamp(zoomLevel, 3, 16);
+        zoomLevel = Mathf.Clamp(zoomLevel, 1, 7);
         theCamera.orthographicSize = zoomLevel;
 
         var horizontal = Input.GetAxis("Horizontal");
