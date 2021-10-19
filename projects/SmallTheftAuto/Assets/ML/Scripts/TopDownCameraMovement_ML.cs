@@ -32,7 +32,7 @@ public class TopDownCameraMovement_ML : MonoBehaviour
         theCamera.orthographicSize = 3;
     }
 
-    void FixedUpdate()
+    void Update()
     {
         
         zoomLevel += Input.mouseScrollDelta.y * sensitivity;

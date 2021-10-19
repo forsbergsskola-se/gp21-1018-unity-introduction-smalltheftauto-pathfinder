@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class Movement_ML : MonoBehaviour
@@ -13,6 +14,7 @@ public class Movement_ML : MonoBehaviour
     [SerializeField] private float turnSpeed = 120;
     Quaternion bodyStartOrientation;
     Vector3 moveDirection = Vector3.zero;
+    private GameObject arm = null;
     
     float yaw = 0f;
     
@@ -22,18 +24,14 @@ public class Movement_ML : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         bodyStartOrientation = transform.localRotation;
-        
+
+        arm = GameObject.FindWithTag("Arm");
+
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
-    // Update is called once per frame
     void Update()
-    {
-        
-    }
-
-    void FixedUpdate()
     {
         var horizontal = Input.GetAxis("Mouse X")
                          * Time.deltaTime * turnSpeed;
@@ -56,7 +54,15 @@ public class Movement_ML : MonoBehaviour
 
    
         transform.localRotation = bodyRotation * bodyStartOrientation;
-        
+
+
+        if (Input.GetButtonDown("Fire1"))
+        {
+            if (arm != null)
+            {
+                arm.transform.Rotate(90,0,0);
+            }
+        }
         
         if(Shift)
         {
