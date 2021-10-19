@@ -1,9 +1,8 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PickupScript : MonoBehaviour
+public class TheInventory : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -11,13 +10,9 @@ public class PickupScript : MonoBehaviour
         
     }
 
-    private void OnCollisionEnter(Collision other)
-    {
-        Destroy(this);
-    }
-
+    // Update is called once per frame
     void Update()
     {
-            
+        
     }
 }
