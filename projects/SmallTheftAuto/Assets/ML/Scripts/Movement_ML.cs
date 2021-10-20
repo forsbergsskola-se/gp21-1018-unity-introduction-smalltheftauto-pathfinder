@@ -23,6 +23,17 @@ public class Movement_ML : MonoBehaviour
     Vector3 moveDirection = Vector3.zero;
     private GameObject arm = null;
     
+    public delegate void GunFiredEventHandler();
+    public static event GunFiredEventHandler GunFired;
+
+    protected virtual void OnGunFired()
+    {
+        if (GunFired != null)
+        {
+            GunFired();
+        }
+    }
+    
     float yaw = 0f;
     
     CharacterController controller;
@@ -72,6 +83,7 @@ public class Movement_ML : MonoBehaviour
                 theArmState = ArmState.Raised;
                 StartCoroutine("Delay");
             }
+            OnGunFired();
         }
         
         if(Shift)
