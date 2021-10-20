@@ -7,7 +7,7 @@ public class CarMovementWM : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GetComponent<CarMovementWM>().enabled = false;
+        
     }
 
     // Update is called once per frame
