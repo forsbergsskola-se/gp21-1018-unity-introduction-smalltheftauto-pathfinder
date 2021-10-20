@@ -21,13 +21,14 @@ public class UI_Display_ML : MonoBehaviour
     
     private Canvas canvas;
     private Text AmmoCounter;
-
-  
     
-
-    private void HandgunPickedup()
+    private void GunPickedUp(string gunType)
     {
-        NumberHandgunBullets += 10;
+
+        if (gunType == "Handgun")
+        {
+            NumberHandgunBullets += 10;
+        }
 
         if (ammoType == AmmoType.Handgun)
         {
@@ -39,7 +40,7 @@ public class UI_Display_ML : MonoBehaviour
     {
         canvas = GetComponent<Canvas>();
         AmmoCounter = GetComponent<Text>();
-        PickupScript_ML.HandgunPickedUp += HandgunPickedup;
+        PickupScript_ML.PickupPicked += GunPickedUp;
         
         AmmoCounter.fontSize = 50;
     }

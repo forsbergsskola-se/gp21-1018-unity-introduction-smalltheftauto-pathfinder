@@ -15,12 +15,12 @@ public class PlayerEquipment_ML : MonoBehaviour
     {
         socket = GameObject.FindWithTag("PlayerGunSocket");
         
-        PickupScript_ML.HandgunPickedUp += FirstPickup;
+        PickupScript_ML.PickupPicked += FirstPickup;
     }
 
 
 
-    void FirstPickup()
+    void FirstPickup(string type)
     {
 
         handgun = Instantiate(handgunEquip);

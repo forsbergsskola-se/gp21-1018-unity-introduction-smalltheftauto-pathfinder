@@ -23,14 +23,14 @@ public class Movement_ML : MonoBehaviour
     Vector3 moveDirection = Vector3.zero;
     private GameObject arm = null;
     
-    public delegate void GunFiredEventHandler();
-    public static event GunFiredEventHandler GunFired;
+    public delegate void GunFiredEventHandler(Vector3 forwardVector);
+    public static event GunFiredEventHandler PlayerGunFired;
 
-    protected virtual void OnGunFired()
+    protected virtual void OnGunFired(Vector3 forwardVector)
     {
-        if (GunFired != null)
+        if (PlayerGunFired != null)
         {
-            GunFired();
+            PlayerGunFired(forwardVector);
         }
     }
     
@@ -83,7 +83,7 @@ public class Movement_ML : MonoBehaviour
                 theArmState = ArmState.Raised;
                 StartCoroutine("Delay");
             }
-            OnGunFired();
+            OnGunFired(transform.forward);
         }
         
         if(Shift)
