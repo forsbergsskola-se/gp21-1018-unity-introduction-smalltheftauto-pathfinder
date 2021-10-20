@@ -31,12 +31,16 @@ public class PickupScript_ML : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-
+        
         if (CompareTag("Handgun"))
         {
             OnHandgunPicked();
         }
         else if (CompareTag("Machinegun"))
+        {
+            
+        }
+        else if (CompareTag("Health"))
         {
             
         }
