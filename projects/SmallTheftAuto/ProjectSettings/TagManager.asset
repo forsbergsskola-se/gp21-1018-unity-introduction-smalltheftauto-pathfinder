@@ -12,6 +12,8 @@ TagManager:
   - Health
   - PlayerGunSocket
   - GunExit
+  - ThePlayer
+  - Bullet
   layers:
   - Default
   - TransparentFX

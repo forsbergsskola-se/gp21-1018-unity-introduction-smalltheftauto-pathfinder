@@ -36,24 +36,16 @@ public class GunScript_ML : MonoBehaviour
     void Start()
     {
         barrel = GameObject.FindWithTag("GunExit");
-        Movement_ML.PlayerGunFired += FirePlayerGun;
+  
         
     }
-
-
-    private void OnDestroy()
-    {
-        Movement_ML.PlayerGunFired -= FirePlayerGun;
-        
-    }
-
-    public void FirePlayerGun(Vector3 forwardVector)
+    
+    public void FirePlayerGun()
     {
         if (_fireState == FireState.Ready)
         {
             ownedBullet = Instantiate(bullet);
-            ownedBullet.transform.position = barrel.transform.position;
-            ownedBullet.GetComponent<BulletScript_ML>().forward = forwardVector;
+            ownedBullet.transform.position = transform.position;
             ownedBullet.GetComponent<BulletScript_ML>().fire = true;
             _fireState = FireState.Fireing;
             

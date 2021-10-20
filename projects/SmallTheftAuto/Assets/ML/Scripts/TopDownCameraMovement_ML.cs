@@ -22,7 +22,7 @@ public class TopDownCameraMovement_ML : MonoBehaviour
 
     [SerializeField] Vector2 maximumLimit = Vector2.one;
 
-    [SerializeField]  private GameObject thePlayer;
+    private GameObject thePlayer;
     private Camera theCamera;
     Quaternion bodyStartOrientation;
     
@@ -30,6 +30,7 @@ public class TopDownCameraMovement_ML : MonoBehaviour
     {
         theCamera = GetComponentInChildren<Camera>();
         theCamera.orthographicSize = 1;
+        thePlayer = GameObject.FindWithTag("ThePlayer");
     }
 
     void Update()

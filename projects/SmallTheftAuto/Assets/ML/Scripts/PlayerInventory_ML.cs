@@ -11,15 +11,21 @@ enum AmmoType
     Machinegun
 }
 
-public class UI_Display_ML : MonoBehaviour
+public enum OwnedGuns
 {
+    Handgun,
+    Machinegun
+}
+
+public class PlayerInventory_ML : MonoBehaviour
+{
+    public static List<OwnedGuns> ownedGuns { get; private set; }
     private AmmoType ammoType;
-    private int NumberHandgunBullets = 0;
-    private int MaxNumberHandgunBullets = 300;
-    private int MaxNumberMachineginBullets = 200;
-    private int NumberMachinegunBullets = 0;
+    public static int NumberHandgunBullets { get; private set; }
+    private static int MaxNumberHandgunBullets = 300;
+    private static int MaxNumberMachineginBullets = 200;
+    public static int NumberMachinegunBullets  { get; private set; }
     
-    private Canvas canvas;
     private Text AmmoCounter;
     
     private void GunPickedUp(string gunType)
@@ -28,6 +34,11 @@ public class UI_Display_ML : MonoBehaviour
         if (gunType == "Handgun")
         {
             NumberHandgunBullets += 10;
+
+            if (!ownedGuns.Contains(OwnedGuns.Handgun))
+            {
+                ownedGuns.Add(OwnedGuns.Handgun);
+            }
         }
 
         if (ammoType == AmmoType.Handgun)
@@ -38,7 +49,7 @@ public class UI_Display_ML : MonoBehaviour
     
     void Start()
     {
-        canvas = GetComponent<Canvas>();
+        ownedGuns = new List<OwnedGuns>(2);
         AmmoCounter = GetComponent<Text>();
         PickupScript_ML.PickupPicked += GunPickedUp;
         

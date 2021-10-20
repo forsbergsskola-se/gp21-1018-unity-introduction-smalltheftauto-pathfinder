@@ -4,15 +4,10 @@ using Unity.Mathematics;
 using System.Collections;
 using UnityEngine;
 
-enum ArmState
-{
-    Lowered,
-    Raised
-}
 
 public class Movement_ML : MonoBehaviour
 {
-    private ArmState theArmState;
+ 
     [Range(5, 30), SerializeField] float moveSpeed = 6f;
 
     [Range(0.0f, 10.0f), SerializeField] float acceleration = 0.5f;
@@ -21,18 +16,8 @@ public class Movement_ML : MonoBehaviour
     [SerializeField] private float turnSpeed = 120;
     Quaternion bodyStartOrientation;
     Vector3 moveDirection = Vector3.zero;
-    private GameObject arm = null;
-    
-    public delegate void GunFiredEventHandler(Vector3 forwardVector);
-    public static event GunFiredEventHandler PlayerGunFired;
 
-    protected virtual void OnGunFired(Vector3 forwardVector)
-    {
-        if (PlayerGunFired != null)
-        {
-            PlayerGunFired(forwardVector);
-        }
-    }
+    public static Vector3 PlayerForward { get; private set; }
     
     float yaw = 0f;
     
@@ -42,9 +27,6 @@ public class Movement_ML : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         bodyStartOrientation = transform.localRotation;
-        
-
-        arm = GameObject.FindWithTag("Arm");
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -52,6 +34,8 @@ public class Movement_ML : MonoBehaviour
 
     void Update()
     {
+        PlayerForward = transform.forward;
+        
         var horizontal = Input.GetAxis("Mouse X")
                          * Time.deltaTime * turnSpeed;
         
@@ -74,18 +58,6 @@ public class Movement_ML : MonoBehaviour
    
         transform.localRotation = bodyRotation * bodyStartOrientation;
 
-
-        if (Input.GetButtonDown("Fire1"))
-        {
-            if (arm != null && theArmState == ArmState.Lowered)
-            {
-                arm.transform.Rotate(-90, 0, 0);
-                theArmState = ArmState.Raised;
-                StartCoroutine("Delay");
-            }
-            OnGunFired(transform.forward);
-        }
-        
         if(Shift)
         {
             if (moveSpeed < maxSpeed)
@@ -107,10 +79,5 @@ public class Movement_ML : MonoBehaviour
 
     }
     
-    public IEnumerator Delay()
-    {
-        yield return new WaitForSeconds(3);
-        arm.transform.Rotate(90, 0, 0);
-        theArmState = ArmState.Lowered;
-    }
+   
 }
