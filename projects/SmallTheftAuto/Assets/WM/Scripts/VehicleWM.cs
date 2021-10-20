@@ -20,11 +20,6 @@ public class VehicleWM : MonoBehaviour
                 this.carMovementWM.enabled = true;
             }
         }
-        else
-        {
-            this.player.transform.position = this.transform.position;
-            this.player.SetActive(true);
-            this.carMovementWM.enabled = false;
-        }
+        
     }
 }
