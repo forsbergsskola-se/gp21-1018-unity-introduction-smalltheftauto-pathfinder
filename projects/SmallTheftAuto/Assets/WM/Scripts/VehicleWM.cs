@@ -5,22 +5,21 @@ using UnityEngine;
 public class VehicleWM : MonoBehaviour
 {
     public GameObject player;
-
-    public CarMovementWM carMovement;
-
+    public CarMovementWM carMovementWM;
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.Find("Player");
-        carMovement = GetComponent<CarMovementWM>();
+        
+    }
 
-        // Update is called once per frame
-        void Update()
-        {
-            if (Input.GetKey(KeyCode.W))
-            {
-                
+    // Update is called once per frame
+    void Update() {
+        if (Input.GetKey(KeyCode.F)) {
+            if (this.player.activeInHierarchy) {
+                this.player.SetActive(false);
+                this.carMovementWM.enabled = true;
             }
         }
+        
     }
 }
