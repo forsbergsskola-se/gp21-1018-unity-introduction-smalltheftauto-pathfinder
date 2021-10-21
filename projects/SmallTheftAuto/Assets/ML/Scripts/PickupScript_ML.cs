@@ -5,27 +5,15 @@ using UnityEngine;
 
 public class PickupScript_ML : MonoBehaviour
 {
-    // Start is called before the first frame update
-
-    private GameObject thisPickup;
-    private Component pickupType;
-
-    public delegate void PickupEventHandler();
+    
+    public delegate void PickupEventHandler(string pickupType);
     public static event PickupEventHandler PickupPicked;
-    
-    public delegate void PickupHandgunEventHandler();
-    public static event PickupHandgunEventHandler HandgunPickedUp;
-    
-    void Start()
-    {
-        
-    }
 
-    protected virtual void OnHandgunPicked()
+    protected virtual void OnPickupPicked(string pickupType)
     {
-        if (HandgunPickedUp != null)
+        if (PickupPicked != null)
         {
-            HandgunPickedUp();
+            PickupPicked(pickupType);
         }
     }
 
@@ -34,7 +22,7 @@ public class PickupScript_ML : MonoBehaviour
         
         if (CompareTag("Handgun"))
         {
-            OnHandgunPicked();
+            OnPickupPicked("Handgun");
         }
         else if (CompareTag("Machinegun"))
         {
@@ -45,11 +33,7 @@ public class PickupScript_ML : MonoBehaviour
             
         }
         
-        
-   
         Destroy(gameObject);
-      
-
     }
 
 }

@@ -11,6 +11,9 @@ TagManager:
   - Machinegun
   - Health
   - PlayerGunSocket
+  - GunExit
+  - ThePlayer
+  - Bullet
   layers:
   - Default
   - TransparentFX
