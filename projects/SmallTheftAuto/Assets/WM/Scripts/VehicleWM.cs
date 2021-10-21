@@ -19,24 +19,49 @@ public class VehicleWM : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F))
         {
-            if (this.player.activeInHierarchy)
+            if (PlayerIsNotInCar())
             {
-                this.player.SetActive(false);
-                this.carMovementWM.enabled = true;
-                this.topDownPlayerCameraWM.enabled = false;
-                this.topDownCarCameraWM.enabled = true;
+                if (PlayerIsCloseToCar())
+                {
+                    EnterCar();
+                }
             }
         }
 
-        if (Input.GetKey(KeyCode.G))
+        if (Input.GetKeyDown(KeyCode.G))
         {
-            this.player.transform.position = this.transform.position;
-            this.player.SetActive(true);
-            this.carMovementWM.enabled = false;
-            this.topDownPlayerCameraWM.enabled = true;
-            this.topDownCarCameraWM.enabled = false;
+            LeaveCar();
         }
+    }
+
+    bool PlayerIsNotInCar()
+    {
+        return this.player.activeInHierarchy;
+    }
+
+    bool PlayerIsCloseToCar()
+    {
+        return Vector3.Distance(
+            this.player.transform.position,
+            this.transform.position) < 1;
+    }
+
+    public void EnterCar()
+    {
+        this.player.SetActive(false);
+        this.carMovementWM.enabled = true;
+        this.topDownPlayerCameraWM.enabled = false;
+        this.topDownCarCameraWM.enabled = true;
+    }
+
+    public void LeaveCar()
+    {
+        this.player.transform.position = this.transform.position;
+        this.player.SetActive(true);
+        this.carMovementWM.enabled = false;
+        this.topDownPlayerCameraWM.enabled = true;
+        this.topDownCarCameraWM.enabled = false;
     }
 }
