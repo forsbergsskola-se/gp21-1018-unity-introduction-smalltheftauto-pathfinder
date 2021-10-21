@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TopDownCameraWM : MonoBehaviour
+public class TopDownPlayerCameraWM : MonoBehaviour
 {
     public GameObject target;
     public Vector3 offset = new Vector3(0,0,-10);
