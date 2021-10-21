@@ -89,15 +89,13 @@ public class PlayerInventory_ML : MonoBehaviour
     
     void Start()
     {
+        ownedGuns = new List<OwnedGuns>(2);
         BulletScript_ML.FireGun += DecrementAmmo;
         GunArmScript_ML.SwitchedWeapons += PrintAmmoCounter;
         PickupScript_ML.PickupPicked += GunPickedUp;
-        HealthCounter = GameObject.Find("Health").GetComponent<Text>();
         AmmoCounter = GameObject.FindWithTag("AmmoCounter").GetComponent<Text>();
-      
+
         AmmoCounter.fontSize = 23;
-        
-        ownedGuns = new List<OwnedGuns>(2);
     }
 
 
