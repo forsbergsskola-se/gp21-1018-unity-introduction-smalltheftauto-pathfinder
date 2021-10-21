@@ -3,18 +3,21 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Timer_TF : MonoBehaviour
 {
     [SerializeField]
     private Text timerText;
-    public float timeStart;
+    private int counter = 10;
+    private float timeStart;
     public TextMeshProUGUI tmTimerText;
+    public bool isFinnished = false;
 
     
     void Start()
     {
-        
+        StartCoroutine(countDownToRestart());
     }
 
     
@@ -22,6 +25,7 @@ public class Timer_TF : MonoBehaviour
     {
         timeStart += Time.deltaTime;
         ShowTimer();
+        
     }
 
     void ShowTimer()
@@ -29,7 +33,24 @@ public class Timer_TF : MonoBehaviour
         string minutes = ((int)timeStart / 60).ToString();
         string seconds = (timeStart % 60).ToString("f2");
 
-        timerText.text = minutes + ":" + seconds;
-        tmTimerText.text = minutes + ":" + seconds;
+        tmTimerText.text = $"{minutes}:{seconds}";
+    }
+
+    IEnumerator countDownToRestart()
+    {
+        while (counter >= 0)
+        {
+            timerText.text = counter.ToString();
+            yield return new WaitForSeconds(1f);
+            counter--;
+        }
+
+        Reset();
+
+    }
+
+    private void Reset()
+    {
+        SceneManager.LoadScene("TF_Game");
     }
 }
