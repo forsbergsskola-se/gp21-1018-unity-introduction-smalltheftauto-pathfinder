@@ -56,6 +56,7 @@ GameObject:
   - component: {fileID: 7672474646895741117}
   - component: {fileID: 7672474646895741116}
   - component: {fileID: 4475978540923509082}
+  - component: {fileID: 1971167859518673039}
   m_Layer: 0
   m_Name: Player
   m_TagString: ThePlayer
@@ -101,7 +102,7 @@ CharacterController:
   m_StepOffset: 0.27
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 1.24, z: 0}
+  m_Center: {x: 0, y: 1.33, z: 0}
 --- !u!114 &4475978540923509082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,6 +120,19 @@ MonoBehaviour:
   minSpeed: 6
   maxSpeed: 15
   turnSpeed: 120
+--- !u!65 &1971167859518673039
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7672474646895741118}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.4768171, y: 2.463301, z: 0.4865036}
+  m_Center: {x: -0.0020375252, y: 1.2084678, z: 0}
 --- !u!1001 &157453997223418808
 PrefabInstance:
   m_ObjectHideFlags: 0

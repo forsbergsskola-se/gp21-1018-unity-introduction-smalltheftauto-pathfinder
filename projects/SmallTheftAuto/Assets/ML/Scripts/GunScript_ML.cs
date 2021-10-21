@@ -39,6 +39,11 @@ public class GunScript_ML : MonoBehaviour
   
         
     }
+
+    public void UnequipGun()
+    {
+        Destroy(gameObject);
+    }
     
     public void FirePlayerGun()
     {
