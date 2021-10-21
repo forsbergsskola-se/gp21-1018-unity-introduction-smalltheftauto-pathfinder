@@ -10,6 +10,7 @@ public class BulletScript_ML : MonoBehaviour
     public bool fire = false;
     private Vector3 originalPos;
     private Transform originalTransform;
+    private Vector3 originalForward;
     private BoxCollider collider;
 
     
@@ -30,9 +31,9 @@ public class BulletScript_ML : MonoBehaviour
     void Start()
     {
         originalPos = transform.position;
-        originalTransform = Movement_ML.PlayerTransform;
+        originalForward = Movement_ML.PlayerTransform.forward ;
         
-        transform.rotation = originalTransform.rotation;
+        transform.rotation = Movement_ML.PlayerTransform.rotation;
         transform.Rotate(90,0,0);
         collider = GetComponent<BoxCollider>();
         collider.enabled = true;
@@ -49,7 +50,7 @@ public class BulletScript_ML : MonoBehaviour
     {
         if (fire)
         {
-            transform.position += originalTransform.forward * 3.0f * Time.deltaTime;
+            transform.position += originalForward * 3.0f * Time.deltaTime;
 
             if (Vector3.Distance(originalPos, transform.position) > 30)
             {
