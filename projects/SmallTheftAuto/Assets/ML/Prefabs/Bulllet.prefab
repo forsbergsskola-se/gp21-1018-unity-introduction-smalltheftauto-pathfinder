@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 4574214678810325045}
   m_LocalRotation: {x: 0, y: -0, z: -0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0.0000000047683715, y: 0.00001854375, z: 1.2845885e-10}
-  m_LocalScale: {x: 1.6190614, y: 1.6190614, z: 1.6190614}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -99,6 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fire: 0
+  theWeapon: 0
 --- !u!65 &5017792943570797684
 BoxCollider:
   m_ObjectHideFlags: 0

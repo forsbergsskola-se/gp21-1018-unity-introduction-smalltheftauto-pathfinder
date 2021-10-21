@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,7 +9,7 @@ enum ArmState
     Raised
 }
 
-enum WeaponEquip
+public enum WeaponEquip
 {
     Fists,
     Handgun,
@@ -19,18 +20,28 @@ public class GunArmScript_ML : MonoBehaviour
 {
     private ArmState theArmState;
 
-    private WeaponEquip _weaponEquip;
+    public static WeaponEquip _weaponEquip { get; private set; }
     
     private GameObject socket;
-
-    private GameObject theGun;
- 
+    
     private bool gunEqupied = false;
     
     [SerializeField] private GameObject handgunEquip;
-    [SerializeField] private Component gun;
-    private GameObject handgun;
-   
+    [SerializeField] private GameObject machinegunEquip;
+    private GameObject currentGun;
+
+    public delegate void SwicthedWeaponsEvent(WeaponEquip selectedWeapon);
+    public static event SwicthedWeaponsEvent SwitchedWeapons;
+    
+    
+    private void OnSwitchedWeapon(WeaponEquip selectedWeapon)
+    {
+        if (SwitchedWeapons != null)
+        {
+            SwitchedWeapons(selectedWeapon);
+        }
+    }
+    
     void Start()
     {
         PickupScript_ML.PickupPicked += PickedUpGun;
@@ -38,7 +49,7 @@ public class GunArmScript_ML : MonoBehaviour
         socket = GameObject.FindWithTag("PlayerGunSocket");
     }
 
-    public void PickedUpGun(string gunType)
+    public void PickedUpGun(PickupTypes pickupTypes)
     {
         gunEqupied = true;
     }
@@ -48,43 +59,127 @@ public class GunArmScript_ML : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire1"))
         {
-            if ( theArmState == ArmState.Lowered)
-            {
-                transform.Rotate(-90, 0, 0);
-                theArmState = ArmState.Raised;
-                StartCoroutine("Delay");
-            }
+            PrepArmState();
         
-            if (theArmState == ArmState.Raised && gunEqupied)
+            if ( _weaponEquip == WeaponEquip.Handgun)
             {
-                GetComponentInChildren<GunScript_ML>().FirePlayerGun();
-            }
-            
-        }
-        else if (Input.GetKey(KeyCode.Alpha2))
-        {
-            if (PlayerInventory_ML.ownedGuns.Contains(OwnedGuns.Handgun))
-            {
-                if (_weaponEquip != WeaponEquip.Handgun)
+                if (GetAmmoCount())
                 {
-                    _weaponEquip = WeaponEquip.Handgun;
-                    EquipHandgun();
+                    GetComponentInChildren<GunScript_ML>().FirePlayerGun(0.7f);
+                }
+            }
+        }
+       
+        else if (Input.GetButton("Fire1"))
+        {
+            PrepArmState();
+            
+            if (_weaponEquip == WeaponEquip.Machinegun)
+            {
+                if (GetAmmoCount())
+                {
+                    GetComponentInChildren<GunScript_ML>().FirePlayerGun(0.2f);
                 }
             }
         }
         
+        else if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            UnequipWeapon();
+            if (_weaponEquip != WeaponEquip.Fists)
+            {
+                _weaponEquip = WeaponEquip.Fists;
+                OnSwitchedWeapon(_weaponEquip);
+            }
+        }
+        
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            if (PlayerInventory_ML.ownedGuns.Contains(OwnedGuns.Handgun))
+            {
+                UnequipWeapon();
+                if (_weaponEquip != WeaponEquip.Handgun)
+                {
+                    _weaponEquip = WeaponEquip.Handgun;
+                    EquipWeapon();
+                    OnSwitchedWeapon(WeaponEquip.Handgun);
+                }
+            }
+        }
+        
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            UnequipWeapon();
+            if (_weaponEquip != WeaponEquip.Machinegun)
+            {
+                _weaponEquip = WeaponEquip.Machinegun;
+                EquipWeapon();
+                OnSwitchedWeapon(WeaponEquip.Machinegun);
+            }
+        }
+        
     }
 
-    public void EquipHandgun()
+    IEnumerator MachineGunBulletSpacing()
     {
-        handgun = Instantiate(handgunEquip);
-        handgun.transform.parent = socket.transform;
-        handgun.transform.position = socket.transform.position;
-        handgun.transform.rotation = socket.transform.rotation;
-        handgun.transform.Rotate(0,-90,-90);
+        yield return new WaitForSeconds(0.1f);
+    }
+    
+    
+    private void PrepArmState()
+    {
+        if ( theArmState == ArmState.Lowered)
+        {
+            transform.Rotate(-90, 0, 0);
+            theArmState = ArmState.Raised;
+            StartCoroutine("Delay");
+        }
+    }
+    
+    private bool GetAmmoCount()
+    {
+        bool outBool = false;
+
+        switch (_weaponEquip)
+        {
+            case WeaponEquip.Handgun:
+                outBool = PlayerInventory_ML.NumberHandgunBullets > 0;
+                break;
+           
+            case WeaponEquip.Machinegun:
+                outBool = PlayerInventory_ML.NumberMachinegunBullets > 0;
+                break;
+        }
+      
+        return outBool;
     }
 
-    public IEnumerator Delay()
+    private void UnequipWeapon()
+    {
+        if(_weaponEquip != WeaponEquip.Fists)
+            GetComponentInChildren<GunScript_ML>().UnequipGun();
+    }
+    
+    private void EquipWeapon()
+    {
+        switch (_weaponEquip)
+        {
+            case WeaponEquip.Handgun:
+                currentGun = Instantiate(handgunEquip);
+                break;
+            case WeaponEquip.Machinegun:
+                currentGun = Instantiate(machinegunEquip);
+                break;
+        }
+
+        currentGun.transform.parent = socket.transform;
+        currentGun.GetComponent<GunScript_ML>().theWeapon = _weaponEquip;
+        currentGun.transform.position = socket.transform.position;
+        currentGun.transform.rotation = socket.transform.rotation;
+        currentGun.transform.Rotate(0,-90,-90);
+    }
+
+    private IEnumerator Delay()
     {
         yield return new WaitForSeconds(3);
         transform.Rotate(90, 0, 0);

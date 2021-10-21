@@ -3,13 +3,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum PickupTypes
+{
+    Handgun,
+    Machinegun,
+    Health
+}
+
 public class PickupScript_ML : MonoBehaviour
 {
-    
-    public delegate void PickupEventHandler(string pickupType);
+    private PickupTypes pickupTypes;
+    public delegate void PickupEventHandler(PickupTypes pickupType);
     public static event PickupEventHandler PickupPicked;
-
-    protected virtual void OnPickupPicked(string pickupType)
+    
+    
+    
+    protected virtual void OnPickupPicked(PickupTypes pickupType)
     {
         if (PickupPicked != null)
         {
@@ -22,15 +31,15 @@ public class PickupScript_ML : MonoBehaviour
         
         if (CompareTag("Handgun"))
         {
-            OnPickupPicked("Handgun");
+            OnPickupPicked(PickupTypes.Handgun);
         }
         else if (CompareTag("Machinegun"))
         {
-            
+            OnPickupPicked(PickupTypes.Machinegun);
         }
         else if (CompareTag("Health"))
         {
-            
+            OnPickupPicked(PickupTypes.Health);
         }
         
         Destroy(gameObject);

@@ -17,7 +17,7 @@ public class Movement_ML : MonoBehaviour
     Quaternion bodyStartOrientation;
     Vector3 moveDirection = Vector3.zero;
 
-    public static Vector3 PlayerForward { get; private set; }
+    public static Transform PlayerTransform { get; private set; }
     
     float yaw = 0f;
     
@@ -34,7 +34,7 @@ public class Movement_ML : MonoBehaviour
 
     void Update()
     {
-        PlayerForward = transform.forward;
+        PlayerTransform = transform;
         
         var horizontal = Input.GetAxis("Mouse X")
                          * Time.deltaTime * turnSpeed;
