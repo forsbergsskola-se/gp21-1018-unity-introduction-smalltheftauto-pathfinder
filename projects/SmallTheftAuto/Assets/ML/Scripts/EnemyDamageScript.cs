@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class EnemyDamageScript : MonoBehaviour
 {
-    
+    private int EnemyHealth = 50;
     void Start()
     {
        
@@ -15,7 +15,10 @@ public class EnemyDamageScript : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Bullet"))
         {
-            Destroy(gameObject);    
+            EnemyHealth -= 15; 
+            
+            
+            if(EnemyHealth <= 0) Destroy(gameObject);    
         }
     }
 

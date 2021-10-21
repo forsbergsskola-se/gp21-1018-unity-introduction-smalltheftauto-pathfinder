@@ -20,41 +20,25 @@ public class GunArmScript_ML : MonoBehaviour
 {
     private ArmState theArmState;
 
-    private WeaponEquip _weaponEquip;
+    public static WeaponEquip _weaponEquip { get; private set; }
     
     private GameObject socket;
-
-    private GameObject theGun;
- 
+    
     private bool gunEqupied = false;
     
     [SerializeField] private GameObject handgunEquip;
     [SerializeField] private GameObject machinegunEquip;
-    private GameObject KeepGun;
-    private GameObject machinegun;
-   
-    public delegate void SwicthedWeaponsEvent(AmmoType ammoType);
+    private GameObject currentGun;
 
+    public delegate void SwicthedWeaponsEvent(WeaponEquip selectedWeapon);
     public static event SwicthedWeaponsEvent SwitchedWeapons;
     
-    public delegate void FireGunEvent(WeaponEquip weaponEquip);
-
-    public static event FireGunEvent FireGun;
-
-
-    public void OnFireGun(WeaponEquip weaponEquip)
-    {
-        if (FireGun != null)
-        {
-            FireGun(weaponEquip);
-        }
-    }
     
-    public void OnSwitchedWeapon(AmmoType ammoType)
+    private void OnSwitchedWeapon(WeaponEquip selectedWeapon)
     {
         if (SwitchedWeapons != null)
         {
-            SwitchedWeapons(ammoType);
+            SwitchedWeapons(selectedWeapon);
         }
     }
     
@@ -75,48 +59,83 @@ public class GunArmScript_ML : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire1"))
         {
-            if ( theArmState == ArmState.Lowered)
-            {
-                transform.Rotate(-90, 0, 0);
-                theArmState = ArmState.Raised;
-                StartCoroutine("Delay");
-            }
+            PrepArmState();
         
-            if (theArmState == ArmState.Raised && gunEqupied)
+            if ( _weaponEquip == WeaponEquip.Handgun)
             {
                 if (GetAmmoCount())
                 {
-                    GetComponentInChildren<GunScript_ML>().FirePlayerGun();
-                    OnFireGun(_weaponEquip);
+                    GetComponentInChildren<GunScript_ML>().FirePlayerGun(0.7f);
                 }
             }
-            
         }
-        else if (Input.GetKey(KeyCode.Alpha1))
+       
+        else if (Input.GetButton("Fire1"))
         {
-            if (_weaponEquip != WeaponEquip.Fists)
+            PrepArmState();
+            
+            if (_weaponEquip == WeaponEquip.Machinegun)
             {
-                _weaponEquip = WeaponEquip.Fists;
-                UnequipWeapon();
-                OnSwitchedWeapon(AmmoType.Fists);
+                if (GetAmmoCount())
+                {
+                    GetComponentInChildren<GunScript_ML>().FirePlayerGun(0.2f);
+                }
             }
         }
         
-        else if (Input.GetKey(KeyCode.Alpha2))
+        else if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            UnequipWeapon();
+            if (_weaponEquip != WeaponEquip.Fists)
+            {
+                _weaponEquip = WeaponEquip.Fists;
+                OnSwitchedWeapon(_weaponEquip);
+            }
+        }
+        
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             if (PlayerInventory_ML.ownedGuns.Contains(OwnedGuns.Handgun))
             {
+                UnequipWeapon();
                 if (_weaponEquip != WeaponEquip.Handgun)
                 {
                     _weaponEquip = WeaponEquip.Handgun;
-                    EquipHandgun();
-                    OnSwitchedWeapon(AmmoType.Handgun);
+                    EquipWeapon();
+                    OnSwitchedWeapon(WeaponEquip.Handgun);
                 }
+            }
+        }
+        
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            UnequipWeapon();
+            if (_weaponEquip != WeaponEquip.Machinegun)
+            {
+                _weaponEquip = WeaponEquip.Machinegun;
+                EquipWeapon();
+                OnSwitchedWeapon(WeaponEquip.Machinegun);
             }
         }
         
     }
 
+    IEnumerator MachineGunBulletSpacing()
+    {
+        yield return new WaitForSeconds(0.1f);
+    }
+    
+    
+    private void PrepArmState()
+    {
+        if ( theArmState == ArmState.Lowered)
+        {
+            transform.Rotate(-90, 0, 0);
+            theArmState = ArmState.Raised;
+            StartCoroutine("Delay");
+        }
+    }
+    
     private bool GetAmmoCount()
     {
         bool outBool = false;
@@ -124,9 +143,9 @@ public class GunArmScript_ML : MonoBehaviour
         switch (_weaponEquip)
         {
             case WeaponEquip.Handgun:
-
                 outBool = PlayerInventory_ML.NumberHandgunBullets > 0;
                 break;
+           
             case WeaponEquip.Machinegun:
                 outBool = PlayerInventory_ML.NumberMachinegunBullets > 0;
                 break;
@@ -137,16 +156,27 @@ public class GunArmScript_ML : MonoBehaviour
 
     private void UnequipWeapon()
     {
-        GetComponentInChildren<GunScript_ML>().UnequipGun();
+        if(_weaponEquip != WeaponEquip.Fists)
+            GetComponentInChildren<GunScript_ML>().UnequipGun();
     }
     
-    private void EquipHandgun()
+    private void EquipWeapon()
     {
-       GameObject handgun = Instantiate(handgunEquip);
-        handgun.transform.parent = socket.transform;
-        handgun.transform.position = socket.transform.position;
-        handgun.transform.rotation = socket.transform.rotation;
-        handgun.transform.Rotate(0,-90,-90);
+        switch (_weaponEquip)
+        {
+            case WeaponEquip.Handgun:
+                currentGun = Instantiate(handgunEquip);
+                break;
+            case WeaponEquip.Machinegun:
+                currentGun = Instantiate(machinegunEquip);
+                break;
+        }
+
+        currentGun.transform.parent = socket.transform;
+        currentGun.GetComponent<GunScript_ML>().theWeapon = _weaponEquip;
+        currentGun.transform.position = socket.transform.position;
+        currentGun.transform.rotation = socket.transform.rotation;
+        currentGun.transform.Rotate(0,-90,-90);
     }
 
     private IEnumerator Delay()

@@ -15,37 +15,19 @@ enum FireState
 public class GunScript_ML : MonoBehaviour
 {
     private FireState _fireState;
-    private GameObject barrel;
+
     [SerializeField] GameObject bullet;
     private GameObject ownedBullet;
     private Vector3 currentForward;
+    public WeaponEquip theWeapon;
     
-    public delegate void BulletFiredEventHandler(Vector3 forwardVector);
-
-    public static event BulletFiredEventHandler BulletFired;
-
-
-    public void OnBulletFired(Vector3 forwardVector)
-    {
-        if (BulletFired != null)
-        {
-            BulletFired(forwardVector);
-        }
-    }
-    
-    void Start()
-    {
-        barrel = GameObject.FindWithTag("GunExit");
-  
-        
-    }
 
     public void UnequipGun()
     {
         Destroy(gameObject);
     }
     
-    public void FirePlayerGun()
+    public void FirePlayerGun(float amountDelay)
     {
         if (_fireState == FireState.Ready)
         {
@@ -53,15 +35,15 @@ public class GunScript_ML : MonoBehaviour
             ownedBullet.transform.position = transform.position;
             ownedBullet.GetComponent<BulletScript_ML>().fire = true;
             _fireState = FireState.Fireing;
-            
-            StartCoroutine(ShootDelay());
+
+            StartCoroutine(ShootDelay(amountDelay));
         }
     }
     
 
-    public IEnumerator ShootDelay()
+    public IEnumerator ShootDelay(float amountDelay)
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(amountDelay);
         _fireState = FireState.Ready;
     }
 

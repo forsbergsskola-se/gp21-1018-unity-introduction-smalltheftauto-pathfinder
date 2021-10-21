@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handgunEquip: {fileID: 6651539262806736495, guid: f9ecdeb07e237124c93f229ed169bfbc, type: 3}
-  gun: {fileID: 0}
+  machinegunEquip: {fileID: 6550561911313238265, guid: 0d2c9bfab6f3882498306d6c32daaeeb, type: 3}
 --- !u!1 &4712089978084487909
 GameObject:
   m_ObjectHideFlags: 0

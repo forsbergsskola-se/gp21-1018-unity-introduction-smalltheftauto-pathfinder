@@ -13,11 +13,6 @@ public enum AmmoType
     Fists
 }
 
-public enum SelectedGun
-{
-    Handgun,
-    Machinegun
-}
 
 public enum OwnedGuns
 {
@@ -30,8 +25,8 @@ public class PlayerInventory_ML : MonoBehaviour
     public static List<OwnedGuns> ownedGuns { get; private set; }
     private AmmoType ammoType;
     public static int NumberHandgunBullets { get; private set; }
-    private static int MaxNumberHandgunBullets = 300;
-    private static int MaxNumberMachineginBullets = 200;
+    private static int MaxNumberHandgunBullets = 200;
+    private static int MaxNumberMachineginBullets = 300;
     public static int NumberMachinegunBullets  { get; private set; }
     
     private Text AmmoCounter;
@@ -80,24 +75,21 @@ public class PlayerInventory_ML : MonoBehaviour
         switch (theAmmoType)
         {
             case WeaponEquip.Handgun:
-                if (NumberHandgunBullets > 0)
-                {
+                if(NumberHandgunBullets > 0 )
                     NumberHandgunBullets--;
-                }
                 break;
+            
             case WeaponEquip.Machinegun:
-                if (NumberMachinegunBullets > 0)
-                {
+                if(NumberMachinegunBullets > 0) 
                     NumberMachinegunBullets--;
-                }
                 break;
         }
-        PrintAmmoCounter(AmmoType.Handgun);
+        PrintAmmoCounter(theAmmoType);
     }
     
     void Start()
     {
-        GunArmScript_ML.FireGun += DecrementAmmo;
+        BulletScript_ML.FireGun += DecrementAmmo;
         GunArmScript_ML.SwitchedWeapons += PrintAmmoCounter;
         PickupScript_ML.PickupPicked += GunPickedUp;
         HealthCounter = GameObject.Find("Health").GetComponent<Text>();
@@ -109,21 +101,21 @@ public class PlayerInventory_ML : MonoBehaviour
     }
 
 
-    public void PrintAmmoCounter(AmmoType selectedGun)
+    private void PrintAmmoCounter(WeaponEquip selectedGun)
     {
         
-        if (selectedGun == AmmoType.Handgun && ownedGuns.Contains(OwnedGuns.Handgun))
+        if (selectedGun == WeaponEquip.Handgun && ownedGuns.Contains(OwnedGuns.Handgun))
         {
             AmmoCounter.text = Convert.ToString(NumberHandgunBullets) 
                                + " / " + Convert.ToString(MaxNumberHandgunBullets);
         }
         
-        else if (selectedGun == AmmoType.Machinegun&& ownedGuns.Contains(OwnedGuns.Machinegun))
+        else if (selectedGun == WeaponEquip.Machinegun&& ownedGuns.Contains(OwnedGuns.Machinegun))
         {
             AmmoCounter.text = Convert.ToString(NumberMachinegunBullets)
                                + " / " + Convert.ToString(MaxNumberMachineginBullets);
         }
-        else if (selectedGun == AmmoType.Fists)
+        else if (selectedGun == WeaponEquip.Fists)
         {
             AmmoCounter.text = " ";
         }
