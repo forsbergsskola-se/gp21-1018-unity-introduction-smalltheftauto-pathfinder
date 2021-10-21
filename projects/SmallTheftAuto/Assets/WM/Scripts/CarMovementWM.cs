@@ -14,5 +14,10 @@ public class CarMovementWM : MonoBehaviour
     void Update() {
         transform.Translate(0f, 5f*Time.deltaTime*Input.GetAxis("Vertical"), 0f);
         transform.Rotate(0f, 0f, -180f*Time.deltaTime*Input.GetAxis("Horizontal"));
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            transform.Translate(0f, 0f, 0f);
+            transform.Rotate(0f, 0f, 0f);
+        }
     }
 }
