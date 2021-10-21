@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using TMPro;
 using UnityEngine;
 
 public class Timer_TF : MonoBehaviour
@@ -8,6 +9,7 @@ public class Timer_TF : MonoBehaviour
     [SerializeField]
     private Text timerText;
     public float timeStart;
+    public TextMeshProUGUI tmTimerText;
 
     
     void Start()
@@ -28,5 +30,6 @@ public class Timer_TF : MonoBehaviour
         string seconds = (timeStart % 60).ToString("f2");
 
         timerText.text = minutes + ":" + seconds;
+        tmTimerText.text = minutes + ":" + seconds;
     }
 }
