@@ -14,6 +14,7 @@ TagManager:
   - GunExit
   - ThePlayer
   - Bullet
+  - AmmoCounter
   layers:
   - Default
   - TransparentFX

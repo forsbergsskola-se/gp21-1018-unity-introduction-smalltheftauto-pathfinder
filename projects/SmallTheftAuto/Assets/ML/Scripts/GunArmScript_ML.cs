@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,7 +9,7 @@ enum ArmState
     Raised
 }
 
-enum WeaponEquip
+public enum WeaponEquip
 {
     Fists,
     Handgun,
@@ -28,9 +29,35 @@ public class GunArmScript_ML : MonoBehaviour
     private bool gunEqupied = false;
     
     [SerializeField] private GameObject handgunEquip;
-    [SerializeField] private Component gun;
-    private GameObject handgun;
+    [SerializeField] private GameObject machinegunEquip;
+    private GameObject KeepGun;
+    private GameObject machinegun;
    
+    public delegate void SwicthedWeaponsEvent(AmmoType ammoType);
+
+    public static event SwicthedWeaponsEvent SwitchedWeapons;
+    
+    public delegate void FireGunEvent(WeaponEquip weaponEquip);
+
+    public static event FireGunEvent FireGun;
+
+
+    public void OnFireGun(WeaponEquip weaponEquip)
+    {
+        if (FireGun != null)
+        {
+            FireGun(weaponEquip);
+        }
+    }
+    
+    public void OnSwitchedWeapon(AmmoType ammoType)
+    {
+        if (SwitchedWeapons != null)
+        {
+            SwitchedWeapons(ammoType);
+        }
+    }
+    
     void Start()
     {
         PickupScript_ML.PickupPicked += PickedUpGun;
@@ -38,7 +65,7 @@ public class GunArmScript_ML : MonoBehaviour
         socket = GameObject.FindWithTag("PlayerGunSocket");
     }
 
-    public void PickedUpGun(string gunType)
+    public void PickedUpGun(PickupTypes pickupTypes)
     {
         gunEqupied = true;
     }
@@ -57,10 +84,24 @@ public class GunArmScript_ML : MonoBehaviour
         
             if (theArmState == ArmState.Raised && gunEqupied)
             {
-                GetComponentInChildren<GunScript_ML>().FirePlayerGun();
+                if (GetAmmoCount())
+                {
+                    GetComponentInChildren<GunScript_ML>().FirePlayerGun();
+                    OnFireGun(_weaponEquip);
+                }
             }
             
         }
+        else if (Input.GetKey(KeyCode.Alpha1))
+        {
+            if (_weaponEquip != WeaponEquip.Fists)
+            {
+                _weaponEquip = WeaponEquip.Fists;
+                UnequipWeapon();
+                OnSwitchedWeapon(AmmoType.Fists);
+            }
+        }
+        
         else if (Input.GetKey(KeyCode.Alpha2))
         {
             if (PlayerInventory_ML.ownedGuns.Contains(OwnedGuns.Handgun))
@@ -69,22 +110,46 @@ public class GunArmScript_ML : MonoBehaviour
                 {
                     _weaponEquip = WeaponEquip.Handgun;
                     EquipHandgun();
+                    OnSwitchedWeapon(AmmoType.Handgun);
                 }
             }
         }
         
     }
 
-    public void EquipHandgun()
+    private bool GetAmmoCount()
     {
-        handgun = Instantiate(handgunEquip);
+        bool outBool = false;
+
+        switch (_weaponEquip)
+        {
+            case WeaponEquip.Handgun:
+
+                outBool = PlayerInventory_ML.NumberHandgunBullets > 0;
+                break;
+            case WeaponEquip.Machinegun:
+                outBool = PlayerInventory_ML.NumberMachinegunBullets > 0;
+                break;
+        }
+      
+        return outBool;
+    }
+
+    private void UnequipWeapon()
+    {
+        GetComponentInChildren<GunScript_ML>().UnequipGun();
+    }
+    
+    private void EquipHandgun()
+    {
+       GameObject handgun = Instantiate(handgunEquip);
         handgun.transform.parent = socket.transform;
         handgun.transform.position = socket.transform.position;
         handgun.transform.rotation = socket.transform.rotation;
         handgun.transform.Rotate(0,-90,-90);
     }
 
-    public IEnumerator Delay()
+    private IEnumerator Delay()
     {
         yield return new WaitForSeconds(3);
         transform.Rotate(90, 0, 0);
