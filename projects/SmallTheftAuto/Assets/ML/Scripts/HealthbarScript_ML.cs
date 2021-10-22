@@ -23,6 +23,7 @@ public class HealthbarScript_ML : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        PainVolumeScript_ML.PainEvent += DecrementHeart;
         FillHearts();
     }
 
@@ -43,17 +44,70 @@ public class HealthbarScript_ML : MonoBehaviour
                 break;
         }
     }
-    
-    private void DecreaseHeart(int heartHalves)
+
+    private void IncrementHeart()
     {
-        int heartsLeft = heartHalves;
         
-        for (int i = 10; i > 0; i--)
+        for (int i = 0; i < 10; i++)
+        {
+            if (_health[i] != HeartState.Full)
+            {
+                if (_health[i] == HeartState.Half)
+                {
+                    _health[i] = HeartState.Full;
+                }
+                else
+                {
+                    _health[i] = HeartState.Half;
+                }
+
+                break;
+            }
+        }
+    }
+    
+    private void DecrementHeart()
+    {
+        for (int i = 9; i >= 0; i--)
         {
             if (_health[i] != HeartState.Empty)
             {
-                
+                if (_health[i] == HeartState.Full)
+                {
+                    _health[i] = HeartState.Half;
+                }
+                else
+                {
+                    _health[i] = HeartState.Empty;
+                }
+
+                break;
             }
+        }
+        foreach (var el in _health)
+        {
+            ChangeHeart(el.Key, el.Value);
+        }
+    }
+    
+    private void ChangeHeartLevel(int heartHalves, bool increaseOrDecrease)
+    {
+        
+        for (int i = 0; i < heartHalves; i++)
+        {
+            if(increaseOrDecrease)
+            {
+                IncrementHeart();
+            }
+            else
+            {
+                DecrementHeart();     
+            }
+        }
+        
+        foreach (var el in _health)
+        {
+            ChangeHeart(el.Key, el.Value);
         }
     }
     
