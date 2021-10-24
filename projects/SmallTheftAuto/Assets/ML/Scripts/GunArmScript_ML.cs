@@ -95,7 +95,7 @@ public class GunArmScript_ML : MonoBehaviour
         
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            if (PlayerInventory_ML.ownedGuns.Contains(OwnedGuns.Handgun))
+            if (UIWeaponScript_ML.ownedGuns.Contains(WeaponEquip.Handgun))
             {
                 UnequipWeapon();
                 if (_weaponEquip != WeaponEquip.Handgun)
@@ -109,12 +109,15 @@ public class GunArmScript_ML : MonoBehaviour
         
         else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            UnequipWeapon();
-            if (_weaponEquip != WeaponEquip.Machinegun)
+            if (UIWeaponScript_ML.ownedGuns.Contains(WeaponEquip.Machinegun))
             {
-                _weaponEquip = WeaponEquip.Machinegun;
-                EquipWeapon();
-                OnSwitchedWeapon(WeaponEquip.Machinegun);
+                UnequipWeapon();
+                if (_weaponEquip != WeaponEquip.Machinegun)
+                {
+                    _weaponEquip = WeaponEquip.Machinegun;
+                    EquipWeapon();
+                    OnSwitchedWeapon(WeaponEquip.Machinegun);
+                }
             }
         }
         
@@ -143,11 +146,11 @@ public class GunArmScript_ML : MonoBehaviour
         switch (_weaponEquip)
         {
             case WeaponEquip.Handgun:
-                outBool = PlayerInventory_ML.NumberHandgunBullets > 0;
+                outBool = UIWeaponScript_ML.NumberHandgunBullets > 0;
                 break;
            
             case WeaponEquip.Machinegun:
-                outBool = PlayerInventory_ML.NumberMachinegunBullets > 0;
+                outBool = UIWeaponScript_ML.NumberMachinegunBullets > 0;
                 break;
         }
       

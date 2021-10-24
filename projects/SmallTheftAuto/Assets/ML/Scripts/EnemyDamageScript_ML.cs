@@ -3,13 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyDamageScript : MonoBehaviour
+public class EnemyDamageScript_ML : MonoBehaviour
 {
     private int EnemyHealth = 50;
-    void Start()
-    {
-       
-    }
 
     private void OnCollisionEnter(Collision other)
     {
@@ -17,15 +13,8 @@ public class EnemyDamageScript : MonoBehaviour
         {
             EnemyHealth -= 15; 
             
-            
             if(EnemyHealth <= 0) Destroy(gameObject);    
         }
     }
 
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

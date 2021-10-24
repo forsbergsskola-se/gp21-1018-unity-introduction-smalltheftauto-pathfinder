@@ -7,44 +7,35 @@ using UnityEngine;
 public class PainVolumeScript_ML : MonoBehaviour
 {
     public delegate void PainVolumeEvent();
-
     public static event PainVolumeEvent PainEvent;
     private bool painReady = true;
 
-    private void OnPainEvent()
+    private void OnPlayerPainEvent()
     {
         if (PainEvent != null)
         {
             PainEvent();
         }
     }
-
-
+    
     private void OnTriggerStay(Collider other)
     {
-        if (painReady)
+
+        if (other.CompareTag("ThePlayer"))
         {
-            OnPainEvent();
-            painReady = false;
-            StartCoroutine(DelayPain());
+            if (painReady)
+            {
+                OnPlayerPainEvent();
+                painReady = false;
+                StartCoroutine(DelayPain());
+            }
         }
     }
 
     private  IEnumerator DelayPain()
     {
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.1f);
         painReady = true;
     }
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+ 
 }

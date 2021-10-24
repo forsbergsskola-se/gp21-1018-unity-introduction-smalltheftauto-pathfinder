@@ -11,25 +11,65 @@ public enum HeartState
     Empty
 }
 
-public class HealthbarScript_ML : MonoBehaviour
+public class UIHealthbarScript_ML : MonoBehaviour
 {
 
     Dictionary<int, HeartState> _health;
     [SerializeField] private Sprite heartFull;
     [SerializeField] private Sprite heartHalf;
     [SerializeField] private Sprite heartEmpty;
+    private bool delayTrigger;
 
-    private Image imageComponent;
-    // Start is called before the first frame update
+    public delegate void PlayerDeathEvent();
+    public static event PlayerDeathEvent OnPlayerDeath;
+
+
+    private void PlayerDeath()
+    {
+        if (OnPlayerDeath != null)
+        {
+            OnPlayerDeath();
+        }
+    }
+
+    public bool CheckForDeath()
+    {
+        bool isDead = true;
+
+        foreach (var el in _health)
+        {
+            if (el.Value != HeartState.Empty)
+            {
+                isDead = false;
+            }
+        }
+
+        return isDead;
+    }
+    
     void Start()
     {
+        PickupScript_ML.PickupPicked += HealPlayer;
         PainVolumeScript_ML.PainEvent += DecrementHeart;
         FillHearts();
     }
 
+    private void HealPlayer(PickupTypes pickupType)
+    {
+        if (pickupType == PickupTypes.Health)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                IncrementHeart();
+            }
+        }
+    }
+    
+    
+    
     private void ChangeHeart(int heartIndex, HeartState heartType)
     {
-        imageComponent = GetComponentsInChildren<Image>()[heartIndex];
+        Image imageComponent = GetComponentsInChildren<Image>()[heartIndex];
 
         switch (heartType)
         {
@@ -60,8 +100,12 @@ public class HealthbarScript_ML : MonoBehaviour
                 {
                     _health[i] = HeartState.Half;
                 }
-
                 break;
+            }
+            
+            foreach (var el in _health)
+            {
+                ChangeHeart(el.Key, el.Value);
             }
         }
     }
@@ -80,13 +124,18 @@ public class HealthbarScript_ML : MonoBehaviour
                 {
                     _health[i] = HeartState.Empty;
                 }
-
                 break;
             }
         }
+        
         foreach (var el in _health)
         {
             ChangeHeart(el.Key, el.Value);
+        }
+
+        if (CheckForDeath())
+        {
+            PlayerDeath();
         }
     }
     
@@ -97,7 +146,7 @@ public class HealthbarScript_ML : MonoBehaviour
         {
             if(increaseOrDecrease)
             {
-                IncrementHeart();
+               IncrementHeart();
             }
             else
             {
@@ -121,9 +170,9 @@ public class HealthbarScript_ML : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    private IEnumerator DelayHeal(float delayAmount)
     {
-        
+        yield return new WaitForSeconds(delayAmount);
+        delayTrigger = true;
     }
 }

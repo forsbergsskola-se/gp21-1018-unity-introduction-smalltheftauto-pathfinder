@@ -5,7 +5,7 @@ using System.Collections;
 using UnityEngine;
 
 
-public class Movement_ML : MonoBehaviour
+public class PlayerMovement_ML : MonoBehaviour
 {
  
     [Range(5, 30), SerializeField] float moveSpeed = 6f;
@@ -28,10 +28,19 @@ public class Movement_ML : MonoBehaviour
         controller = GetComponent<CharacterController>();
         bodyStartOrientation = transform.localRotation;
 
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+   //     Cursor.lockState = CursorLockMode.Locked;
+    //    Cursor.visible = false;
+
+        UIHealthbarScript_ML.OnPlayerDeath += PlayerDies;
     }
 
+    private void PlayerDies()
+    {
+        gameObject.SetActive(false);
+        transform.position += new Vector3(30, 0, 0);
+        gameObject.SetActive(true);
+    }
+    
     void Update()
     {
         PlayerTransform = transform;
