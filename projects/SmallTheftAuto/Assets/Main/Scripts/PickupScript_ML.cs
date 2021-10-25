@@ -42,6 +42,10 @@ public class PickupScript_ML : MonoBehaviour
             {
                 OnPickupPicked(PickupTypes.Health);
             }
+            else if (CompareTag(("Money")))
+            {
+                
+            }
 
             Destroy(gameObject);
         }

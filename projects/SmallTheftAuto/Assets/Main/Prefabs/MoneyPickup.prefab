@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 3327825688003591944}
   - component: {fileID: 8253168914235216623}
   - component: {fileID: 2612477961227255458}
-  - component: {fileID: -1998121575878723438}
+  - component: {fileID: -5053030983594581147}
   m_Layer: 0
   m_Name: MoneyPickup
-  m_TagString: Untagged
+  m_TagString: Money
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -98,7 +98,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-1998121575878723438
+--- !u!114 &-5053030983594581147
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -107,6 +107,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 4953187305030610260}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b491dd15943ccee48bc2aecc7bca438f, type: 3}
+  m_Script: {fileID: 11500000, guid: 7d51f83bc798a104cab1eca21fa37666, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

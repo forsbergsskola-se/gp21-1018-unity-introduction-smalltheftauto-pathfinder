@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4953187305030610260
+--- !u!1 &6550561911313238265
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,48 +8,47 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6875102516069130239}
-  - component: {fileID: 3327825688003591944}
-  - component: {fileID: 8253168914235216623}
-  - component: {fileID: 2612477961227255458}
-  - component: {fileID: -1998121575878723438}
+  - component: {fileID: 5882710424246800963}
+  - component: {fileID: 7353338482048687590}
+  - component: {fileID: 4749249397867948332}
+  - component: {fileID: 4203410666609225078}
   m_Layer: 0
-  m_Name: MoneyPickup
-  m_TagString: Untagged
+  m_Name: MachinegunEquip
+  m_TagString: Machinegun
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6875102516069130239
+--- !u!4 &5882710424246800963
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4953187305030610260}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 22.272259, y: 1.3234011, z: 0.5550456}
-  m_LocalScale: {x: 0.1875, y: 0.08625, z: 0.3375}
+  m_GameObject: {fileID: 6550561911313238265}
+  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 18.901564, y: 0.0000023841858, z: -4.8846536}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &3327825688003591944
+--- !u!33 &7353338482048687590
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4953187305030610260}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &8253168914235216623
+  m_GameObject: {fileID: 6550561911313238265}
+  m_Mesh: {fileID: -7809482610997608154, guid: 08ae86c9130181d46b2aab1dd7a5bca2, type: 3}
+--- !u!23 &4749249397867948332
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4953187305030610260}
+  m_GameObject: {fileID: 6550561911313238265}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -63,7 +62,13 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2140474, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
+  - {fileID: 8348026839479599339, guid: 08ae86c9130181d46b2aab1dd7a5bca2, type: 3}
+  - {fileID: 6169398179178778219, guid: 08ae86c9130181d46b2aab1dd7a5bca2, type: 3}
+  - {fileID: -6821665281321565927, guid: 08ae86c9130181d46b2aab1dd7a5bca2, type: 3}
+  - {fileID: 348178053661024574, guid: 08ae86c9130181d46b2aab1dd7a5bca2, type: 3}
+  - {fileID: 6328204488129269639, guid: 08ae86c9130181d46b2aab1dd7a5bca2, type: 3}
+  - {fileID: 4966037512518766837, guid: 08ae86c9130181d46b2aab1dd7a5bca2, type: 3}
+  - {fileID: -6081037888289230743, guid: 08ae86c9130181d46b2aab1dd7a5bca2, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -85,28 +90,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &2612477961227255458
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4953187305030610260}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-1998121575878723438
+--- !u!114 &4203410666609225078
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4953187305030610260}
+  m_GameObject: {fileID: 6550561911313238265}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b491dd15943ccee48bc2aecc7bca438f, type: 3}
+  m_Script: {fileID: 11500000, guid: c7a4e79beef36e0448435d06eb97076a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bullet: {fileID: 4574214678810325045, guid: a70a8d4ec292f6843b5bd628ce51786f, type: 3}

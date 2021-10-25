@@ -23,10 +23,4 @@ public class PlayerMessageScript_ML : MonoBehaviour
         yield return new WaitForSeconds(3);
         GetComponentInChildren<Text>().text = "";
     }
-    
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

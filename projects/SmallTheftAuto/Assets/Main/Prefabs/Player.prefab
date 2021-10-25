@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &4338794836281265253
+--- !u!114 &151898420337117113
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1559882130865547558}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c03dd57b6c465445b3d3ebfa3c34c0f, type: 3}
+  m_Script: {fileID: 11500000, guid: 766a3af68788aa444a742c1d8a351491, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  handgunEquip: {fileID: 6651539262806736495, guid: f9ecdeb07e237124c93f229ed169bfbc, type: 3}
-  machinegunEquip: {fileID: 6550561911313238265, guid: 0d2c9bfab6f3882498306d6c32daaeeb, type: 3}
+  handgunEquip: {fileID: 6651539262806736495, guid: 1050759bb69f708488b7c9e4355a768f, type: 3}
+  machinegunEquip: {fileID: 6550561911313238265, guid: 4686a57d33bc59142ab157c84acf14c6, type: 3}
 --- !u!1 &4712089978084487909
 GameObject:
   m_ObjectHideFlags: 0
@@ -55,9 +55,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7672474646895741117}
   - component: {fileID: 7672474646895741116}
-  - component: {fileID: 4475978540923509082}
   - component: {fileID: 1971167859518673039}
-  - component: {fileID: 1158000102362140466}
+  - component: {fileID: 6196082889907462614}
   m_Layer: 0
   m_Name: Player
   m_TagString: ThePlayer
@@ -104,23 +103,6 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1.33, z: 0}
---- !u!114 &4475978540923509082
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7672474646895741118}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce6ff87a274ea2e47815ed7acc674d03, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 6
-  acceleration: 0.5
-  minSpeed: 6
-  maxSpeed: 15
-  turnSpeed: 120
 --- !u!65 &1971167859518673039
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -134,18 +116,23 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.4768171, y: 2.463301, z: 0.4865036}
   m_Center: {x: -0.0020375252, y: 1.2084678, z: 0}
---- !u!114 &1158000102362140466
+--- !u!114 &6196082889907462614
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7672474646895741118}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2df7e4d637ce5864896286f7c6a96642, type: 3}
+  m_Script: {fileID: 11500000, guid: d0b9e4baef13d0e478c94a1fa23d5a91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 6
+  acceleration: 0.5
+  minSpeed: 6
+  maxSpeed: 15
+  turnSpeed: 120
 --- !u!1001 &157453997223418808
 PrefabInstance:
   m_ObjectHideFlags: 0

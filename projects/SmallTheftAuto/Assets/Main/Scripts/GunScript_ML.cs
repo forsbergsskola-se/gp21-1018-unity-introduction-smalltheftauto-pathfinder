@@ -19,7 +19,7 @@ public class GunScript_ML : MonoBehaviour
     [SerializeField] GameObject bullet;
     private GameObject ownedBullet;
     private Vector3 currentForward;
-    public WeaponEquip theWeapon;
+//    public WeaponEquip theWeapon;
     
 
     public void UnequipGun()
