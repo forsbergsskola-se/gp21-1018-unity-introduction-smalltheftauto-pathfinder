@@ -23,9 +23,7 @@ public class GunArmScript_ML : MonoBehaviour
     public static WeaponEquip _weaponEquip { get; private set; }
     
     private GameObject socket;
-    
-    private bool gunEqupied = false;
-    
+
     [SerializeField] private GameObject handgunEquip;
     [SerializeField] private GameObject machinegunEquip;
     private GameObject currentGun;
@@ -51,7 +49,6 @@ public class GunArmScript_ML : MonoBehaviour
 
     public void PickedUpGun(PickupTypes pickupTypes)
     {
-        gunEqupied = true;
     }
     
 
