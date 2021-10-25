@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class PlayerSpawnerScript_ML : MonoBehaviour
 {
-    [SerializeField] private GameObject thePlayer;
-    [SerializeField] private GameObject thePlayerCamera;
     private GameObject thePlayerObject;
     private Vector3 newSpawnPosition;
     public void Start()
