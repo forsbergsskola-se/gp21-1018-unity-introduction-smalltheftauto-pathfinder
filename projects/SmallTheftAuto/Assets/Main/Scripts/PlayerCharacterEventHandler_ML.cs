@@ -18,7 +18,6 @@ public class PlayerCharacterEventHandler_ML : MonoBehaviour
     private void PlayerDies()
     {
         spawning = true;
-    //    StartCoroutine(DelaySpawn());
     }
 
     

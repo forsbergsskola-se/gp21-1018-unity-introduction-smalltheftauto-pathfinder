@@ -7,7 +7,8 @@ public enum PickupTypes
 {
     Handgun,
     Machinegun,
-    Health
+    Health,
+    Money
 }
 
 public class PickupScript_ML : MonoBehaviour
@@ -44,7 +45,7 @@ public class PickupScript_ML : MonoBehaviour
             }
             else if (CompareTag(("Money")))
             {
-                
+                OnPickupPicked(PickupTypes.Money);
             }
 
             Destroy(gameObject);

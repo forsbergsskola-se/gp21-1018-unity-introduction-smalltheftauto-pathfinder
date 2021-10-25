@@ -17,6 +17,7 @@ TagManager:
   - AmmoCounter
   - SpawnPoint
   - Money
+  - Enemy
   layers:
   - Default
   - TransparentFX
