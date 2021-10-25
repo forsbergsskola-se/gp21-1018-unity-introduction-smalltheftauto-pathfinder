@@ -19,9 +19,9 @@ public class VehicleWM : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKey(KeyCode.F))
         {
-            if (PlayerIsNotInCar())
+            if (this.player.activeInHierarchy)
             {
                 if (PlayerIsCloseToCar())
                 {
@@ -30,16 +30,15 @@ public class VehicleWM : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.G))
+        if (Input.GetKey(KeyCode.G))
         {
-            LeaveCar();
+            if (!this.player.activeInHierarchy)
+            {
+                LeaveCar();
+            }
         }
     }
-
-    bool PlayerIsNotInCar()
-    {
-        return this.player.activeInHierarchy;
-    }
+    
 
     bool PlayerIsCloseToCar()
     {

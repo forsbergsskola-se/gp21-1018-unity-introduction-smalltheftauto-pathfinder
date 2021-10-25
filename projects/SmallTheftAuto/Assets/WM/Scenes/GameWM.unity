@@ -231,6 +231,7 @@ GameObject:
   - component: {fileID: 247640261}
   - component: {fileID: 247640263}
   - component: {fileID: 247640262}
+  - component: {fileID: 247640264}
   m_Layer: 0
   m_Name: Car
   m_TagString: Untagged
@@ -272,7 +273,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1827857588}
   carMovementWM: {fileID: 247640263}
-  topDownPlayerCameraWM: {fileID: 0}
+  topDownPlayerCameraWM: {fileID: 375160911}
+  topDownCarCameraWM: {fileID: 375160912}
 --- !u!114 &247640263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -285,6 +287,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22c2be3e799a64f49be8209586d71d79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &247640264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 247640259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 034074d6384bb5b4294c5e2fb6bce16f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHealth: 100
+  maxHealth: 100
 --- !u!1 &375160907
 GameObject:
   m_ObjectHideFlags: 0
@@ -297,6 +313,7 @@ GameObject:
   - component: {fileID: 375160909}
   - component: {fileID: 375160908}
   - component: {fileID: 375160911}
+  - component: {fileID: 375160912}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -383,6 +400,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1827857588}
+  offset: {x: 0, y: 0, z: -10}
+--- !u!114 &375160912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 375160907}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78b1a6fdbeac000438b008112272baca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 247640259}
   offset: {x: 0, y: 0, z: -10}
 --- !u!1 &428500854
 GameObject:
