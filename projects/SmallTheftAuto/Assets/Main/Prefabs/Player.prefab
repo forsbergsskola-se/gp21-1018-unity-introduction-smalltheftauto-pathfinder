@@ -98,8 +98,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 766a3af68788aa444a742c1d8a351491, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  handgunEquip: {fileID: 0}
-  machinegunEquip: {fileID: 0}
+  handgunEquip: {fileID: 6651539262806736495, guid: 1050759bb69f708488b7c9e4355a768f, type: 3}
+  machinegunEquip: {fileID: 6550561911313238265, guid: 4686a57d33bc59142ab157c84acf14c6, type: 3}
 --- !u!1 &5533092881980574727
 GameObject:
   m_ObjectHideFlags: 0
@@ -477,7 +477,7 @@ GameObject:
   - component: {fileID: 3072699268335281907}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: ThePlayer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
