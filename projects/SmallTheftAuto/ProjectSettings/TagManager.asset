@@ -15,6 +15,7 @@ TagManager:
   - ThePlayer
   - Bullet
   - AmmoCounter
+  - SpawnPoint
   layers:
   - Default
   - TransparentFX

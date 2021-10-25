@@ -28,21 +28,23 @@ public class PickupScript_ML : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        
-        if (CompareTag("Handgun"))
+        if (other.CompareTag("ThePlayer"))
         {
-            OnPickupPicked(PickupTypes.Handgun);
+            if (CompareTag("Handgun"))
+            {
+                OnPickupPicked(PickupTypes.Handgun);
+            }
+            else if (CompareTag("Machinegun"))
+            {
+                OnPickupPicked(PickupTypes.Machinegun);
+            }
+            else if (CompareTag("Health"))
+            {
+                OnPickupPicked(PickupTypes.Health);
+            }
+
+            Destroy(gameObject);
         }
-        else if (CompareTag("Machinegun"))
-        {
-            OnPickupPicked(PickupTypes.Machinegun);
-        }
-        else if (CompareTag("Health"))
-        {
-            OnPickupPicked(PickupTypes.Health);
-        }
-        
-        Destroy(gameObject);
     }
 
 }

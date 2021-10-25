@@ -12,15 +12,10 @@ public class TopDownCameraMovement_ML : MonoBehaviour
     private float turnSpeed = 20;
     public float zoomPosition;
     
-
     public float sensitivity=1;
     public float maxZoom=30;
 
     [SerializeField] private float speed = 20;
-
-    [SerializeField] Vector2 minimumLimit = -Vector2.one;
-
-    [SerializeField] Vector2 maximumLimit = Vector2.one;
 
     private GameObject thePlayer;
     private Camera theCamera;
@@ -29,23 +24,38 @@ public class TopDownCameraMovement_ML : MonoBehaviour
     void Start()
     {
         theCamera = GetComponentInChildren<Camera>();
-        theCamera.orthographicSize = 1;
+        theCamera.orthographicSize = 2;
         thePlayer = GameObject.FindWithTag("ThePlayer");
+
+        UIHealthbarScript_ML.OnPlayerDeath += PlayerDies;
     }
 
+    private void PlayerDies()
+    {
+     //   Destroy(gameObject);
+    }
+
+    private IEnumerator Delay()
+    {
+        yield return new WaitUntil(() => thePlayer != null);
+        transform.position = thePlayer.transform.position;
+    }
+    
     void Update()
     {
-        
-        zoomLevel += Input.mouseScrollDelta.y * sensitivity;
-        zoomLevel = Mathf.Clamp(zoomLevel, 1, 7);
-        theCamera.orthographicSize = zoomLevel;
+        if (thePlayer)
+        {
+            zoomLevel += Input.mouseScrollDelta.y * sensitivity;
+            zoomLevel = Mathf.Clamp(zoomLevel, 1, 7);
+            theCamera.orthographicSize = zoomLevel;
 
-        var horizontal = Input.GetAxis("Horizontal");
-        var vertical = Input.GetAxis("Vertical");
+            var horizontal = Input.GetAxis("Horizontal");
+            var vertical = Input.GetAxis("Vertical");
 
-        var offset = new Vector3(horizontal, 0, vertical)
-                     * Time.deltaTime * speed;
-        
-        transform.position = thePlayer.transform.position + new Vector3(0,200,0);
+            var offset = new Vector3(horizontal, 0, vertical)
+                         * Time.deltaTime * speed;
+
+            transform.position = thePlayer.transform.position + new Vector3(0, 200, 0);
+        }
     }
 }
