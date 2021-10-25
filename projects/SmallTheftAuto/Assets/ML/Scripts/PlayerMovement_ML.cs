@@ -30,16 +30,10 @@ public class PlayerMovement_ML : MonoBehaviour
 
    //     Cursor.lockState = CursorLockMode.Locked;
     //    Cursor.visible = false;
-
-        UIHealthbarScript_ML.OnPlayerDeath += PlayerDies;
+    
     }
 
-    private void PlayerDies()
-    {
-        gameObject.SetActive(false);
-        transform.position += new Vector3(30, 0, 0);
-        gameObject.SetActive(true);
-    }
+ 
     
     void Update()
     {

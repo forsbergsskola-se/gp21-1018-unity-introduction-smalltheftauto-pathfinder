@@ -30,6 +30,7 @@ public class UIHealthbarScript_ML : MonoBehaviour
         {
             OnPlayerDeath();
         }
+        ResetHealth();
     }
 
     public bool CheckForDeath()
@@ -152,6 +153,21 @@ public class UIHealthbarScript_ML : MonoBehaviour
             {
                 DecrementHeart();     
             }
+        }
+        
+        foreach (var el in _health)
+        {
+            ChangeHeart(el.Key, el.Value);
+        }
+    }
+
+    private void ResetHealth()
+    {
+        _health.Clear();
+        _health = new Dictionary<int, HeartState>(10);
+        for (int i = 0; i < 10; i++)
+        {
+            _health.Add(i, HeartState.Full);
         }
         
         foreach (var el in _health)
