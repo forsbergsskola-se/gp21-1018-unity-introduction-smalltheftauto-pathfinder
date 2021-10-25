@@ -36,7 +36,7 @@ public class PlayerSpawnerScript_ML : MonoBehaviour
        thePlayerObject = GameObject.Find("Player");
        thePlayerObject.SetActive(false);
        newSpawnPosition = FindClosestsSpawnPoint(thePlayerObject.transform.position);
-        StartCoroutine(DelaySpawn());
+       StartCoroutine(DelaySpawn());
     }
 
     private IEnumerator DelaySpawn()
