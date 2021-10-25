@@ -457,9 +457,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8581207838402769368}
-  - component: {fileID: 8581207838402769369}
   - component: {fileID: 6752393153863721508}
   - component: {fileID: 6807375104830555135}
+  - component: {fileID: -7433161919324585733}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -488,24 +488,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!143 &8581207838402769369
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8581207838402769371}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Height: 2
-  m_Radius: 0.66
-  m_SlopeLimit: 45
-  m_StepOffset: 0.27
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.6, z: 0}
 --- !u!65 &6752393153863721508
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -541,6 +523,22 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!54 &-7433161919324585733
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8581207838402769371}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &8981395680699443689
 GameObject:
   m_ObjectHideFlags: 0

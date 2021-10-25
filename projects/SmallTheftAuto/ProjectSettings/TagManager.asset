@@ -18,6 +18,7 @@ TagManager:
   - SpawnPoint
   - Money
   - Enemy
+  - EnemyMoveNode
   layers:
   - Default
   - TransparentFX

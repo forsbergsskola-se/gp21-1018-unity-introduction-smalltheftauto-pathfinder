@@ -11,21 +11,23 @@ public class PlayerSpawnerScript_ML : MonoBehaviour
         UIHealthbarScript_ML.OnPlayerDeath += DeathSpawn;
     }
 
-    public static Vector3 FindClosestsSpawnPoint(Vector3 playerPosition)
+    public static Vector3 FindClosestsSpawnPoint(Vector3 playerPosition, string pointType)
     {
         float distance = 0;
-        GameObject spawnPoint = GameObject.FindWithTag("SpawnPoint");
+        GameObject spawnPoint = GameObject.FindWithTag(pointType);
         float currentMin = Vector3.Distance(playerPosition, spawnPoint.transform.position);
 
-        foreach (var el in GameObject.FindGameObjectsWithTag("SpawnPoint"))
+        foreach (var el in GameObject.FindGameObjectsWithTag(pointType))
         {
             distance = Vector3.Distance(playerPosition, el.transform.position);
-
-            if (distance < currentMin)
-            {
-                spawnPoint = el;
-            }
             
+            if (distance > 3)
+            {
+                if (distance < currentMin)
+                {
+                    spawnPoint = el;
+                }
+            }
         }
 
         return spawnPoint.transform.position;
@@ -35,7 +37,7 @@ public class PlayerSpawnerScript_ML : MonoBehaviour
     {
        thePlayerObject = GameObject.Find("Player");
        thePlayerObject.SetActive(false);
-       newSpawnPosition = FindClosestsSpawnPoint(thePlayerObject.transform.position);
+       newSpawnPosition = FindClosestsSpawnPoint(thePlayerObject.transform.position, "SpawnPoint");
        StartCoroutine(DelaySpawn());
     }
 
