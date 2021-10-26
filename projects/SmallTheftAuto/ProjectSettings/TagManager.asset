@@ -19,6 +19,7 @@ TagManager:
   - Money
   - Enemy
   - EnemyMoveNode
+  - Gun
   layers:
   - Default
   - TransparentFX

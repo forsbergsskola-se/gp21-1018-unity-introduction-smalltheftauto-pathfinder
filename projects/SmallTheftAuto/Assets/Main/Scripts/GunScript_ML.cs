@@ -27,13 +27,13 @@ public class GunScript_ML : MonoBehaviour
         Destroy(gameObject);
     }
     
-    public void FirePlayerGun(float amountDelay)
+    public void FireGun(float amountDelay)
     {
         if (_fireState == FireState.Ready)
         {
             ownedBullet = Instantiate(bullet);
+            ownedBullet.GetComponent<BulletScript_ML>().FireSetup(transform);
             ownedBullet.transform.position = transform.position;
-            ownedBullet.GetComponent<BulletScript_ML>().fire = true;
             _fireState = FireState.Fireing;
 
             StartCoroutine(ShootDelay(amountDelay));

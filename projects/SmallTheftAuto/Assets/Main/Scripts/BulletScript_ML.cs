@@ -9,9 +9,9 @@ public class BulletScript_ML : MonoBehaviour
 {
     public bool fire = false;
     private Vector3 originalPos;
-    private Transform originalTransform;
+//    private Transform originalTransform;
     private Vector3 originalForward;
-    private BoxCollider collider;
+ 
 
     
     
@@ -27,31 +27,35 @@ public class BulletScript_ML : MonoBehaviour
         }
     }
 
-    
+    public void FireSetup(Transform originalTrans)
+    {
+        originalPos = originalTrans.position;
+        originalForward = originalTrans.up;
+        transform.rotation = originalTrans.rotation;
+        transform.Rotate(0,0,0);
+     
+        fire = true;
+    }
     void Start()
     {
-        originalPos = transform.position;
-        originalForward = PlayerMovement_ML.PlayerTransform.forward ;
-        
-        transform.rotation = PlayerMovement_ML.PlayerTransform.rotation;
-        transform.Rotate(90,0,0);
-        collider = GetComponent<BoxCollider>();
-        collider.enabled = true;
-        
         OnFireGun(GunArmScript_ML._weaponEquip);
     }
 
     private void OnCollisionEnter(Collision other)
     {
-        Destroy(gameObject);
+        if (!other.gameObject.CompareTag("Handgun"))
+        { 
+            Destroy(gameObject);    
+        }
     }
     
     void Update()
     {
         if (fire)
         {
-            transform.position += originalForward * 9.0f * Time.deltaTime;
-
+            transform.position += originalForward * 1.0f * Time.deltaTime;
+            Debug.Log(Vector3.Distance(originalPos, transform.position));
+            
             if (Vector3.Distance(originalPos, transform.position) > 30)
             {
                 Destroy(gameObject);

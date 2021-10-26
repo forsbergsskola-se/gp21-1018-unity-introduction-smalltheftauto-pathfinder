@@ -45,8 +45,25 @@ public class GunArmScript_ML : MonoBehaviour
         socket = GameObject.FindWithTag("PlayerGunSocket");
     }
 
-  
-    
+
+    private void FireWeapon()
+    {
+        if ( _weaponEquip == WeaponEquip.Handgun)
+        {
+            if (GetAmmoCount())
+            {
+                GetComponentInChildren<GunScript_ML>().FireGun(0.7f);
+            }
+        }
+        
+        else if  (_weaponEquip == WeaponEquip.Machinegun)
+        {
+            if (GetAmmoCount())
+            {
+                GetComponentInChildren<GunScript_ML>().FireGun(0.2f);
+            }
+        }
+    }
 
     void Update()
     {
@@ -54,26 +71,14 @@ public class GunArmScript_ML : MonoBehaviour
         {
             PrepArmState();
         
-            if ( _weaponEquip == WeaponEquip.Handgun)
-            {
-                if (GetAmmoCount())
-                {
-                    GetComponentInChildren<GunScript_ML>().FirePlayerGun(0.7f);
-                }
-            }
+            FireWeapon();
         }
        
         else if (Input.GetButton("Fire1"))
         {
             PrepArmState();
             
-            if (_weaponEquip == WeaponEquip.Machinegun)
-            {
-                if (GetAmmoCount())
-                {
-                    GetComponentInChildren<GunScript_ML>().FirePlayerGun(0.2f);
-                }
-            }
+           FireWeapon();
         }
         
         else if (Input.GetKeyDown(KeyCode.Alpha1))

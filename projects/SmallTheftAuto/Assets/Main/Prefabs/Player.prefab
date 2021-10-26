@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 766a3af68788aa444a742c1d8a351491, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  handgunEquip: {fileID: 6651539262806736495, guid: 1050759bb69f708488b7c9e4355a768f, type: 3}
+  handgunEquip: {fileID: 65608764103762957, guid: 3948f877caed30c48893b02768c9ff6b, type: 3}
   machinegunEquip: {fileID: 6550561911313238265, guid: 4686a57d33bc59142ab157c84acf14c6, type: 3}
 --- !u!1 &5533092881980574727
 GameObject:

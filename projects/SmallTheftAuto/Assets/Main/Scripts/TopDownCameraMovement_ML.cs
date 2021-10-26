@@ -78,9 +78,8 @@ public class TopDownCameraMovement_ML : MonoBehaviour
             
             else if (_cameraState == CameraState.SearchForPlayer)
             {
-                Vector3 pos = Vector3.Lerp(transform.position,
+                transform.position  = Vector3.Lerp(transform.position,
                     thePlayer.transform.position + new Vector3(0, 200, 0), Time.deltaTime);
-                transform.position = pos;
 
                 if (transform.position == thePlayer.transform.position + new Vector3(0, 200, 0))
                 {
@@ -94,12 +93,7 @@ public class TopDownCameraMovement_ML : MonoBehaviour
         }
     }
     
-    private IEnumerator DelayStopSearch()
-    {
-        yield return new WaitForSeconds(1);
-        _cameraState = CameraState.OnPlayer;
-    }
-    
+
     private IEnumerator DelayMoveCamera()
     {
         yield return new WaitForSeconds(1);

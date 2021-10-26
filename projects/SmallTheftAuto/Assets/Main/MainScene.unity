@@ -987,7 +987,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8543236348506895356, guid: 97006196d4f2ff1438b69ca5f325e1cb, type: 3}
       propertyPath: m_RootOrder
-      value: 17
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 8543236348506895356, guid: 97006196d4f2ff1438b69ca5f325e1cb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1227,7 +1227,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4035420442911002532, guid: 4286fb424ad083742abca553688bb141, type: 3}
       propertyPath: m_RootOrder
-      value: 16
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 4035420442911002532, guid: 4286fb424ad083742abca553688bb141, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1275,3 +1275,60 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4286fb424ad083742abca553688bb141, type: 3}
+--- !u!1001 &4852792794651319008
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 65608764103762957, guid: 3948f877caed30c48893b02768c9ff6b, type: 3}
+      propertyPath: m_Name
+      value: HandgunWithBarrel
+      objectReference: {fileID: 0}
+    - target: {fileID: 838450726660144823, guid: 3948f877caed30c48893b02768c9ff6b, type: 3}
+      propertyPath: m_RootOrder
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 838450726660144823, guid: 3948f877caed30c48893b02768c9ff6b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 838450726660144823, guid: 3948f877caed30c48893b02768c9ff6b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 838450726660144823, guid: 3948f877caed30c48893b02768c9ff6b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 838450726660144823, guid: 3948f877caed30c48893b02768c9ff6b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 838450726660144823, guid: 3948f877caed30c48893b02768c9ff6b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 838450726660144823, guid: 3948f877caed30c48893b02768c9ff6b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 838450726660144823, guid: 3948f877caed30c48893b02768c9ff6b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 838450726660144823, guid: 3948f877caed30c48893b02768c9ff6b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 838450726660144823, guid: 3948f877caed30c48893b02768c9ff6b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 838450726660144823, guid: 3948f877caed30c48893b02768c9ff6b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3948f877caed30c48893b02768c9ff6b, type: 3}
