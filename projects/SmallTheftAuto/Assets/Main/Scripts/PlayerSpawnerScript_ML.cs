@@ -25,6 +25,7 @@ public class PlayerSpawnerScript_ML : MonoBehaviour
             {
                 if (distance < currentMin)
                 {
+                    currentMin = distance;
                     spawnPoint = el;
                 }
             }

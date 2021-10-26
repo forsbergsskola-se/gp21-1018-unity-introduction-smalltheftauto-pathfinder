@@ -99,7 +99,7 @@ public class GunArmScript_ML : MonoBehaviour
                 {
                     _weaponEquip = WeaponEquip.Handgun;
                     EquipWeapon();
-                    OnSwitchedWeapon(WeaponEquip.Handgun);
+                    OnSwitchedWeapon(_weaponEquip);
                 }
             }
         }
@@ -113,7 +113,7 @@ public class GunArmScript_ML : MonoBehaviour
                 {
                     _weaponEquip = WeaponEquip.Machinegun;
                     EquipWeapon();
-                    OnSwitchedWeapon(WeaponEquip.Machinegun);
+                    OnSwitchedWeapon(_weaponEquip);
                 }
             }
         }
@@ -173,7 +173,6 @@ public class GunArmScript_ML : MonoBehaviour
         }
 
         currentGun.transform.parent = socket.transform;
-    //    currentGun.GetComponent<GunScript_ML>().theWeapon = _weaponEquip;
         currentGun.transform.position = socket.transform.position;
         currentGun.transform.rotation = socket.transform.rotation;
         currentGun.transform.Rotate(0,-90,-90);
