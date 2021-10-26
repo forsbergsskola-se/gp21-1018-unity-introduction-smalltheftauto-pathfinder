@@ -16,6 +16,9 @@ TagManager:
   - Bullet
   - AmmoCounter
   - SpawnPoint
+  - Money
+  - Enemy
+  - EnemyMoveNode
   layers:
   - Default
   - TransparentFX
