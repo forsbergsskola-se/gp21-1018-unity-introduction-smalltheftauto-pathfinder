@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 252914329839078137}
   - component: {fileID: 1068140698375603433}
   - component: {fileID: 5274384591114924716}
+  - component: {fileID: 912715263280196826}
   m_Layer: 0
   m_Name: leftArm (1)
   m_TagString: Arm
@@ -85,6 +86,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &912715263280196826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3632968727571698408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abcf53eeae9bec742b11775999ffb534, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  armState: 0
 --- !u!1 &5428769767319727134
 GameObject:
   m_ObjectHideFlags: 0
@@ -460,6 +474,8 @@ GameObject:
   - component: {fileID: 6752393153863721508}
   - component: {fileID: 6807375104830555135}
   - component: {fileID: -7433161919324585733}
+  - component: {fileID: 7373135793527283603}
+  - component: {fileID: 554543540927869746}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -537,8 +553,38 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 84
   m_CollisionDetection: 0
+--- !u!114 &7373135793527283603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8581207838402769371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30c22ea0b62adbd44991b0c0d14c7b40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {x: 0, y: 0, z: 0}
+  turnSpeed: 7
+  relevantTransform: {fileID: 0}
+--- !u!114 &554543540927869746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8581207838402769371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64590c893a001a0419a9a1029fee42ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxDistance: 10.000572
+  angle: 79
+  visualize: 1
 --- !u!1 &8981395680699443689
 GameObject:
   m_ObjectHideFlags: 0

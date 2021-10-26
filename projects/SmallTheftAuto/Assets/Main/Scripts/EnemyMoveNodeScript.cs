@@ -9,7 +9,7 @@ public class EnemyMoveNodeScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GetComponent<MeshRenderer>().enabled = false;
+    //    GetComponent<MeshRenderer>().enabled = false;
     }
 
     private void OnCollisionEnter(Collision other)
@@ -26,7 +26,6 @@ public class EnemyMoveNodeScript : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            Debug.Log(name);
             Vector3 nextPoint = PlayerSpawnerScript_ML.FindClosestsSpawnPoint(transform.position, "EnemyMoveNode");
             other.GetComponent<NPCMovement>().MoveData = nextPoint;
         }

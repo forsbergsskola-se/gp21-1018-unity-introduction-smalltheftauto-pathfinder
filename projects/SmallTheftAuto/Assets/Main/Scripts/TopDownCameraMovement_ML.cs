@@ -2,9 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum PlayerMoveState
+{
+    Stopped,
+    Moving
+}
+
+public enum CameraState
+{
+    OnPlayer,
+    DelaySearch,
+    SearchForPlayer
+}
+
 public class TopDownCameraMovement_ML : MonoBehaviour
 {
-    
+    private CameraState _cameraState;
+    private PlayerMoveState _playerMoveState;
     private static float  zoomLevel = 10;
     
     float yaw = 0f;
@@ -20,6 +34,8 @@ public class TopDownCameraMovement_ML : MonoBehaviour
     private GameObject thePlayer;
     private Camera theCamera;
     Quaternion bodyStartOrientation;
+
+    private float playerStopCounter;
     
     void Start()
     {
@@ -28,19 +44,19 @@ public class TopDownCameraMovement_ML : MonoBehaviour
         thePlayer = GameObject.FindWithTag("ThePlayer");
 
         UIHealthbarScript_ML.OnPlayerDeath += PlayerDies;
+        PlayerMovement_ML.cameraTracking += PlayerMovement;
     }
 
+    private void PlayerMovement(PlayerMoveState playerMoveState)
+    {
+        _playerMoveState = playerMoveState;
+    }
+    
     private void PlayerDies()
     {
      //   Destroy(gameObject);
     }
 
-    private IEnumerator Delay()
-    {
-        yield return new WaitUntil(() => thePlayer != null);
-        transform.position = thePlayer.transform.position;
-    }
-    
     void Update()
     {
         if (thePlayer)
@@ -49,13 +65,44 @@ public class TopDownCameraMovement_ML : MonoBehaviour
             zoomLevel = Mathf.Clamp(zoomLevel, 1, 7);
             theCamera.orthographicSize = zoomLevel;
 
-            var horizontal = Input.GetAxis("Horizontal");
-            var vertical = Input.GetAxis("Vertical");
+            if (_playerMoveState == PlayerMoveState.Stopped)
+            {
+                playerStopCounter += Time.deltaTime + 1;
+            }
 
-            var offset = new Vector3(horizontal, 0, vertical)
-                         * Time.deltaTime * speed;
+            if (_playerMoveState == PlayerMoveState.Moving && playerStopCounter > 3)
+            {
+                playerStopCounter = 0;
+                StartCoroutine(DelayMoveCamera());
+            }
+            
+            else if (_cameraState == CameraState.SearchForPlayer)
+            {
+                Vector3 pos = Vector3.Lerp(transform.position,
+                    thePlayer.transform.position + new Vector3(0, 200, 0), Time.deltaTime);
+                transform.position = pos;
 
-            transform.position = thePlayer.transform.position + new Vector3(0, 200, 0);
+                if (transform.position == thePlayer.transform.position + new Vector3(0, 200, 0))
+                {
+                    _cameraState = CameraState.OnPlayer;
+                }
+            }
+            else
+            {
+                transform.position = thePlayer.transform.position + new Vector3(0, 200, 0);
+            }
         }
+    }
+    
+    private IEnumerator DelayStopSearch()
+    {
+        yield return new WaitForSeconds(1);
+        _cameraState = CameraState.OnPlayer;
+    }
+    
+    private IEnumerator DelayMoveCamera()
+    {
+        yield return new WaitForSeconds(1);
+        _cameraState = CameraState.SearchForPlayer;
     }
 }

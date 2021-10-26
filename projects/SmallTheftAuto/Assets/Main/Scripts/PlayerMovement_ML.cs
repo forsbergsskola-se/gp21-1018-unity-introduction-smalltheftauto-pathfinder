@@ -17,6 +17,19 @@ public class PlayerMovement_ML : MonoBehaviour
     Quaternion bodyStartOrientation;
     Vector3 moveDirection = Vector3.zero;
 
+    public delegate void CameraTrackingEvent(PlayerMoveState playerMoveState);
+
+    public static event CameraTrackingEvent cameraTracking;
+
+
+    private void OnCameraTracking(PlayerMoveState playerMoveState)
+    {
+        if (cameraTracking != null)
+        {
+            cameraTracking(playerMoveState);
+        }
+    }
+    
     public static Transform PlayerTransform { get; private set; }
     
     float yaw = 0f;
@@ -44,6 +57,15 @@ public class PlayerMovement_ML : MonoBehaviour
         
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
+
+        if (x != 0 || z != 0)
+        {
+            OnCameraTracking(PlayerMoveState.Moving);
+        }
+        else
+        {
+            OnCameraTracking(PlayerMoveState.Stopped);
+        }
 
         Vector3 move = (transform.right * 0) + (transform.forward * z);
 

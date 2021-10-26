@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-enum ArmState
+public enum ArmState
 {
     Lowered,
     Raised
@@ -42,14 +42,10 @@ public class GunArmScript_ML : MonoBehaviour
     
     void Start()
     {
-        PickupScript_ML.PickupPicked += PickedUpGun;
-        
         socket = GameObject.FindWithTag("PlayerGunSocket");
     }
 
-    public void PickedUpGun(PickupTypes pickupTypes)
-    {
-    }
+  
     
 
     void Update()
