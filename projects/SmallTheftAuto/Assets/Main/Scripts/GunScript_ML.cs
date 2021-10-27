@@ -19,20 +19,20 @@ public class GunScript_ML : MonoBehaviour
     [SerializeField] GameObject bullet;
     private GameObject ownedBullet;
     private Vector3 currentForward;
-//    public WeaponEquip theWeapon;
-    
 
     public void UnequipGun()
     {
+        
+        Debug.Log("Weapon unequip");
         Destroy(gameObject);
     }
     
-    public void FireGun(float amountDelay)
+    public void FireGun(float amountDelay, Vector3 forward)
     {
         if (_fireState == FireState.Ready)
         {
             ownedBullet = Instantiate(bullet);
-            ownedBullet.GetComponent<BulletScript_ML>().FireSetup(transform);
+            ownedBullet.GetComponent<BulletScript_ML>().FireSetup(transform, forward);
             ownedBullet.transform.position = transform.position;
             _fireState = FireState.Fireing;
 

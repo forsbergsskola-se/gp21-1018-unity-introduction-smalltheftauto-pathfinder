@@ -48,11 +48,12 @@ public class GunArmScript_ML : MonoBehaviour
 
     private void FireWeapon()
     {
+        Vector3 forward = GetComponentInParent<PlayerMovement_ML>().GetComponent<Transform>().forward;   
         if ( _weaponEquip == WeaponEquip.Handgun)
         {
             if (GetAmmoCount())
             {
-                GetComponentInChildren<GunScript_ML>().FireGun(0.7f);
+                GetComponentInChildren<GunScript_ML>().FireGun(0.7f, forward);
             }
         }
         
@@ -60,7 +61,7 @@ public class GunArmScript_ML : MonoBehaviour
         {
             if (GetAmmoCount())
             {
-                GetComponentInChildren<GunScript_ML>().FireGun(0.2f);
+                GetComponentInChildren<GunScript_ML>().FireGun(0.2f, forward);
             }
         }
     }
@@ -157,8 +158,9 @@ public class GunArmScript_ML : MonoBehaviour
 
     private void UnequipWeapon()
     {
+        Debug.Log(_weaponEquip);
         if(_weaponEquip != WeaponEquip.Fists)
-            GetComponentInChildren<GunScript_ML>().UnequipGun();
+            GetComponentInChildren<ObjectDestructor>().DestroyObject();
     }
     
     private void EquipWeapon()

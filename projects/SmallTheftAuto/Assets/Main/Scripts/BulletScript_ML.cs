@@ -27,10 +27,10 @@ public class BulletScript_ML : MonoBehaviour
         }
     }
 
-    public void FireSetup(Transform originalTrans)
+    public void FireSetup(Transform originalTrans, Vector3 forward)
     {
         originalPos = originalTrans.position;
-        originalForward = originalTrans.up;
+        originalForward = forward;
         transform.rotation = originalTrans.rotation;
         transform.Rotate(0,0,0);
      

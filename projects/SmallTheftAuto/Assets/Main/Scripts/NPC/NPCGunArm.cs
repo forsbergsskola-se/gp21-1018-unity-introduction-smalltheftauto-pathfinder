@@ -22,10 +22,12 @@ public class NPCGunArm : MonoBehaviour
     public void ShootEnemy()
     {
         RaiseArm();
-
+        
+        Vector3 forward = GetComponentInParent<NPCMovement>().GetComponent<Transform>().forward;
+        
         if (_fireState == FireState.Ready)
         {
-            GetComponentInChildren<GunScript_ML>().FireGun(0.7f);
+            GetComponentInChildren<GunScript_ML>().FireGun(0.7f, forward);
             ShotsFired++;
 
             if (ShotsFired > 4)
