@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyDamageScript_ML : MonoBehaviour
+public class NPCDamageScript_ML : MonoBehaviour
 {
     private int EnemyHealth = 50;
 

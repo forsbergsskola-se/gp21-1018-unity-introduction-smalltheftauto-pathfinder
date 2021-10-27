@@ -7,13 +7,10 @@ using UnityEngine.UIElements;
 
 public class BulletScript_ML : MonoBehaviour
 {
-    public bool fire = false;
+    private bool fire = false;
     private Vector3 originalPos;
-//    private Transform originalTransform;
     private Vector3 originalForward;
  
-
-    
     
     public delegate void FireGunEvent(WeaponEquip weaponEquip);
     public static event FireGunEvent FireGun;
@@ -53,8 +50,7 @@ public class BulletScript_ML : MonoBehaviour
     {
         if (fire)
         {
-            transform.position += originalForward * 1.0f * Time.deltaTime;
-            Debug.Log(Vector3.Distance(originalPos, transform.position));
+            transform.position += originalForward * 8.0f * Time.deltaTime;
             
             if (Vector3.Distance(originalPos, transform.position) > 30)
             {

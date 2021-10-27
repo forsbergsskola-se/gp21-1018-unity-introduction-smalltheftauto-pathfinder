@@ -5,7 +5,6 @@ using UnityEngine;
 public class NPCGunArm : MonoBehaviour
 {
     public ArmState armState;
-//    [SerializeField] GameObject 
 
     private int ShotsFired;
     private FireState _fireState;
@@ -30,7 +29,7 @@ public class NPCGunArm : MonoBehaviour
             GetComponentInChildren<GunScript_ML>().FireGun(0.7f, forward);
             ShotsFired++;
 
-            if (ShotsFired > 4)
+            if (ShotsFired == 3)
             {
                 _fireState = FireState.Fireing;
                 StartCoroutine(DelayVolley());
@@ -63,8 +62,4 @@ public class NPCGunArm : MonoBehaviour
         armState = ArmState.Lowered;
     }
     
-    void Update()
-    {
-        
-    }
 }

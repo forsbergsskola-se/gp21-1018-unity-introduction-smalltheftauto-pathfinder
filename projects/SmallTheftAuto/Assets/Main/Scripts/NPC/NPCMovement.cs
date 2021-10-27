@@ -13,7 +13,8 @@ public enum EnemyMoves
 
 public class NPCMovement : MonoBehaviour
 {
-    private EnemyMoves _enemyMoves;
+    public EnemyMoves _enemyMoves;
+    
     public Vector3 MoveData { get; set; }
     private NavMeshAgent agent;
     private Vector3 nextPoint;
@@ -37,7 +38,7 @@ public class NPCMovement : MonoBehaviour
         
         SetMoveNodes(45);
         SortMoveNodes();
-        agent.destination = movePoints[0];
+    //    agent.destination = movePoints[0];
         counter++;
         tracker = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
         DestroyImmediate(tracker.GetComponent<Collider>());
@@ -117,10 +118,12 @@ public class NPCMovement : MonoBehaviour
         movePoints.Add(1, movePoints[0] - new Vector3(0, 0, 10));
     }
 
-    private void FindNextPoint()
+    public void SetADestination(Vector3 destination)
     {
-        
+        agent.destination = destination;
     }
+    
+  
 
     private void SimplePatrol()
     {
@@ -177,18 +180,16 @@ public class NPCMovement : MonoBehaviour
 
     void Update()
     {
-       
-    //    ProgressTracker();
+
+        if (Vector3.Distance(agent.destination, transform.position) < 3)
+        {
+            agent.destination = transform.position;
+        }
     }
 
-    private void TakeALook()
-    {
-    //    lookAtThis = Quaternion.LookRotation(movePoints[counter] - transform.position);
-    }
 
     private IEnumerator DelayMove(float delayTime)
     {
-        TakeALook();
         yield return new WaitForSeconds(delayTime);
         transform.rotation = Quaternion.Slerp(transform.rotation, lookAtThis, Time.deltaTime * turnSpeed);
         agent.destination = movePoints[counter];

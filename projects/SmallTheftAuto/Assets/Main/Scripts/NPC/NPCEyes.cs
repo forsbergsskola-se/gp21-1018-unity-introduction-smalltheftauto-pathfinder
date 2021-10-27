@@ -19,7 +19,7 @@ public class NPCEyes : MonoBehaviour
     private Transform PlayerTarget = null;
     
     public float maxDistance = 10f;
-    
+    private Vector3 playerDestination;
     [Range(0f, 360f)]
     public float angle = 45f;
     
@@ -36,11 +36,12 @@ public class NPCEyes : MonoBehaviour
     void Update()
     {
        targetIsVisible = CheckVisibility();
-       if (targetIsVisible)
+       if (seeing == Seeing.Player)
        {
            GetComponentInChildren<NPCMovement>().relevantTransform = PlayerTarget;
            GetComponentInChildren<NPCMovement>().EnemySeen();
            GetComponentInChildren<NPCGunArm>().ShootEnemy();
+           GetComponent<NPCMovement>().SetADestination(playerDestination);
        }
        
     }
@@ -87,7 +88,7 @@ public class NPCEyes : MonoBehaviour
 
          var withinArc = degreesToTarget < (angle / 2);
 
-         if (withinArc == false)
+         if (!withinArc)
          {
              return false;
          }
@@ -104,10 +105,12 @@ public class NPCEyes : MonoBehaviour
          
          if (Physics.Raycast(ray, out hit, rayDistance))
          {
-             if (hit.collider.transform == PlayerTarget)
+             if (hit.collider.gameObject.CompareTag("ThePlayer"))
              {
-                 canSee = true;
+                 seeing = Seeing.Player;
+                 playerDestination = hit.transform.position;
              }
+             
              Debug.DrawLine(transform.position, hit.point);
          }
          else
