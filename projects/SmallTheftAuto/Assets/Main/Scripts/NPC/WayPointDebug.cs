@@ -64,15 +64,6 @@ public class WayPointDebug : MonoBehaviour
     {
         finalizePoints = false;
         currentNumberPoints = numberWayPoints;
-
-        if (PointList == null)
-        {
-          
-        }
-        else
-        {
-            
-        }
     }
 
     private GameObject SearchAndReturnPointList(string criteria)
