@@ -24,11 +24,10 @@ public class NPCMovement : MonoBehaviour
     public Vector3 target;
     private NavMeshPath path;
     private float elapsed = 0.0f;
-    private bool flipFlop = true;
+
     private int pointIndex = 0;
     [SerializeField] private float turnSpeed = 7;
     private Quaternion lookAtThis;
-    private GameObject tracker;
     public Transform relevantTransform;
 
     void Start()
@@ -38,14 +37,8 @@ public class NPCMovement : MonoBehaviour
         
         SetMoveNodes(45);
         SortMoveNodes();
-    //    agent.destination = movePoints[0];
         counter++;
-        tracker = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-        DestroyImmediate(tracker.GetComponent<Collider>());
-        tracker.transform.position = transform.position;
-        tracker.transform.rotation = transform.rotation;
-
-
+        
         path = new NavMeshPath();
     }
 
@@ -112,71 +105,13 @@ public class NPCMovement : MonoBehaviour
         return point;
     }
 
-    private void SetMovePoints()
-    {
-        movePoints.Add(0,transform.position + new Vector3(0, 0, 10));
-        movePoints.Add(1, movePoints[0] - new Vector3(0, 0, 10));
-    }
-
+ 
     public void SetADestination(Vector3 destination)
     {
         agent.destination = destination;
     }
     
-  
-
-    private void SimplePatrol()
-    {
-        if (flipFlop)
-        {
-           agent.destination = movePoints[0];
-            flipFlop = false;
-        }
-        else
-        {
-            agent.destination = movePoints[1];
-            flipFlop = true;
-        }
-    }
-
-    public void EnemySeen()
-    { 
-        lookAtThis = Quaternion.LookRotation(relevantTransform.position - transform.position);
-        lookAtThis.x = 0;
-        lookAtThis.z = 0;
-        transform.rotation = lookAtThis;
-    }
     
-    private void ProgressTracker()
-    {
-   //     transform.rotation = Quaternion.Slerp(transform.rotation, lookAtThis, Time.deltaTime * turnSpeed);
-   //    transform.position += Vector3.forward * Time.deltaTime * 3;
-
-        if (Vector3.Distance(tracker.transform.position, movePoints[counter]) < 1)
-        {
-            counter++;
-            if (counter >= movePoints.Count)
-            {
-                counter = 0;
-            }
-        }
-   
-        if(agent.remainingDistance < 0.1f)
-        {
-        //    StartCoroutine(DelayMove(0.5f));  
-        //    agent.destination = movePoints[counter];
-            
-            counter++;
-            if (counter >= movePoints.Count)
-            {
-                counter = 0;
-            }
-        }
-        
-        tracker.transform.LookAt(movePoints[counter]);
-        tracker.transform.Translate(0,0,6 * Time.deltaTime);
-    }
-
 
     void Update()
     {

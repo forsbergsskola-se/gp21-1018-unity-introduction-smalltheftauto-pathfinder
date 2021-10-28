@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &579729072718538023
+--- !u!1 &4764946239346994420
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6524740013418182911}
-  - component: {fileID: -3543800455515257547}
+  - component: {fileID: 9109174338073811686}
+  - component: {fileID: 6460083276569602865}
   m_Layer: 0
-  m_Name: WayPointManager
-  m_TagString: Untagged
+  m_Name: WayPointContainer
+  m_TagString: wp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6524740013418182911
+--- !u!4 &9109174338073811686
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 579729072718538023}
+  m_GameObject: {fileID: 4764946239346994420}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -32,17 +32,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-3543800455515257547
+--- !u!114 &6460083276569602865
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 579729072718538023}
+  m_GameObject: {fileID: 4764946239346994420}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bd939f4a9e6b264c995fe7b1d548274, type: 3}
+  m_Script: {fileID: 11500000, guid: f1c592bf065d2ee4a8866b611634827f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waypoints: []
-  links: []
+  numberWayPoints: 0
+  PointToSpawn: {fileID: 3302072266118984585, guid: 43a766006eab0bc4a88bad68dd11080a, type: 3}

@@ -479,6 +479,8 @@ GameObject:
   - component: {fileID: -7433161919324585733}
   - component: {fileID: 7373135793527283603}
   - component: {fileID: 554543540927869746}
+  - component: {fileID: 6909618569130684128}
+  - component: {fileID: 2275397613003580031}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -565,11 +567,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8581207838402769371}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 30c22ea0b62adbd44991b0c0d14c7b40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyMoves: 0
   target: {x: 0, y: 0, z: 0}
   turnSpeed: 7
   relevantTransform: {fileID: 0}
@@ -580,7 +583,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8581207838402769371}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 64590c893a001a0419a9a1029fee42ca, type: 3}
   m_Name: 
@@ -588,6 +591,30 @@ MonoBehaviour:
   maxDistance: 10.000572
   angle: 79
   visualize: 1
+--- !u!114 &6909618569130684128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8581207838402769371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c5072c92d974fe4987e373dd5cef985, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2275397613003580031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8581207838402769371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f908889ff3ae67848a916df88aa088bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8981395680699443689
 GameObject:
   m_ObjectHideFlags: 0

@@ -23,10 +23,21 @@ public class WayPointManager : MonoBehaviour
     public GameObject[] waypoints;
     public Link[] links;
     public Graph graph = new Graph();
+    public int CurrentNumberPoints { get; private set; }
+    public GameObject CurrentWayPoint { get; private set; }
+
+    public Vector3 GetLocationOfPoint(int index)
+    {
+        return   CurrentWayPoint.GetComponent<WayPointDebug>().GetLocationOfPoint(index);
+    }
     
-    // Start is called before the first frame update
     void Start()
     {
+        CurrentWayPoint = GameObject.FindWithTag("wp");
+        CurrentNumberPoints = CurrentWayPoint.GetComponent<WayPointDebug>().currentNumberPoints;
+        CurrentWayPoint.GetComponent<WayPointDebug>().GetLocationOfPoint(0);
+        
+        /**
         if (waypoints.Length > 0)
         {
             foreach (var el in waypoints)
@@ -43,11 +54,12 @@ public class WayPointManager : MonoBehaviour
                 }
             }
         }
+        **/
     }
-
-    // Update is called once per frame
+    
+    
     void Update()
     {
-        graph.debugDraw();
+    //    graph.debugDraw();
     }
 }

@@ -21,6 +21,7 @@ TagManager:
   - EnemyMoveNode
   - Gun
   - wp
+  - wpManager
   layers:
   - Default
   - TransparentFX

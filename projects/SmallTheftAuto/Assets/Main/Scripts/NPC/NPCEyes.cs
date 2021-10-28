@@ -39,7 +39,6 @@ public class NPCEyes : MonoBehaviour
        if (seeing == Seeing.Player)
        {
            GetComponentInChildren<NPCMovement>().relevantTransform = PlayerTarget;
-           GetComponentInChildren<NPCMovement>().EnemySeen();
            GetComponentInChildren<NPCGunArm>().ShootEnemy();
            GetComponent<NPCMovement>().SetADestination(playerDestination);
        }

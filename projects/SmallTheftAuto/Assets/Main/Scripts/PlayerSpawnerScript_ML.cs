@@ -21,14 +21,13 @@ public class PlayerSpawnerScript_ML : MonoBehaviour
         {
             distance = Vector3.Distance(playerPosition, el.transform.position);
             
-            if (distance > 3)
+            
+            if (distance < currentMin)
             {
-                if (distance < currentMin)
-                {
-                    currentMin = distance;
-                    spawnPoint = el;
-                }
+                currentMin = distance;
+                spawnPoint = el;
             }
+        
         }
 
         return spawnPoint.transform.position;
