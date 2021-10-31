@@ -22,6 +22,7 @@ TagManager:
   - Gun
   - wp
   - wpManager
+  - QuestMark
   layers:
   - Default
   - TransparentFX
