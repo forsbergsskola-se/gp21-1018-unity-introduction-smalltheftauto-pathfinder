@@ -6,22 +6,7 @@ using UnityEngine;
 
 public class EnemyMoveNodeScript : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-    //    GetComponent<MeshRenderer>().enabled = false;
-    }
-
-    private void OnCollisionEnter(Collision other)
-    {
-        Debug.Log("Enemy collide");
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-       
-    }
-
+  
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Enemy"))
