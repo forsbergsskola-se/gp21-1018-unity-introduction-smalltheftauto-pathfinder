@@ -9,11 +9,19 @@ using UnityEngine.UI;
 
 public class UIWeaponScript_ML : MonoBehaviour
 {
-    public static List<WeaponEquip> ownedGuns { get; private set; }
-    public static int NumberHandgunBullets { get; private set; }
+    public List<WeaponEquip> ownedGuns;
+    public  int NumberHandgunBullets { get; private set; }
+    public  int NumberMachinegunBullets  { get; private set; }
+    
     private static int MaxNumberHandgunBullets = 200;
     private static int MaxNumberMachineginBullets = 300;
-    public static int NumberMachinegunBullets  { get; private set; }
+
+    public int CurrentHandgunClip{ get; private set; }
+    public int CurrentMachineGunClip{ get; private set; }
+
+    private int HandgunClip = 15;
+    private int MachineGunClip = 25;
+
     private WeaponEquip currentWeapon;
     
     private Text AmmoCounter;
@@ -21,16 +29,20 @@ public class UIWeaponScript_ML : MonoBehaviour
     [SerializeField] private Sprite HandgunSprite;
     [SerializeField] private Sprite MachinegunSprite;
     [SerializeField] private Sprite FistSprite;
-    
-    
-    
+
+
+
+    public  bool IfHaveGun(WeaponEquip weaponEquip)
+    {
+        return ownedGuns.Contains(weaponEquip);
+    }
     
     private void GunPickedUp(PickupTypes pickupTypes)
     {
 
         if (pickupTypes == PickupTypes.Handgun)
         {
-            NumberHandgunBullets += 10;
+            NumberHandgunBullets += 15;
 
             if (NumberHandgunBullets > MaxNumberHandgunBullets)
             {
@@ -50,7 +62,7 @@ public class UIWeaponScript_ML : MonoBehaviour
         
         else if (pickupTypes == PickupTypes.Machinegun)
         {
-            NumberMachinegunBullets += 20;
+            NumberMachinegunBullets += 30;
 
             if (NumberMachinegunBullets > MaxNumberMachineginBullets)
             {
@@ -75,13 +87,13 @@ public class UIWeaponScript_ML : MonoBehaviour
         switch (weaponType)
         {
             case WeaponEquip.Handgun:
-                if(NumberHandgunBullets > 0 )
-                    NumberHandgunBullets--;
+                if(CurrentHandgunClip > 0 )
+                    CurrentHandgunClip--;
                 break;
             
             case WeaponEquip.Machinegun:
-                if(NumberMachinegunBullets > 0) 
-                    NumberMachinegunBullets--;
+                if(CurrentMachineGunClip > 0) 
+                    CurrentMachineGunClip--;
                 break;
         }
         UpdateAmmoCounter(weaponType);
@@ -93,12 +105,46 @@ public class UIWeaponScript_ML : MonoBehaviour
         ownedGuns.Add(WeaponEquip.Fists);
         BulletScript_ML.FireGun += DecrementAmmo;
         GunArmScript_ML.SwitchedWeapons += SwitchWeapons;
+        GunArmScript_ML.OnReloadWeapon += ReloadGun;
         PickupScript_ML.PickupPicked += GunPickedUp;
         AmmoCounter = GetComponentInChildren<Text>();
 
         AmmoCounter.fontSize = 23;
     }
 
+    private void ReloadGun(WeaponEquip weaponEquip)
+    {
+        switch (weaponEquip)
+        {
+            case WeaponEquip.Handgun:
+                if (NumberHandgunBullets - HandgunClip < 0)
+                {
+                    CurrentHandgunClip += NumberHandgunBullets;
+                    NumberHandgunBullets -= NumberHandgunBullets;
+                }
+                else if (NumberHandgunBullets - HandgunClip >= 0)
+                {
+                    CurrentHandgunClip += HandgunClip;
+                    NumberHandgunBullets -= HandgunClip;
+                }
+                break;
+            
+            case WeaponEquip.Machinegun:
+                if (NumberMachinegunBullets - MachineGunClip < 0)
+                {
+                    CurrentMachineGunClip += NumberMachinegunBullets;
+                    NumberMachinegunBullets -= NumberMachinegunBullets;
+                }
+                else if (NumberMachinegunBullets - MachineGunClip >= 0)
+                {
+                    CurrentMachineGunClip += MachineGunClip;
+                    NumberMachinegunBullets -= MachineGunClip;
+                }
+                break;
+        }
+        UpdateAmmoCounter(weaponEquip);
+    }
+    
     private void SwitchWeapons(WeaponEquip weaponEquip)
     {
         currentWeapon = weaponEquip;
@@ -135,14 +181,30 @@ public class UIWeaponScript_ML : MonoBehaviour
         
         if (selectedGun == WeaponEquip.Handgun)
         {
-            AmmoCounter.text = Convert.ToString(NumberHandgunBullets) 
-                               + " / " + Convert.ToString(MaxNumberHandgunBullets);
+            if (CurrentHandgunClip == 0)
+            {
+                AmmoCounter.text = "Reload" + " / " +
+                                   Convert.ToString(NumberHandgunBullets);
+            }
+            else
+            {
+                AmmoCounter.text = Convert.ToString(CurrentHandgunClip) 
+                                   + " / " + Convert.ToString(NumberHandgunBullets);
+            }
         }
         
         else if (selectedGun == WeaponEquip.Machinegun)
         {
-            AmmoCounter.text = Convert.ToString(NumberMachinegunBullets)
-                               + " / " + Convert.ToString(MaxNumberMachineginBullets);
+            if (CurrentMachineGunClip == 0)
+            {
+                AmmoCounter.text = "Reload" + " / " +
+                                   Convert.ToString(NumberMachinegunBullets);
+            }
+            else
+            {
+                AmmoCounter.text = Convert.ToString(CurrentMachineGunClip) 
+                                   + " / " + Convert.ToString(NumberMachinegunBullets);
+            }
         }
         else if (selectedGun == WeaponEquip.Fists)
         {

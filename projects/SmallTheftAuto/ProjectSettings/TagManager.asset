@@ -23,6 +23,8 @@ TagManager:
   - wp
   - wpManager
   - QuestMark
+  - Car
+  - WorldSpaceCanvas
   layers:
   - Default
   - TransparentFX
@@ -30,7 +32,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Player
   - 
   - 
   - 

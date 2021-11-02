@@ -391,9 +391,9 @@ GameObject:
   - component: {fileID: 4428892142116463942}
   - component: {fileID: 1208672295937790869}
   - component: {fileID: 5304233727403252765}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Torso
-  m_TagString: Untagged
+  m_TagString: ThePlayer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -475,6 +475,7 @@ GameObject:
   - component: {fileID: 7477319961791626994}
   - component: {fileID: 5577431335953116431}
   - component: {fileID: 3072699268335281907}
+  - component: {fileID: 4698070993567894008}
   m_Layer: 0
   m_Name: Player
   m_TagString: ThePlayer
@@ -490,7 +491,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7477319961791626992}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -41.924583, y: 0.09, z: -16.396276}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -551,6 +552,18 @@ MonoBehaviour:
   minSpeed: 6
   maxSpeed: 15
   turnSpeed: 120
+--- !u!114 &4698070993567894008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7477319961791626992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 860a6f2372a781a49bca6eb8cb0fc12c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7815441053453706946
 GameObject:
   m_ObjectHideFlags: 0

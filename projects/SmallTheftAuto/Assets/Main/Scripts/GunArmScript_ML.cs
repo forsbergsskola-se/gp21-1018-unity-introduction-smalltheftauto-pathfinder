@@ -16,9 +16,20 @@ public enum WeaponEquip
     Machinegun
 }
 
+public enum AmmoCheck
+{
+    Reload,
+    Shoot
+}
+
 public class GunArmScript_ML : MonoBehaviour
 {
     private ArmState theArmState;
+    private AmmoCheck _ammoCheck;
+
+    private static List<WeaponEquip> ownedWeapons;
+
+    private UIWeaponScript_ML weaponScript;
 
     public static WeaponEquip _weaponEquip { get; private set; }
     
@@ -30,6 +41,12 @@ public class GunArmScript_ML : MonoBehaviour
 
     public delegate void SwicthedWeaponsEvent(WeaponEquip selectedWeapon);
     public static event SwicthedWeaponsEvent SwitchedWeapons;
+
+
+    public delegate void ReloadWeaponEvent(WeaponEquip weaponEquip);
+
+    public static event ReloadWeaponEvent OnReloadWeapon;
+    
     
     
     private void OnSwitchedWeapon(WeaponEquip selectedWeapon)
@@ -43,6 +60,7 @@ public class GunArmScript_ML : MonoBehaviour
     void Start()
     {
         socket = GameObject.FindWithTag("PlayerGunSocket");
+        weaponScript = GameObject.FindWithTag("AmmoCounter").GetComponent<UIWeaponScript_ML>();
     }
 
 
@@ -51,7 +69,7 @@ public class GunArmScript_ML : MonoBehaviour
         Vector3 forward = GetComponentInParent<PlayerMovement_ML>().GetComponent<Transform>().forward;   
         if ( _weaponEquip == WeaponEquip.Handgun)
         {
-            if (GetAmmoCount())
+            if (DoesHaveAmmoInClip())
             {
                 GetComponentInChildren<GunScript_ML>().FireGun(0.7f, forward);
             }
@@ -59,14 +77,14 @@ public class GunArmScript_ML : MonoBehaviour
         
         else if  (_weaponEquip == WeaponEquip.Machinegun)
         {
-            if (GetAmmoCount())
+            if (DoesHaveAmmoInClip())
             {
                 GetComponentInChildren<GunScript_ML>().FireGun(0.2f, forward);
             }
         }
     }
 
-    void Update()
+    public void Update()
     {
         if (Input.GetButtonDown("Fire1"))
         {
@@ -82,6 +100,14 @@ public class GunArmScript_ML : MonoBehaviour
            FireWeapon();
         }
         
+        else if (Input.GetKeyDown(KeyCode.R))
+        {
+            if(DoesHaveAmmoToReload())
+            {
+                ReloadGun(_weaponEquip);
+            }
+        }
+        
         else if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             UnequipWeapon();
@@ -94,7 +120,7 @@ public class GunArmScript_ML : MonoBehaviour
         
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            if (UIWeaponScript_ML.ownedGuns.Contains(WeaponEquip.Handgun))
+            if (weaponScript.ownedGuns.Contains(WeaponEquip.Handgun))
             {
                 UnequipWeapon();
                 if (_weaponEquip != WeaponEquip.Handgun)
@@ -108,7 +134,7 @@ public class GunArmScript_ML : MonoBehaviour
         
         else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            if (UIWeaponScript_ML.ownedGuns.Contains(WeaponEquip.Machinegun))
+            if (weaponScript.ownedGuns.Contains(WeaponEquip.Machinegun))
             {
                 UnequipWeapon();
                 if (_weaponEquip != WeaponEquip.Machinegun)
@@ -122,6 +148,8 @@ public class GunArmScript_ML : MonoBehaviour
         
     }
 
+   
+    
     IEnumerator MachineGunBulletSpacing()
     {
         yield return new WaitForSeconds(0.1f);
@@ -134,22 +162,50 @@ public class GunArmScript_ML : MonoBehaviour
         {
             transform.Rotate(-90, 0, 0);
             theArmState = ArmState.Raised;
-            StartCoroutine("Delay");
+            StartCoroutine("DelayLower");
         }
     }
-    
-    private bool GetAmmoCount()
+
+    private void ReloadGun(WeaponEquip weaponEquip)
+    {
+        if (OnReloadWeapon != null)
+        {
+            OnReloadWeapon(weaponEquip);
+        }
+    }
+
+    private bool DoesHaveAmmoInClip()
     {
         bool outBool = false;
-
+        
         switch (_weaponEquip)
         {
             case WeaponEquip.Handgun:
-                outBool = UIWeaponScript_ML.NumberHandgunBullets > 0;
+                
+                outBool = weaponScript.CurrentHandgunClip > 0;
                 break;
            
             case WeaponEquip.Machinegun:
-                outBool = UIWeaponScript_ML.NumberMachinegunBullets > 0;
+                outBool = weaponScript.CurrentMachineGunClip > 0;
+                break;
+        }
+      
+        return outBool;
+    }
+    
+    private bool DoesHaveAmmoToReload()
+    {
+        bool outBool = false;
+        
+        switch (_weaponEquip)
+        {
+            case WeaponEquip.Handgun:
+                
+                outBool = weaponScript.NumberHandgunBullets > 0;
+                break;
+           
+            case WeaponEquip.Machinegun:
+                outBool = weaponScript.NumberMachinegunBullets > 0;
                 break;
         }
       
@@ -158,7 +214,6 @@ public class GunArmScript_ML : MonoBehaviour
 
     private void UnequipWeapon()
     {
-        Debug.Log(_weaponEquip);
         if(_weaponEquip != WeaponEquip.Fists)
             GetComponentInChildren<ObjectDestructor>().DestroyObject();
     }
@@ -181,7 +236,7 @@ public class GunArmScript_ML : MonoBehaviour
         currentGun.transform.Rotate(0,-90,-90);
     }
 
-    private IEnumerator Delay()
+    private IEnumerator DelayLower()
     {
         yield return new WaitForSeconds(3);
         transform.Rotate(90, 0, 0);
