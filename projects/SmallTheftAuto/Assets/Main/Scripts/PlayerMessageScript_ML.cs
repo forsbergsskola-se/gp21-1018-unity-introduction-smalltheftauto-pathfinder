@@ -12,6 +12,8 @@ public class PlayerMessageScript_ML : MonoBehaviour
         UIHealthbarScript_ML.OnPlayerDeath += DisplayDeathMessage;
     }
 
+    
+    
     private void DisplayDeathMessage()
     {
         GetComponentInChildren<Text>().text = "WASTED";
