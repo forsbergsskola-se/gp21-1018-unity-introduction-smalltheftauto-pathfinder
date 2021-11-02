@@ -6,11 +6,22 @@ public class PlayerSpawnerScript_ML : MonoBehaviour
 {
     private GameObject thePlayerObject;
     private Vector3 newSpawnPosition;
+    //save last spawn point
+    [SerializeField] private float x, y, z;
+    
     public void Start()
     {
         UIHealthbarScript_ML.OnPlayerDeath += DeathSpawn;
+        SaveSystem.OnGatherData += SendDataToSaveSystem;
     }
 
+    private void SendDataToSaveSystem()
+    {
+        SaveSystem.x = x;
+        SaveSystem.y = y;
+        SaveSystem.z = z;
+    }
+    
     public static Vector3 FindClosestsSpawnPoint(Vector3 playerPosition, string pointType)
     {
         float distance = 0;
@@ -38,6 +49,9 @@ public class PlayerSpawnerScript_ML : MonoBehaviour
        thePlayerObject = GameObject.Find("Player");
        thePlayerObject.SetActive(false);
        newSpawnPosition = FindClosestsSpawnPoint(thePlayerObject.transform.position, "SpawnPoint");
+       x = newSpawnPosition.x;
+       y = newSpawnPosition.y;
+       z = newSpawnPosition.z;
        StartCoroutine(DelaySpawn());
     }
 

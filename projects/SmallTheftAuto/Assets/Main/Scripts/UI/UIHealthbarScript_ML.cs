@@ -52,9 +52,34 @@ public class UIHealthbarScript_ML : MonoBehaviour
     {
         PickupScript_ML.PickupPicked += HealPlayer;
         PainVolumeScript_ML.PainEvent += DecrementHeart;
+        SaveSystem.OnGatherData += SendDataToSaveSystem;
         FillHearts();
     }
 
+    private void SendDataToSaveSystem()
+    {
+        SaveSystem.CurrentHeartHalves = CountHearts();
+    }
+
+    private int CountHearts()
+    {
+        int heartCount = 0;
+        
+        foreach (var el in _health)
+        {
+            if (el.Value == HeartState.Full)
+            {
+                heartCount += 2;
+            }
+            else if (el.Value == HeartState.Half)
+            {
+                heartCount++;
+            }
+        }
+
+        return heartCount;
+    }
+    
     private void HealPlayer(PickupTypes pickupType)
     {
         if (pickupType == PickupTypes.Health)
