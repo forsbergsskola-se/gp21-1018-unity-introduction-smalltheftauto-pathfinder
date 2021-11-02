@@ -21,5 +21,9 @@ public class CarHealthWM : MonoBehaviour
     public void CarDamage(int damageToGive)
     {
         currentHealth -= damageToGive;
+        if (currentHealth <= 0)
+        {
+            gameObject.SetActive(false);
+        }
     }
 }
