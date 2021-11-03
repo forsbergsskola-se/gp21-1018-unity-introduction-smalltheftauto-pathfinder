@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerSpawnerScript_ML : MonoBehaviour
 {
     private GameObject thePlayerObject;
+
+    public GameObject playerToSpawn; 
     private Vector3 newSpawnPosition;
     //save last spawn point
     [SerializeField] private float x, y, z;
@@ -21,6 +23,8 @@ public class PlayerSpawnerScript_ML : MonoBehaviour
         SaveSystem.y = y;
         SaveSystem.z = z;
     }
+    
+    
     
     public static Vector3 FindClosestsSpawnPoint(Vector3 playerPosition, string pointType)
     {

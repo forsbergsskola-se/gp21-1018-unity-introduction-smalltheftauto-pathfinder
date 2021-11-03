@@ -44,5 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ee811e27e6c7e845a9897aa680d2f89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thePlayer: {fileID: 0}
-  thePlayerCamera: {fileID: 0}
+  playerToSpawn: {fileID: 7477319961791626992, guid: 55ade6459795b1a42a0d27ba9bd4f605, type: 3}
+  x: 0
+  y: 0
+  z: 0
