@@ -13,7 +13,7 @@ public class UIMoneyScript_ML : MonoBehaviour
     {
         PickupScript_ML.PickupPicked += MoneyGot;
         UIHealthbarScript_ML.OnPlayerDeath += PlayerDies;
-        SaveSystem.OnGatherData += SendDataToSaveSystem;
+        SaveSystem.OnGatherSaveData += SendSaveDataToSaveSystem;
         SaveSystem.OnSendSingleInt += ReceiveSaveData;
     }
 
@@ -26,7 +26,7 @@ public class UIMoneyScript_ML : MonoBehaviour
         }
     }
     
-    private void SendDataToSaveSystem()
+    private void SendSaveDataToSaveSystem()
     {
         SaveSystem.CurrentMoney = _amountMoney;
     }

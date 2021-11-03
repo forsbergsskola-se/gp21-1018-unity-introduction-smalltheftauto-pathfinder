@@ -10,9 +10,14 @@ public class PlayerMessageScript_ML : MonoBehaviour
     void Start()
     {
         UIHealthbarScript_ML.OnPlayerDeath += DisplayDeathMessage;
+        SaveSystem.OnGatherSaveData += DisplaySaveMessage;
     }
 
-    
+    private void DisplaySaveMessage()
+    {
+        GetComponentInChildren<Text>().text = "GAME SAVED";
+        StartCoroutine(Delay());
+    }
     
     private void DisplayDeathMessage()
     {

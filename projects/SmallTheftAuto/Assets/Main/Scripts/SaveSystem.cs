@@ -15,7 +15,7 @@ public class SaveSystem : MonoBehaviour
     string _path = "Assets/SaveFiles/SaveFile.txt";
 
     public delegate void GatherDataEvent();
-    public static event GatherDataEvent OnGatherData;
+    public static event GatherDataEvent OnGatherSaveData;
     
     public delegate void SendIntEvent(int data, DataType dataType);
     public static event SendIntEvent OnSendSingleInt;
@@ -32,9 +32,9 @@ public class SaveSystem : MonoBehaviour
 
     private void GatherSaveData()
     {
-        if (OnGatherData != null)
+        if (OnGatherSaveData != null)
         {
-            OnGatherData();
+            OnGatherSaveData();
         }
 
     }

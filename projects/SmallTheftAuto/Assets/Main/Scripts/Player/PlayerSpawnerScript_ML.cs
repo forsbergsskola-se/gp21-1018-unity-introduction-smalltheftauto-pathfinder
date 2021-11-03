@@ -16,13 +16,13 @@ public class PlayerSpawnerScript_ML : MonoBehaviour
     public void Start()
     {
         UIHealthbarScript_ML.OnPlayerDeath += DeathSpawn;
-        SaveSystem.OnGatherData += SendDataToSaveSystem;
+        SaveSystem.OnGatherSaveData += SendSaveDataToSaveSystem;
         SaveSystem.OnSendVector += ReceiveSaveData;
 
         SpawnerReady = true;
     }
 
-    private void SendDataToSaveSystem()
+    private void SendSaveDataToSaveSystem()
     {
         SaveSystem.x = x;
         SaveSystem.y = y;

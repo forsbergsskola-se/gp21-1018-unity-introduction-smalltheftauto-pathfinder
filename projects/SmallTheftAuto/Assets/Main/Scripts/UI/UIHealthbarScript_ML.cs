@@ -52,7 +52,7 @@ public class UIHealthbarScript_ML : MonoBehaviour
     {
         PickupScript_ML.PickupPicked += HealPlayer;
         PainVolumeScript_ML.PainEvent += DecrementHeart;
-        SaveSystem.OnGatherData += SendDataToSaveSystem;
+        SaveSystem.OnGatherSaveData += SendSaveDataToSaveSystem;
         SaveSystem.OnSendSingleInt += ReceiveSaveData;
         FillHearts();
     }
@@ -96,7 +96,7 @@ public class UIHealthbarScript_ML : MonoBehaviour
        
     }
     
-    private void SendDataToSaveSystem()
+    private void SendSaveDataToSaveSystem()
     {
         SaveSystem.CurrentHeartHalves = CountHearts();
     }

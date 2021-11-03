@@ -36,8 +36,8 @@ public class GunArmScript_ML : MonoBehaviour
     private GameObject socket;
 
     [SerializeField] private GameObject handgunEquip;
-    [SerializeField] private GameObject machinegunEquip;
-    private GameObject currentGun;
+    [SerializeField] private GameObject machinegunEquip;  
+    GameObject currentGun;
 
     public delegate void SwicthedWeaponsEvent(WeaponEquip selectedWeapon);
     public static event SwicthedWeaponsEvent SwitchedWeapons;
@@ -61,8 +61,9 @@ public class GunArmScript_ML : MonoBehaviour
     {
         socket = GameObject.FindWithTag("PlayerGunSocket");
         weaponScript = GameObject.FindWithTag("AmmoCounter").GetComponent<UIWeaponScript_ML>();
-    }
 
+    }
+    
 
     private void FireWeapon()
     {
@@ -148,14 +149,6 @@ public class GunArmScript_ML : MonoBehaviour
         
     }
 
-   
-    
-    IEnumerator MachineGunBulletSpacing()
-    {
-        yield return new WaitForSeconds(0.1f);
-    }
-    
-    
     private void PrepArmState()
     {
         if ( theArmState == ArmState.Lowered)
@@ -214,9 +207,11 @@ public class GunArmScript_ML : MonoBehaviour
 
     private void UnequipWeapon()
     {
-        if(_weaponEquip != WeaponEquip.Fists)
-            GetComponentInChildren<ObjectDestructor>().DestroyObject();
+        if(_weaponEquip != WeaponEquip.Fists) 
+                GetComponentInChildren<ObjectDestructor>().DestroyObject();
     }
+
+   
     
     private void EquipWeapon()
     {

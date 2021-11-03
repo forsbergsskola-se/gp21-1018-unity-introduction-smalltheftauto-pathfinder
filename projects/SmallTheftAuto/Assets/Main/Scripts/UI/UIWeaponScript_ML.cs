@@ -31,11 +31,7 @@ public class UIWeaponScript_ML : MonoBehaviour
     [SerializeField] private Sprite FistSprite;
 
 
-
-    public  bool IfHaveGun(WeaponEquip weaponEquip)
-    {
-        return ownedGuns.Contains(weaponEquip);
-    }
+    
     
     private void GunPickedUp(PickupTypes pickupTypes)
     {
