@@ -11,5 +11,11 @@ public class Quest_TF
     public string description;
     public int experienceReward;
     public int moneyReward;
+
+    public QuestGoal_TF goal;
     
+    public void Complete()
+    {
+        isActive = false;
+    }
 }

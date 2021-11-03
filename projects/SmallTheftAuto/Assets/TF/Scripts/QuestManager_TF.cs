@@ -35,11 +35,12 @@ public class QuestManager_TF : MonoBehaviour
         }
     }
 
-    private void AcceptQuest()
+    public void AcceptQuest()
     {
         
         questDetailPanel.SetActive(false);
         quest.isActive = true;
+        player.quest = quest;
     }
 
 

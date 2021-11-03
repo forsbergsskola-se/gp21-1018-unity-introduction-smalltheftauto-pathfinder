@@ -11,6 +11,12 @@ public class Player_TF : MonoBehaviour
     public Quest_TF quest;
 
 
+    public void DoQuests()
+    {
+        if (quest.isActive)
+        {
 
+        }
+    }
 
 }
