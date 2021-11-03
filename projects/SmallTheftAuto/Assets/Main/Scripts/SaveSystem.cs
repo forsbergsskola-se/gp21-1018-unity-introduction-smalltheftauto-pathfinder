@@ -16,20 +16,7 @@ public class SaveSystem : MonoBehaviour
 
     public delegate void GatherDataEvent();
     public static event GatherDataEvent OnGatherData;
-
-    public delegate void SendDataEvent();
-    public static event SendDataEvent OnSendSaveData;
-
-
-    public void SendSaveData()
-    {
-        ReadFromFile();
-        
-        if (OnSendSaveData != null)
-        {
-            OnSendSaveData();
-        }
-    }
+    
     
     private void OnTriggerEnter(Collider other)
     {
