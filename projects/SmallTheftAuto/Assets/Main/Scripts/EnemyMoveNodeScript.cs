@@ -11,7 +11,7 @@ public class EnemyMoveNodeScript : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            Vector3 nextPoint = PlayerSpawnerScript_ML.FindClosestsSpawnPoint(transform.position, "EnemyMoveNode");
+            Vector3 nextPoint = PlayerSpawnerScript_ML.FindClosestSpawnPoint(transform.position, "EnemyMoveNode");
             other.GetComponent<NPCMovement>().MoveData = nextPoint;
         }
     }

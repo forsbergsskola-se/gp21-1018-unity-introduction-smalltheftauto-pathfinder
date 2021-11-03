@@ -8,6 +8,8 @@ public class PlayerSpawnerScript_ML : MonoBehaviour
 
     public GameObject playerToSpawn; 
     private Vector3 newSpawnPosition;
+    public static bool SpawnerReady = false;
+    
     //save last spawn point
     [SerializeField] private float x, y, z;
     
@@ -15,6 +17,9 @@ public class PlayerSpawnerScript_ML : MonoBehaviour
     {
         UIHealthbarScript_ML.OnPlayerDeath += DeathSpawn;
         SaveSystem.OnGatherData += SendDataToSaveSystem;
+        SaveSystem.OnSendVector += ReceiveSaveData;
+
+        SpawnerReady = true;
     }
 
     private void SendDataToSaveSystem()
@@ -23,10 +28,18 @@ public class PlayerSpawnerScript_ML : MonoBehaviour
         SaveSystem.y = y;
         SaveSystem.z = z;
     }
+
+    private void ReceiveSaveData(Vector3 spawnPoint)
+    {
+        Debug.Log("Vector data got");
+        
+        thePlayerObject = GameObject.Find("Player");
+        thePlayerObject.SetActive(false);
+        thePlayerObject.transform.position = spawnPoint;
+        thePlayerObject.SetActive(true);
+    }
     
-    
-    
-    public static Vector3 FindClosestsSpawnPoint(Vector3 playerPosition, string pointType)
+    public static Vector3 FindClosestSpawnPoint(Vector3 playerPosition, string pointType)
     {
         float distance = 0;
         GameObject spawnPoint = GameObject.FindWithTag(pointType);
@@ -52,7 +65,7 @@ public class PlayerSpawnerScript_ML : MonoBehaviour
     {
        thePlayerObject = GameObject.Find("Player");
        thePlayerObject.SetActive(false);
-       newSpawnPosition = FindClosestsSpawnPoint(thePlayerObject.transform.position, "SpawnPoint");
+       newSpawnPosition = FindClosestSpawnPoint(thePlayerObject.transform.position, "SpawnPoint");
        x = newSpawnPosition.x;
        y = newSpawnPosition.y;
        z = newSpawnPosition.z;

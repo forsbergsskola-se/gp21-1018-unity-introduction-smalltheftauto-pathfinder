@@ -53,7 +53,7 @@ public class UIHealthbarScript_ML : MonoBehaviour
         PickupScript_ML.PickupPicked += HealPlayer;
         PainVolumeScript_ML.PainEvent += DecrementHeart;
         SaveSystem.OnGatherData += SendDataToSaveSystem;
-        GameMenu.OnSendSingleInt += ReceiveSaveData;
+        SaveSystem.OnSendSingleInt += ReceiveSaveData;
         FillHearts();
     }
 
@@ -67,24 +67,33 @@ public class UIHealthbarScript_ML : MonoBehaviour
 
     private void SetHealth(int heartHalves)
     {
+        _health = new Dictionary<int, HeartState>(10);
+        
         for (int i = 0; i < 10; i++)
         {
             if (heartHalves > 1)
             {
-                ChangeHeart(i,HeartState.Full);
+                _health.Add(i, HeartState.Full);
                 heartHalves -= 2;
             }
 
-            if (heartHalves == 1)
+            else if (heartHalves == 1)
             {
-                ChangeHeart(i,HeartState.Half);
+                _health.Add(i, HeartState.Half);
                 heartHalves --;
             }
             else
             {
-                ChangeHeart(i,HeartState.Empty);
+                _health.Add(i, HeartState.Empty);
             }
         }
+        
+        foreach (var el in _health)
+        {
+            ChangeHeart(el.Key, el.Value);
+        }
+        
+       
     }
     
     private void SendDataToSaveSystem()

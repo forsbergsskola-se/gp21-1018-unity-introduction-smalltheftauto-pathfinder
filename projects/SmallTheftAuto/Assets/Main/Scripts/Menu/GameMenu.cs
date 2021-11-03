@@ -24,29 +24,37 @@ public class GameMenu : MonoBehaviour
     public float x,y,z;
 
     string _path = "Assets/SaveFiles/SaveFile.txt";
-
-    public delegate void SendIntEvent(int data, DataType dataType);
-    public static event SendIntEvent OnSendSingleInt;
     
-    public delegate void SendVectorEvent(Vector3 data);
-    public static event SendVectorEvent OnSendVector;
 
     void Start()
     {
-        startButton.onClick.AddListener(LoadLevel);
+        startButton.onClick.AddListener(NewGame);
         loadButton.onClick.AddListener(LoadGame);
     }
 
+    private void SetDefaultSpawnPoint()
+    {
+        x = -47;
+        y = 0;
+        z = -6.7f;
+    }
+
+    public void NewGame()
+    {
+        PlayerPrefs.SetString("GameType", "New");
+        
+        LoadLevel();
+    }
+    
     public void LoadGame()
     {
         if (File.Exists(_path))
         {
-
+            PlayerPrefs.SetString("GameType", "Load");
             ReadFromFile();
 
             LoadLevel();
-
-            SendSaveData();
+            
         }
         else
         {
@@ -65,22 +73,7 @@ public class GameMenu : MonoBehaviour
     }
 
 
-    public void SendSaveData()
-    {
-        ReadFromFile();
-        
-        if (OnSendSingleInt != null)
-        {
-            OnSendSingleInt(CurrentMoney, DataType.Money);
-            OnSendSingleInt(CurrentHeartHalves, DataType.Health);
-        }
-
-        if (OnSendVector != null)
-        {
-            OnSendVector(new Vector3(x, y, z));
-        }
-    }
-
+   
     public void LoadLevel()
     {
         SceneManager.LoadScene("MainScene");
@@ -94,7 +87,6 @@ public class GameMenu : MonoBehaviour
         x = Convert.ToSingle(reader.ReadLine());
         y = Convert.ToSingle(reader.ReadLine());
         z = Convert.ToSingle(reader.ReadLine());
-        
         reader.Close();
 
     }

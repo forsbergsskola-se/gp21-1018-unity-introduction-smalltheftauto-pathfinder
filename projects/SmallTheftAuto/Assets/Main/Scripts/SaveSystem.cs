@@ -17,6 +17,12 @@ public class SaveSystem : MonoBehaviour
     public delegate void GatherDataEvent();
     public static event GatherDataEvent OnGatherData;
     
+    public delegate void SendIntEvent(int data, DataType dataType);
+    public static event SendIntEvent OnSendSingleInt;
+    
+    public delegate void SendVectorEvent(Vector3 data);
+    public static event SendVectorEvent OnSendVector;
+    
     
     private void OnTriggerEnter(Collider other)
     {
@@ -31,6 +37,50 @@ public class SaveSystem : MonoBehaviour
             OnGatherData();
         }
 
+    }
+    
+    private void SetDefaultSpawnPoint()
+    {
+        x = -47;
+        y = 0;
+        z = -6.7f;
+    }
+    
+    public void SendSaveData()
+    {
+        ReadFromFile();
+        
+        if (OnSendSingleInt != null)
+        {
+            OnSendSingleInt(CurrentMoney, DataType.Money);
+            OnSendSingleInt(CurrentHeartHalves, DataType.Health);
+        }
+
+        if (x == 0 && y == 0 && z == 0)
+        {
+            Debug.Log("Default spawn point set");
+            SetDefaultSpawnPoint();
+        }
+
+        StartCoroutine(WaitForSpawner());
+    }
+        
+    private  IEnumerator WaitForSpawner()
+    {
+        yield return new WaitUntil(() => PlayerSpawnerScript_ML.SpawnerReady);
+        if (OnSendVector != null)
+        {
+            OnSendVector(new Vector3(x, y, z));
+        }
+        else
+        {
+            Debug.Log("Nobody listens to Send vector");
+        }
+    }
+    
+    private void LoadGame()
+    {
+        SendSaveData();
     }
 
    // [MenuItem("Tools/Write file")]
@@ -72,6 +122,10 @@ public class SaveSystem : MonoBehaviour
     
     void Start()
     {
+        if (File.Exists(_path) && PlayerPrefs.GetString("GameType") == "Load")
+        {
+            LoadGame();
+        }
         
     }
 
