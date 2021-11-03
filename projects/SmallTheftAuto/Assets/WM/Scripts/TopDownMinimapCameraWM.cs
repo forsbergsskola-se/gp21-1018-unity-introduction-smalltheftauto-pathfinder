@@ -5,6 +5,8 @@ using UnityEngine;
 public class TopDownMinimapCameraWM : MonoBehaviour
 {
     public Transform player;
+
+    public Vector3 offset;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,6 +16,6 @@ public class TopDownMinimapCameraWM : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = player.position;
+        transform.position = player.position + offset;
     }
 }
