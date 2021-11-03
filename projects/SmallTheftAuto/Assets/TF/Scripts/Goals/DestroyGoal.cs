@@ -13,10 +13,10 @@ public class DestroyGoal : Quest.QuestGoal
     public override void Initialize()
     {
         base.Initialize();
-        EventManager.Instance.AddListener<DestroyGameEvent>(OnDestroy);
+        EventManager.Instance.AddListener<DestroyGameEvent>(OnDestroyObject);
     }
 
-    private void OnDestroy(DestroyGameEvent eventInfo)
+    private void OnDestroyObject(DestroyGameEvent eventInfo)
     {
         if(eventInfo.destroyableName == Destroyable)
         {

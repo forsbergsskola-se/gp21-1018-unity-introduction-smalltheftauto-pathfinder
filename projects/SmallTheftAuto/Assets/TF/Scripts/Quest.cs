@@ -30,8 +30,8 @@ public class Quest : ScriptableObject
     public bool completed { get; protected set; }
     public QuestCompletedEvent questCompleted;
 
-    
-    
+
+
     public abstract class QuestGoal : ScriptableObject
     {
         protected string Description;
@@ -56,7 +56,7 @@ public class Quest : ScriptableObject
 
         protected void Evaluate()
         {
-            if(CurrentAmount >= RequiredAmount)
+            if (CurrentAmount >= RequiredAmount)
             {
                 Complete();
             }
@@ -78,12 +78,12 @@ public class Quest : ScriptableObject
 
     public List<QuestGoal> goals;
 
-    public void Intialize()
+    public void Inýtialize()
     {
         completed = false;
         questCompleted = new QuestCompletedEvent();
 
-        foreach(var goal in goals)
+        foreach (var goal in goals)
         {
             goal.Initialize();
             goal.GoalCompleted.AddListener(delegate { CheckGoals(); });
@@ -92,7 +92,7 @@ public class Quest : ScriptableObject
 
     private void CheckGoals()
     {
-        completed = goals.All(g => g.completed );
+        completed = goals.All(g => g.completed);
         if (completed)
         {
             questCompleted.Invoke(this);
@@ -108,6 +108,23 @@ public class QuestCompletedEvent : UnityEvent<Quest> { }
 [CustomEditor(typeof(Quest))]
 public class QuestEditor : Editor
 {
+    SerializedProperty m_QuestInfoProperty;
+    SerializedProperty m_QuestStatProperty;
 
+    List<string> m_QuestGoalType;
+    SerializedProperty m_QuestGoalListProperty;
+
+    [MenuItem("Assets/Quest", priority = 0)]
+    public static void CreateQuest()
+    {
+        var newQuest = CreateInstance<Quest>();
+        ProjectWindowUtil.CreateAsset(newQuest, "quest.asset");
+
+    }
+
+    private void OnEnable()
+    {
+
+    }
 }
 #endif
