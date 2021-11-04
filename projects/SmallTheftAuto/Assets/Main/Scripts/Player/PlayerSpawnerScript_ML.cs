@@ -18,14 +18,8 @@ public class PlayerSpawnerScript_ML : MonoBehaviour
         UIHealthbarScript_ML.OnPlayerDeath += DeathSpawn;
         SaveSystem.OnGatherSaveData += SendSaveDataToSaveSystem;
         SaveSystem.OnSendVector += ReceiveSaveData;
-        PlayerInteractions.OnEnterCar += EnterCar;
 
         SpawnerReady = true;
-    }
-
-    private void EnterCar(GameObject theCar)
-    {
-        
     }
     
     private void SendSaveDataToSaveSystem()
@@ -37,8 +31,6 @@ public class PlayerSpawnerScript_ML : MonoBehaviour
 
     private void ReceiveSaveData(Vector3 spawnPoint)
     {
-        Debug.Log("Vector data got");
-        
         thePlayerObject = GameObject.Find("Player");
         thePlayerObject.SetActive(false);
         thePlayerObject.transform.position = spawnPoint;
@@ -55,13 +47,11 @@ public class PlayerSpawnerScript_ML : MonoBehaviour
         {
             distance = Vector3.Distance(playerPosition, el.transform.position);
             
-            
             if (distance < currentMin)
             {
                 currentMin = distance;
                 spawnPoint = el;
             }
-        
         }
 
         return spawnPoint.transform.position;
