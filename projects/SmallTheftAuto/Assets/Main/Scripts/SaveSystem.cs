@@ -5,8 +5,15 @@ using UnityEngine;
 using System.IO;
 using UnityEditor;
 
+public enum PlayerActivityStatus
+{
+    Free,
+    OnQuest
+}
+
 public class SaveSystem : MonoBehaviour
 {
+    public static PlayerActivityStatus ActivityStatus;
     public static int CurrentHeartHalves;
     public static int CurrentMoney;
     //Last spawn point location
@@ -71,10 +78,6 @@ public class SaveSystem : MonoBehaviour
         if (OnSendVector != null)
         {
             OnSendVector(new Vector3(x, y, z));
-        }
-        else
-        {
-            Debug.Log("Nobody listens to Send vector");
         }
     }
     

@@ -127,4 +127,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 612931b0b7f97d940ad060444d367e85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fire: 0
+  spark: {fileID: 198862153969099638, guid: 415a745d154d60545b9ff3810609eba7, type: 3}

@@ -11,7 +11,7 @@ public class BulletScript_ML : MonoBehaviour
     private Vector3 originalPos;
     private Vector3 originalForward;
 
- //   public ParticleSystem.Particle spark;
+ //   public ParticleSystem spark;
     
     public delegate void FireGunEvent(WeaponEquip weaponEquip);
     public static event FireGunEvent FireGun;
@@ -49,10 +49,12 @@ public class BulletScript_ML : MonoBehaviour
     
     void Update()
     {
+
         if (fire)
         {
+
             transform.position += originalForward * 8.0f * Time.deltaTime;
-            
+
             if (Vector3.Distance(originalPos, transform.position) > 30)
             {
                 Destroy(gameObject);
