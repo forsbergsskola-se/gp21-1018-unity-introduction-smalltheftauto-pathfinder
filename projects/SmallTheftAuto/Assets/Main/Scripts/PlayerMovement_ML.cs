@@ -8,10 +8,10 @@ using UnityEngine;
 public class PlayerMovement_ML : MonoBehaviour
 {
  
-    [Range(5, 30), SerializeField] float moveSpeed = 6f;
+    [Range(2, 30), SerializeField] float moveSpeed = 6f;
 
     [Range(0.0f, 10.0f), SerializeField] float acceleration = 0.5f;
-    [Range(6.0f, 30.0f), SerializeField] float minSpeed = 6f;
+    [Range(2.0f, 30.0f), SerializeField] float minSpeed = 3f;
     [Range(6.0f, 300.0f), SerializeField] float maxSpeed = 15f;
     [SerializeField] private float turnSpeed = 120;
     Quaternion bodyStartOrientation;
@@ -24,6 +24,7 @@ public class PlayerMovement_ML : MonoBehaviour
     public Transform groundCheck;
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
+    Animator animator;
 
     public float JumpHeight = 2f;
     
@@ -51,6 +52,7 @@ public class PlayerMovement_ML : MonoBehaviour
 
     void Start()
     {
+        animator = GetComponent<Animator>();
         controller = GetComponent<CharacterController>();
         bodyStartOrientation = transform.localRotation;
 
@@ -63,6 +65,7 @@ public class PlayerMovement_ML : MonoBehaviour
     
     void Update()
     {
+        Movement();
         //TF
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
         if(isGrounded && velocity.y < 0)
@@ -71,64 +74,97 @@ public class PlayerMovement_ML : MonoBehaviour
         }
 
 
-        PlayerTransform = transform;
-        
-        var horizontal = Input.GetAxis("Mouse X")
-                         * Time.deltaTime * turnSpeed;
-        
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
-
-        if (x != 0 || z != 0)
-        {
-            OnCameraTracking(PlayerMoveState.Moving);
-        }
-        else
-        {
-            OnCameraTracking(PlayerMoveState.Stopped);
-        }
-
-        Vector3 move = (transform.right * 0) + (transform.forward * z);
-
-        bool Shift = Input.GetKey(KeyCode.LeftShift);
-        
-        
-        var horizontalMouse = Input.GetAxis("Mouse X")
-                              * Time.deltaTime * turnSpeed;
-        
-    
-        yaw += x;
-        
-        var bodyRotation = Quaternion.AngleAxis(yaw, Vector3.up);
-
-   
-        transform.localRotation = bodyRotation * bodyStartOrientation;
-
-        if(Shift)
-        {
-            if (moveSpeed < maxSpeed)
-            {
-                moveSpeed += acceleration * Time.deltaTime;
-            }
-            
-        }
-       
-        if (!Shift)
-        {
-            if (moveSpeed > minSpeed)
-            {
-                moveSpeed -= (acceleration * 1.5f) * Time.deltaTime;
-            }
-        }
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             velocity.y = Mathf.Sqrt(JumpHeight * -2 * gravity);
         }
         velocity.y += gravity * Time.deltaTime;
         
-        controller.Move(move * moveSpeed * Time.deltaTime);
+        
         controller.Move(velocity * Time.deltaTime);
 
+        
+
+    }
+
+    public void Movement()
+    {
+
+        PlayerTransform = transform;
+
+        var horizontal = Input.GetAxis("Mouse X")
+                         * Time.deltaTime * turnSpeed;
+
+        float x = Input.GetAxis("Horizontal");
+        float z = Input.GetAxis("Vertical");
+
+        if (x != 0 || z != 0)
+        {
+            OnCameraTracking(PlayerMoveState.Moving);
+           
+        }
+        else
+        {
+            OnCameraTracking(PlayerMoveState.Stopped);
+            animator.SetFloat("Walk", 0f);
+        }
+
+        Vector3 move = (transform.right * 0) + (transform.forward * z);
+
+        bool Shift = Input.GetKey(KeyCode.LeftShift);
+
+
+        var horizontalMouse = Input.GetAxis("Mouse X")
+                              * Time.deltaTime * turnSpeed;
+
+
+        yaw += x;
+
+        var bodyRotation = Quaternion.AngleAxis(yaw, Vector3.up);
+
+
+        transform.localRotation = bodyRotation * bodyStartOrientation;
+
+        if (Shift)
+        {
+            if (moveSpeed < maxSpeed)
+            {
+                //moveSpeed += acceleration * Time.deltaTime;
+                moveSpeed = 7f;
+                animator.SetBool("isRunning", true);
+            }
+
+        }
+
+        if (!Shift)
+        {
+            if (moveSpeed > minSpeed)
+            {
+                //moveSpeed -= (acceleration * 1.5f) * Time.deltaTime;
+                moveSpeed = minSpeed;
+                animator.SetBool("isRunning", false);
+            }
+        }
+
+        
+        if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))
+        {
+            controller.Move(move * moveSpeed * Time.deltaTime);
+            animator.SetFloat("walk", 1f);
+        }
+        else if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
+        {
+            controller.Move(move * moveSpeed * Time.deltaTime);
+            animator.SetBool("isRunning", false);
+            animator.SetFloat("walk", -1f);
+
+        }
+        else
+        {
+            animator.SetFloat("walk", 0f);
+            animator.SetBool("isRunning", false);
+        }
+        
     }
     
    
