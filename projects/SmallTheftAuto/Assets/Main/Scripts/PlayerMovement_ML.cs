@@ -17,7 +17,21 @@ public class PlayerMovement_ML : MonoBehaviour
     Quaternion bodyStartOrientation;
     Vector3 moveDirection = Vector3.zero;
 
+    
+    Vector3 velocity;      //TF
+    bool isGrounded;
+    public float gravity = -9.8f;
+    public Transform groundCheck;
+    public float groundDistance = 0.4f;
+    public LayerMask groundMask;
+
+
+
+
+
+
     public delegate void CameraTrackingEvent(PlayerMoveState playerMoveState);
+
 
     public static event CameraTrackingEvent cameraTracking;
 
@@ -50,6 +64,14 @@ public class PlayerMovement_ML : MonoBehaviour
     
     void Update()
     {
+        //TF
+        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        if(isGrounded && velocity.y < 0)
+        {
+            velocity.y = -2f;
+        }
+
+
         PlayerTransform = transform;
         
         var horizontal = Input.GetAxis("Mouse X")
@@ -99,8 +121,11 @@ public class PlayerMovement_ML : MonoBehaviour
                 moveSpeed -= (acceleration * 1.5f) * Time.deltaTime;
             }
         }
+
+        velocity.y += gravity * Time.deltaTime;
         
         controller.Move(move * moveSpeed * Time.deltaTime);
+        controller.Move(velocity * Time.deltaTime);
 
     }
     

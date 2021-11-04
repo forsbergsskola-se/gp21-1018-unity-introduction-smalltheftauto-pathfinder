@@ -25,6 +25,7 @@ TagManager:
   - QuestMark
   - Car
   - WorldSpaceCanvas
+  - Ground
   layers:
   - Default
   - TransparentFX
@@ -33,7 +34,7 @@ TagManager:
   - Water
   - UI
   - Player
-  - 
+  - Ground
   - 
   - 
   - 
