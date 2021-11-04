@@ -21,6 +21,7 @@ public class PlayerInteractions : MonoBehaviour
         Ray newRay = new Ray(transform.position, transform.forward);
         RaycastHit hit;
         
+        Debug.DrawLine(transform.position, transform.forward * 10);
         int layerMask = 1 << 7;
     //    layerMask = ~layerMask;
 
@@ -29,6 +30,7 @@ public class PlayerInteractions : MonoBehaviour
         {
             if (hit.collider.CompareTag("Car"))
             {
+                Debug.Log(hit.collider.name);
                 if (Input.GetKeyDown(KeyCode.E))
                 {
                     EnterCar(hit.collider.gameObject);
