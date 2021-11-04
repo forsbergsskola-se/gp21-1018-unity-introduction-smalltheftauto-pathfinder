@@ -36,4 +36,20 @@ public class HealthUI : MonoBehaviour
         Color healthColor = Color.Lerp(Color.red, Color.green, (health / maxHealth));
         healthBar.color = healthColor;
     }
+
+    public void Damage(float damagePoint)
+    {
+        if(health> 0)
+        {
+            health -= damagePoint;
+        }
+    }
+
+    public void Heal(float healPoint)
+    {
+        if(health < maxHealth)
+        {
+            health += healPoint;
+        }
+    }
 }
