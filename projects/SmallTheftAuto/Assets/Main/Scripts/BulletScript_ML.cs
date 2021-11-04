@@ -10,7 +10,8 @@ public class BulletScript_ML : MonoBehaviour
     private bool fire = false;
     private Vector3 originalPos;
     private Vector3 originalForward;
- 
+
+ //   public ParticleSystem.Particle spark;
     
     public delegate void FireGunEvent(WeaponEquip weaponEquip);
     public static event FireGunEvent FireGun;

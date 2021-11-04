@@ -69,13 +69,18 @@ public class Vehicle : MonoBehaviour
             var vertical = Input.GetAxis("Vertical");
 
             float motorTorqueToApply;
-            float brakeTorqueToApply;
+            float brakeTorqueToApply = 0;
 
             if (vertical >= 0)
             {
                 motorTorqueToApply = vertical * motorTorque;
                 brakeTorqueToApply = 0;
             }
+            else if (vertical < 0)
+            {
+                motorTorqueToApply = vertical * motorTorque;
+            }
+            
             else
             {
                 motorTorqueToApply = 0;

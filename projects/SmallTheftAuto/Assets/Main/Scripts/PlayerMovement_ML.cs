@@ -25,18 +25,12 @@ public class PlayerMovement_ML : MonoBehaviour
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
     public float JumpHeight = 2f;
-
-
-
-
-
-
+    
     public delegate void CameraTrackingEvent(PlayerMoveState playerMoveState);
 
 
     public static event CameraTrackingEvent cameraTracking;
-
-
+    
     private void OnCameraTracking(PlayerMoveState playerMoveState)
     {
         if (cameraTracking != null)
