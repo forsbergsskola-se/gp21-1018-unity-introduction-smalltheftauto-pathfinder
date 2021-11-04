@@ -24,6 +24,7 @@ public class PlayerMovement_ML : MonoBehaviour
     public Transform groundCheck;
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
+    public float JumpHeight = 2f;
 
 
 
@@ -121,7 +122,10 @@ public class PlayerMovement_ML : MonoBehaviour
                 moveSpeed -= (acceleration * 1.5f) * Time.deltaTime;
             }
         }
-
+        if (Input.GetButtonDown("Jump") && isGrounded)
+        {
+            velocity.y = Mathf.Sqrt(JumpHeight * -2 * gravity);
+        }
         velocity.y += gravity * Time.deltaTime;
         
         controller.Move(move * moveSpeed * Time.deltaTime);
