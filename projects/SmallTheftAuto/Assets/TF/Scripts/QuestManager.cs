@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,7 +18,7 @@ public class QuestManager : MonoBehaviour
     {
         foreach(var quest in currentQuests)
         {
-            quest.In�tialize();
+            quest.Inýtialize();
             quest.questCompleted.AddListener(OnQuestCompleted);
             GameObject questObj = Instantiate(questPrefab, questContent);
             questObj.transform.Find("Icon").GetComponent<Image>().sprite = quest.Information.Icon;
