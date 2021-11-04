@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,7 +21,46 @@ public class Vehicle : MonoBehaviour
     [SerializeField] float steeringAngle = 45;
     
     public bool insideCar = false;
+    private bool canExit = false;
     
+
+    private GameObject storePlayer;
+    public delegate void CarExitEvent(GameObject thePLayer);
+    public static event CarExitEvent OnExitCar;
+    
+    private void Start()
+    {
+        
+    }
+
+    public void CarEnter()
+    {
+        storePlayer = GameObject.FindWithTag("ThePlayer");
+        storePlayer.SetActive(false);
+        insideCar = true;
+
+        StartCoroutine(DelayExit());
+    }
+
+    private void CarExit()
+    {
+        insideCar = false;
+        canExit = false;
+        storePlayer.transform.position = transform.position + transform.right * 3;
+    
+        storePlayer.SetActive(true);
+
+        if (OnExitCar != null)
+        {
+            OnExitCar(storePlayer);
+        }
+    }
+
+    private IEnumerator DelayExit()
+    {
+        yield return new WaitForSeconds(0.3f);
+        canExit = true;
+    }
     
     void Update()
     {
@@ -64,6 +104,11 @@ public class Vehicle : MonoBehaviour
                 {
                     wheel.collider.brakeTorque = brakeTorqueToApply;
                 }
+            }
+            
+            if (canExit && Input.GetKeyDown(KeyCode.E))
+            {
+                CarExit();
             }
         }
     }

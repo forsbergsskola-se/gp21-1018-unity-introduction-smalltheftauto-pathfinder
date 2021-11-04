@@ -18,10 +18,16 @@ public class PlayerSpawnerScript_ML : MonoBehaviour
         UIHealthbarScript_ML.OnPlayerDeath += DeathSpawn;
         SaveSystem.OnGatherSaveData += SendSaveDataToSaveSystem;
         SaveSystem.OnSendVector += ReceiveSaveData;
+        PlayerInteractions.OnEnterCar += EnterCar;
 
         SpawnerReady = true;
     }
 
+    private void EnterCar(GameObject theCar)
+    {
+        
+    }
+    
     private void SendSaveDataToSaveSystem()
     {
         SaveSystem.x = x;

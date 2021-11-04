@@ -78,7 +78,7 @@ public class Quest : ScriptableObject
 
     public List<QuestGoal> goals;
 
-    public void Inýtialize()
+    public void InÃ½tialize()
     {
         completed = false;
         questCompleted = new QuestCompletedEvent();

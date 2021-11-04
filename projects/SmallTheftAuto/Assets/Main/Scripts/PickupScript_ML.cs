@@ -18,7 +18,6 @@ public class PickupScript_ML : MonoBehaviour
     public static event PickupEventHandler PickupPicked;
     
     
-    
     protected virtual void OnPickupPicked(PickupTypes pickupType)
     {
         if (PickupPicked != null)

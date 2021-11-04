@@ -4,31 +4,41 @@ using UnityEngine;
 
 public class PlayerInteractions : MonoBehaviour
 {
-    private int layerMask = 0;
-    
-    void FixedUpdate()
+    public delegate void CarEnterEvent(GameObject carToEnter);
+    public static event CarEnterEvent OnEnterCar;
+
+
+    private void EnterCar(GameObject carToEnter)
     {
-        Debug.DrawRay(transform.position, transform.forward * 7, Color.yellow);
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.forward, out hit, 100, layerMask))
+        if (OnEnterCar != null)
         {
-                
+            OnEnterCar(carToEnter);
+        }
+    }
+    
+    void Update()
+    {
+        Ray newRay = new Ray(transform.position, transform.forward);
+        RaycastHit hit;
+        
+        int layerMask = 1 << 7;
+    //    layerMask = ~layerMask;
+
+
+        if (Physics.Raycast(newRay, out hit, 1))
+        {
             if (hit.collider.CompareTag("Car"))
             {
-                Debug.Log("Car hit");
+                Debug.Log(hit.collider.gameObject.name);
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    EnterCar(hit.collider.gameObject);
+
+                    hit.collider.gameObject.GetComponent<Vehicle>().CarEnter();
+                }
             }
             
-
-          
-        }
-        if(Input.GetKeyDown(KeyCode.E))
-        {
-            
         }
     }
-
-    private void EnterCar()
-    {
-        
-    }
+    
 }

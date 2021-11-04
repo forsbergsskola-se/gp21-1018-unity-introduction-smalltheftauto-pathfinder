@@ -8,6 +8,8 @@ public enum PlayerMoveState
     Moving
 }
 
+
+
 public enum CameraState
 {
     OnPlayer,
@@ -31,20 +33,36 @@ public class TopDownCameraMovement_ML : MonoBehaviour
 
     [SerializeField] private float speed = 20;
 
-    private GameObject thePlayer;
+    private GameObject followObject;
     private Camera theCamera;
     Quaternion bodyStartOrientation;
 
     private float playerStopCounter;
+
+    private float followDelay = 1; 
     
     void Start()
     {
         theCamera = GetComponentInChildren<Camera>();
         theCamera.orthographicSize = 2;
-        thePlayer = GameObject.FindWithTag("ThePlayer");
+        followObject = GameObject.FindWithTag("ThePlayer");
 
         UIHealthbarScript_ML.OnPlayerDeath += PlayerDies;
         PlayerMovement_ML.cameraTracking += PlayerMovement;
+        PlayerInteractions.OnEnterCar += EnterCar;
+        Vehicle.OnExitCar += ExitCar;
+    }
+
+    private void ExitCar(GameObject objectToFollow)
+    {
+        followDelay = 1;
+        followObject = objectToFollow;
+    }
+    
+    private void EnterCar(GameObject objectToFollow)
+    {
+        followDelay = 0.4f;
+        followObject = objectToFollow;
     }
 
     private void PlayerMovement(PlayerMoveState playerMoveState)
@@ -59,7 +77,7 @@ public class TopDownCameraMovement_ML : MonoBehaviour
 
     void Update()
     {
-        if (thePlayer)
+        if (followObject)
         {
             zoomLevel += Input.mouseScrollDelta.y * sensitivity;
             zoomLevel = Mathf.Clamp(zoomLevel, 1, 7);
@@ -79,16 +97,16 @@ public class TopDownCameraMovement_ML : MonoBehaviour
             else if (_cameraState == CameraState.SearchForPlayer)
             {
                 transform.position  = Vector3.Lerp(transform.position,
-                    thePlayer.transform.position + new Vector3(0, 200, 0), Time.deltaTime);
+                    followObject.transform.position + new Vector3(0, 200, 0), Time.deltaTime);
 
-                if (transform.position == thePlayer.transform.position + new Vector3(0, 200, 0))
+                if (transform.position == followObject.transform.position + new Vector3(0, 200, 0))
                 {
                     _cameraState = CameraState.OnPlayer;
                 }
             }
             else
             {
-                transform.position = thePlayer.transform.position + new Vector3(0, 200, 0);
+                transform.position = followObject.transform.position + new Vector3(0, 200, 0);
             }
         }
     }
@@ -96,7 +114,7 @@ public class TopDownCameraMovement_ML : MonoBehaviour
 
     private IEnumerator DelayMoveCamera()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(followDelay);
         _cameraState = CameraState.SearchForPlayer;
     }
 }
