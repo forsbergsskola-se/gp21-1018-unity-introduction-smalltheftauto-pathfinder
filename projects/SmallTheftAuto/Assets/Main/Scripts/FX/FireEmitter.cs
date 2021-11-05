@@ -14,6 +14,7 @@ public class FireEmitter : MonoBehaviour
     int partsPerFrame = 20;
     private GameObject DamageCausingVolume;
     public AnimationCurve fireCurve;
+    public GameObject painVolume;
     
     void Start()
     {
@@ -29,7 +30,9 @@ public class FireEmitter : MonoBehaviour
         
         //    SetEmit(new Vector3(0,0,0));
     }
-
+    
+    
+    
 
     public void SetEmit(Vector3 position, int numberParticles)
     {
@@ -64,6 +67,12 @@ public class FireEmitter : MonoBehaviour
 
     //new ParticleSystem.Burst(2.0f, 100),
     //new ParticleSystem.Burst(4.0f, 100)
+
+    private void CreatePainVolume(Vector3 position)
+    {
+        DamageCausingVolume = Instantiate(painVolume);
+        DamageCausingVolume.transform.position = position;
+    }
     
     private void SetBurst(Vector3 position,  bool isRandom)
     {
@@ -74,7 +83,7 @@ public class FireEmitter : MonoBehaviour
       {
           position += new Vector3(Randomize._random.Next(-2, 2), 0, Randomize._random.Next(-1, 1));
       }
-
+        CreatePainVolume(position);
     //  em.rateOverTime = 20.0f;
       ParticleSystem.MinMaxCurve aCurve = new ParticleSystem.MinMaxCurve();
       aCurve.curve = fireCurve;
@@ -94,6 +103,7 @@ public class FireEmitter : MonoBehaviour
         yield return new WaitForSeconds(30f);
         GetComponent<ParticleSystem>().Stop();
         GetComponentInChildren<ParticleSystem>().Stop();
+        Destroy(DamageCausingVolume);
         emitParticle = false;
         light.enabled = false;
     }

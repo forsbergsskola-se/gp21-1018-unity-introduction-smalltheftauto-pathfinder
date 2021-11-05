@@ -18,6 +18,8 @@ public class SaveSystem : MonoBehaviour
     public static int CurrentMoney;
     //Last spawn point location
     public static float x,y,z;
+
+    private bool saveReady = true;
     
     string _path = "Assets/SaveFiles/SaveFile.txt";
 
@@ -33,10 +35,21 @@ public class SaveSystem : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        GatherSaveData();
-        WriteToDoc();
+        if (saveReady)
+        {
+            GatherSaveData();
+            WriteToDoc();
+            saveReady = false;
+            StartCoroutine(DelaySave());
+        }
     }
 
+    IEnumerator DelaySave()
+    {
+        yield return new WaitForSeconds(3);
+        saveReady = true;
+    }
+    
     private void GatherSaveData()
     {
         if (OnGatherSaveData != null)

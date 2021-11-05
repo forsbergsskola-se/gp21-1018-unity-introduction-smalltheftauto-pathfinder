@@ -76,7 +76,7 @@ public class GameMenu : MonoBehaviour
    
     public void LoadLevel()
     {
-        SceneManager.LoadScene("MainScene");
+        SceneManager.LoadScene("MainScene_2");
     }
     
     private void ReadFromFile()

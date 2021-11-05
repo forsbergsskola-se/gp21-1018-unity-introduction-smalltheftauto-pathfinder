@@ -6,11 +6,11 @@ using UnityEngine;
 
 public class PainVolumeScript_ML : MonoBehaviour
 {
-    public delegate void PainVolumeEvent(float damagAmount);
+    public delegate void PainVolumeEvent(int damagAmount);
     public static event PainVolumeEvent PainEvent;
     private bool painReady = true;
 
-    private void OnPlayerPainEvent(float damageAmount)
+    private void OnPlayerPainEvent(int damageAmount)
     {
         if (PainEvent != null)
         {

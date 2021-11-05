@@ -7,7 +7,7 @@ public class HealthUI : MonoBehaviour
     public Text healthText;
     public Image healthBar;
 
-    float health, maxHealth = 100;
+    int health, maxHealth = 100;
     float lerpSpeed;
 
     public delegate void ThePlayerDiesEvent();
@@ -15,6 +15,16 @@ public class HealthUI : MonoBehaviour
     public static event ThePlayerDiesEvent OnThePlayerDies;
 
 
+    private void ReceiveSaveData(int amountHealth, DataType dataType)
+    {
+        if (dataType == DataType.Health)
+        {
+            health = amountHealth;
+        }
+    }
+
+    
+    
     private void PlayerDies()
     {
         if (OnThePlayerDies != null)
@@ -34,9 +44,16 @@ public class HealthUI : MonoBehaviour
     private void Start()
     {
         PainVolumeScript_ML.PainEvent += Damage;
+        SaveSystem.OnGatherSaveData += SendSaveData;
+        SaveSystem.OnSendSingleInt += ReceiveSaveData;
         health = maxHealth;
     }
 
+    private void SendSaveData()
+    {
+        SaveSystem.CurrentHeartHalves = health;
+    }
+    
     private void Update()
     {
         if (health > maxHealth)
@@ -60,7 +77,7 @@ public class HealthUI : MonoBehaviour
         healthBar.color = healthColor;
     }
 
-    public void Damage(float damagePoint)
+    public void Damage(int damagePoint)
     {
         if(health> 0)
         {
@@ -75,7 +92,7 @@ public class HealthUI : MonoBehaviour
 
   
     
-    public void Heal(float healPoint)
+    public void Heal(int healPoint)
     {
         if(health < maxHealth)
         {
