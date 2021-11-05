@@ -91,7 +91,8 @@ public class EnemyAI : MonoBehaviour
         agent.SetDestination(transform.position);
         transform.LookAt(player);
 
-
+        // need the attack function here
+        // I could not find which sceipt is responsible for attacks and shootings
 
 
         if (!alreadyAttacked)
