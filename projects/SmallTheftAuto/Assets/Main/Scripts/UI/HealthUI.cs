@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,8 +10,30 @@ public class HealthUI : MonoBehaviour
     float health, maxHealth = 100;
     float lerpSpeed;
 
+    public delegate void ThePlayerDiesEvent();
+
+    public static event ThePlayerDiesEvent OnThePlayerDies;
+
+
+    private void PlayerDies()
+    {
+        if (OnThePlayerDies != null)
+        {
+            OnThePlayerDies();
+        }
+
+        StartCoroutine(DelayFillHealth());
+    }
+
+    IEnumerator DelayFillHealth()
+    {
+        yield return new WaitForSeconds(3);
+        health = maxHealth;
+    }
+    
     private void Start()
     {
+        PainVolumeScript_ML.PainEvent += Damage;
         health = maxHealth;
     }
 
@@ -43,8 +66,15 @@ public class HealthUI : MonoBehaviour
         {
             health -= damagePoint;
         }
+
+        if (health == 0)
+        {
+            PlayerDies();
+        }
     }
 
+  
+    
     public void Heal(float healPoint)
     {
         if(health < maxHealth)

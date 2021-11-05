@@ -12,6 +12,7 @@ public class FireEmitter : MonoBehaviour
     private Vector3 emitLocation;
     public Light light;
     int partsPerFrame = 20;
+    private GameObject DamageCausingVolume;
     public AnimationCurve fireCurve;
     
     void Start()

@@ -9,7 +9,7 @@ public class PlayerMessageScript_ML : MonoBehaviour
   
     void Start()
     {
-        UIHealthbarScript_ML.OnPlayerDeath += DisplayDeathMessage;
+        HealthUI.OnThePlayerDies += DisplayDeathMessage;
         SaveSystem.OnGatherSaveData += DisplaySaveMessage;
     }
 

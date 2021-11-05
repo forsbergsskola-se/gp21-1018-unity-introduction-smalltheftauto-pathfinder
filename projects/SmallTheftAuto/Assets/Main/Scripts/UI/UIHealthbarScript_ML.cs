@@ -176,7 +176,7 @@ public class UIHealthbarScript_ML : MonoBehaviour
         }
     }
     
-    private void DecrementHeart()
+    private void DecrementHeart(float damageAmount)
     {
         for (int i = 9; i >= 0; i--)
         {
@@ -216,7 +216,7 @@ public class UIHealthbarScript_ML : MonoBehaviour
             }
             else
             {
-                DecrementHeart();     
+                DecrementHeart(2);     
             }
         }
         

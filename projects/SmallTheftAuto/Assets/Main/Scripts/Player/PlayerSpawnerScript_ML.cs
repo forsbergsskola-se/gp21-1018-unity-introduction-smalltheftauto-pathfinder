@@ -15,7 +15,7 @@ public class PlayerSpawnerScript_ML : MonoBehaviour
     
     public void Start()
     {
-        UIHealthbarScript_ML.OnPlayerDeath += DeathSpawn;
+        HealthUI.OnThePlayerDies += DeathSpawn;
         SaveSystem.OnGatherSaveData += SendSaveDataToSaveSystem;
         SaveSystem.OnSendVector += ReceiveSaveData;
 
@@ -31,7 +31,7 @@ public class PlayerSpawnerScript_ML : MonoBehaviour
 
     private void ReceiveSaveData(Vector3 spawnPoint)
     {
-        thePlayerObject = GameObject.Find("Player");
+        thePlayerObject = GameObject.FindWithTag("ThePlayer");
         thePlayerObject.SetActive(false);
         thePlayerObject.transform.position = spawnPoint;
         thePlayerObject.SetActive(true);
@@ -59,7 +59,7 @@ public class PlayerSpawnerScript_ML : MonoBehaviour
     
     private void DeathSpawn()
     {
-       thePlayerObject = GameObject.Find("Player");
+       thePlayerObject = GameObject.FindWithTag("ThePlayer");
        thePlayerObject.SetActive(false);
        newSpawnPosition = FindClosestSpawnPoint(thePlayerObject.transform.position, "SpawnPoint");
        x = newSpawnPosition.x;

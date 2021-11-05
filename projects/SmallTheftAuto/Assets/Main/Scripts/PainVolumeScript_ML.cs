@@ -6,15 +6,15 @@ using UnityEngine;
 
 public class PainVolumeScript_ML : MonoBehaviour
 {
-    public delegate void PainVolumeEvent();
+    public delegate void PainVolumeEvent(float damagAmount);
     public static event PainVolumeEvent PainEvent;
     private bool painReady = true;
 
-    private void OnPlayerPainEvent()
+    private void OnPlayerPainEvent(float damageAmount)
     {
         if (PainEvent != null)
         {
-            PainEvent();
+            PainEvent(damageAmount);
         }
     }
     
@@ -25,7 +25,7 @@ public class PainVolumeScript_ML : MonoBehaviour
         {
             if (painReady)
             {
-                OnPlayerPainEvent();
+                OnPlayerPainEvent(1);
                 painReady = false;
                 StartCoroutine(DelayPain());
             }
