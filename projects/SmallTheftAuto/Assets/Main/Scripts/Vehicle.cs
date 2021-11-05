@@ -28,6 +28,10 @@ public class Vehicle : MonoBehaviour
     public delegate void CarExitEvent(GameObject thePLayer);
     public static event CarExitEvent OnExitCar;
     
+    
+    public delegate void CarSpeedEvent(float theSpeed);
+    public static event CarSpeedEvent OnCarSpeeding;
+    
     private void Start()
     {
         
@@ -46,7 +50,7 @@ public class Vehicle : MonoBehaviour
     {
         insideCar = false;
         canExit = false;
-        storePlayer.transform.position = transform.position + transform.right * 3;
+        storePlayer.transform.position = transform.position + transform.right * 2;
     
         storePlayer.SetActive(true);
 
@@ -67,16 +71,25 @@ public class Vehicle : MonoBehaviour
         if (insideCar)
         {
             var vertical = Input.GetAxis("Vertical");
-
+            
             float motorTorqueToApply = 0;
             float brakeTorqueToApply = 0;
-
+            
+            if (vertical > 0 || vertical < 0)
+            {
+                if (OnCarSpeeding != null)
+                {
+                    OnCarSpeeding(vertical);
+                }
+            }
+            
             if (vertical >= 0)
             {
                 motorTorqueToApply = vertical * motorTorque;
                 brakeTorqueToApply = 0;
+               
             }
-            
+ 
             else if (vertical < 0 )
             {
                 if (Input.GetKey(KeyCode.LeftShift))

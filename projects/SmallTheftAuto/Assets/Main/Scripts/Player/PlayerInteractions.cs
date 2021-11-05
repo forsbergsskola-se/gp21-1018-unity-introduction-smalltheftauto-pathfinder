@@ -30,7 +30,6 @@ public class PlayerInteractions : MonoBehaviour
         {
             if (hit.collider.CompareTag("Car"))
             {
-                Debug.Log(hit.collider.name);
                 if (Input.GetKeyDown(KeyCode.E))
                 {
                     EnterCar(hit.collider.gameObject);

@@ -27,6 +27,7 @@ TagManager:
   - WorldSpaceCanvas
   - Ground
   - InteractSphere
+  - Fire
   layers:
   - Default
   - TransparentFX

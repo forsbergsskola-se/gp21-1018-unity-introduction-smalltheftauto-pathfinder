@@ -18,7 +18,7 @@ public class AdjustCenterOfMass : MonoBehaviour
         Gizmos.color = Color.green;
 
         var currentCenterOfMass =
-            this.GetComponent<Rigidbody>().worldCenterOfMass;
+            GetComponent<Rigidbody>().worldCenterOfMass;
 
         Gizmos.DrawSphere(currentCenterOfMass + centerOfMass, 0.125f);
     }
