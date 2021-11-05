@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class EnemyAI : MonoBehaviour
 {
     public float health;
+    Animator animator;
 
     public NavMeshAgent agent;
     public Transform player;
@@ -30,7 +31,7 @@ public class EnemyAI : MonoBehaviour
     {
         player = GameObject.Find("Player_New").transform;
         agent = GetComponent<NavMeshAgent>();
-
+        animator = GetComponent<Animator>();
     }
 
     private void Update()
@@ -41,6 +42,7 @@ public class EnemyAI : MonoBehaviour
         if(!playerInSightRange && !PlayerInAttackRange)
         {
             Patroling();
+            
         }
         if(playerInSightRange && !PlayerInAttackRange)
         {
@@ -54,6 +56,9 @@ public class EnemyAI : MonoBehaviour
 
     private void Patroling()
     {
+        animator.SetBool("Patrol", true);
+        animator.SetBool("Chase", false);
+        animator.SetBool("Attack", false);
         if (!walkPointSet)
         {
             SearchWalkPoint();
@@ -84,12 +89,18 @@ public class EnemyAI : MonoBehaviour
     private void ChasePlayer()
     {
         agent.SetDestination(player.position);
+        animator.SetBool("Patrol", false);
+        animator.SetBool("Chase", true);
+        animator.SetBool("Attack", false);
     }
 
     private void AttackPlayer()
     {
+        animator.SetBool("Patrol", false);
+        animator.SetBool("Chase", false);
+        animator.SetBool("Attack", true);
         agent.SetDestination(transform.position);
-        transform.LookAt(player);
+        transform.LookAt(player.position);
 
         // need the attack function here
         // I could not find which sceipt is responsible for attacks and shootings
@@ -104,7 +115,11 @@ public class EnemyAI : MonoBehaviour
 
     private void ResetAttack()
     {
+        animator.SetBool("Attack", false);
+        animator.SetBool("Patrol", false);
+        animator.SetBool("Chase", false);
         alreadyAttacked = false;
+       
     }
 
     public void TakeDamage(int damage)
