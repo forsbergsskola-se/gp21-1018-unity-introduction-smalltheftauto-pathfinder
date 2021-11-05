@@ -109,7 +109,7 @@ public class PlayerMovement_ML : MonoBehaviour
         else
         {
             OnCameraTracking(PlayerMoveState.Stopped);
-            animator.SetFloat("Walk", 0f);
+            animator.SetFloat("walk", 0f);
         }
 
         Vector3 move = (transform.right * 0) + (transform.forward * z);
