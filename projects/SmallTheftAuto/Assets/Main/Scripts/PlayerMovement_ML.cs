@@ -28,7 +28,10 @@ public class PlayerMovement_ML : MonoBehaviour
 
     public float JumpHeight = 2f;
     
+    public delegate void PlayerMovementEvent(PlayerMoveState playerMoveState);
 
+
+    public static event PlayerMovementEvent playerMovement;
 
 
     public delegate void CameraTrackingEvent(PlayerMoveState playerMoveState);

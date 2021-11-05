@@ -68,7 +68,7 @@ public class Vehicle : MonoBehaviour
         {
             var vertical = Input.GetAxis("Vertical");
 
-            float motorTorqueToApply;
+            float motorTorqueToApply = 0;
             float brakeTorqueToApply = 0;
 
             if (vertical >= 0)
@@ -76,16 +76,20 @@ public class Vehicle : MonoBehaviour
                 motorTorqueToApply = vertical * motorTorque;
                 brakeTorqueToApply = 0;
             }
-            else if (vertical < 0)
+            
+            else if (vertical < 0 )
             {
-                motorTorqueToApply = vertical * motorTorque;
+                if (Input.GetKey(KeyCode.LeftShift))
+                {
+                    motorTorqueToApply = vertical * motorTorque;
+                }
+                else
+                {
+                    motorTorqueToApply = 0;
+                    brakeTorqueToApply = Mathf.Abs(vertical) * brakeTorque;
+                }
             }
             
-            else
-            {
-                motorTorqueToApply = 0;
-                brakeTorqueToApply = Mathf.Abs(vertical) * brakeTorque;
-            }
 
             var currentSteeringAngle =
                 Input.GetAxis("Horizontal") * steeringAngle;

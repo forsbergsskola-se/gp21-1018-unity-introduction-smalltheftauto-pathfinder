@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -35,6 +36,7 @@ public class TopDownCameraMovement_ML : MonoBehaviour
     [SerializeField] private float speed = 20;
 
     private GameObject followObject;
+    private GameObject interactSphere;
     private Camera theCamera;
     Quaternion bodyStartOrientation;
 
@@ -43,11 +45,16 @@ public class TopDownCameraMovement_ML : MonoBehaviour
     private float followDelay = 1; 
     
     void Start()
-    {
-        theCamera = GetComponentInChildren<Camera>();
-   //     theCamera.orthographicSize = 2;
+    { 
+        interactSphere = GameObject.FindWithTag("InteractSphere");
+        distancePlayer = transform.position.y;
+       theCamera = GetComponentInChildren<Camera>();
+       //     theCamera.orthographicSize = 2;
         followObject = GameObject.FindWithTag("ThePlayer");
         y = distancePlayer;
+        x = followObject.transform.position.x;
+        z = followObject.transform.position.z;
+        cameraPos.Set(x,y, z);  
         
         UIHealthbarScript_ML.OnPlayerDeath += PlayerDies;
         PlayerMovement_ML.cameraTracking += PlayerMovement;
@@ -77,47 +84,51 @@ public class TopDownCameraMovement_ML : MonoBehaviour
      //   Destroy(gameObject);
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (followObject)
         {
         //    zoomLevel += Input.mouseScrollDelta.y * sensitivity;
         //    zoomLevel = Mathf.Clamp(zoomLevel, 1, 7);
         //    theCamera.orthographicSize = zoomLevel;
-            x = followObject.transform.position.x;
-            z = followObject.transform.position.z;
-            cameraPos.Set(x,y, z);    
+                Vector3 adjustPlayerPos = followObject.transform.position;
+                var offset = new Vector3(adjustPlayerPos.x, distancePlayer, adjustPlayerPos.z);
+
+                Debug.Log(transform.position.y);
+               //     transform.position = offset;
+
+            /**/        
+                    if (_playerMoveState == PlayerMoveState.Stopped)
+                    {
+                        playerStopCounter += Time.deltaTime + 1;
         
-            if (_playerMoveState == PlayerMoveState.Stopped)
-            {
-                Debug.Log("Player stopped");
-                playerStopCounter += Time.deltaTime + 1;
-            }
-            
-
-            if (_playerMoveState == PlayerMoveState.Moving && playerStopCounter > 3)
-            {
-                playerStopCounter = 0;
-                StartCoroutine(DelayMoveCamera());
-            }
-
-
-            else if (_cameraState == CameraState.SearchForPlayer)
-            {
-                transform.position  = Vector3.Lerp(transform.position,
-                    followObject.transform.position + new Vector3(0, distancePlayer, 0), Time.deltaTime);
-
-                if (transform.position == followObject.transform.position + new Vector3(0, distancePlayer, 0))
-                {
-                    _cameraState = CameraState.OnPlayer;
-                }
-            }
-
-            else
-            {
-                transform.position = cameraPos;
-            }
-           
+                        if (_cameraState == CameraState.OnPlayer)
+                        {
+                            transform.position = offset;
+                        }
+                    }
+                    
+                    if (_playerMoveState == PlayerMoveState.Moving && playerStopCounter > 3)
+                    {
+                        playerStopCounter = 0;
+                        StartCoroutine(DelayMoveCamera());
+                    }
+                    
+                    else if (_cameraState == CameraState.SearchForPlayer)
+                    {
+                        transform.position = Vector3.Lerp(transform.position, offset, Time.deltaTime);
+                       
+                        if (transform.position == adjustPlayerPos)
+                        {
+                            _cameraState = CameraState.OnPlayer;
+                        }
+                    }
+        
+                    else
+                    {
+                        transform.position = offset;
+                    }
+               /**/
         }
     }
     

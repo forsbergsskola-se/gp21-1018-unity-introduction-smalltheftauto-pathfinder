@@ -21,7 +21,7 @@ public class PlayerInteractions : MonoBehaviour
         Ray newRay = new Ray(transform.position, transform.forward);
         RaycastHit hit;
         
-        Debug.DrawLine(transform.position, transform.forward * 10);
+        Debug.DrawLine(transform.position, transform.forward * 1);
         int layerMask = 1 << 7;
     //    layerMask = ~layerMask;
 

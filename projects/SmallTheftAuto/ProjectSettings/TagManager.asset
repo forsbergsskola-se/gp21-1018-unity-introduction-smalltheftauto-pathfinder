@@ -26,6 +26,7 @@ TagManager:
   - Car
   - WorldSpaceCanvas
   - Ground
+  - InteractSphere
   layers:
   - Default
   - TransparentFX
