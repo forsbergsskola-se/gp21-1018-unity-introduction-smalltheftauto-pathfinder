@@ -36,7 +36,7 @@ public class ParticleEmmiter : MonoBehaviour
 
     private IEnumerator StopEmit()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(30f);
         GetComponent<ParticleSystem>().Stop();
         emitParticle = false;
     }

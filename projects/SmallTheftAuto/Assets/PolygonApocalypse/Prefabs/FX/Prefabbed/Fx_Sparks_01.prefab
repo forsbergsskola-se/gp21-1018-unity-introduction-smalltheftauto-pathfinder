@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 198862153969099638}
   - component: {fileID: 199840712301308098}
   - component: {fileID: 868836571976965342}
+  - component: {fileID: 4198489985337027245}
   m_Layer: 0
   m_Name: Fx_Sparks_01
   m_TagString: Untagged
@@ -4762,3 +4763,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   particlePrefab: {fileID: 0}
   theParticle: {fileID: 0}
+  emitParticle: 0
+--- !u!114 &4198489985337027245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1406593679585224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 768d1da7a583ec4478a0be829004cad4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particlePrefab: {fileID: 0}
+  theParticle: {fileID: 0}
+  emitParticle: 0

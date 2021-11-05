@@ -29,7 +29,6 @@ public class TopDownCameraMovement_ML : MonoBehaviour
     private float turnSpeed = 20;
     public float zoomPosition;
     private Vector3 cameraPos;
-    private float x, y, z; 
     public float sensitivity=1;
     public float maxZoom=30;
 
@@ -51,11 +50,7 @@ public class TopDownCameraMovement_ML : MonoBehaviour
        theCamera = GetComponentInChildren<Camera>();
        //     theCamera.orthographicSize = 2;
         followObject = GameObject.FindWithTag("ThePlayer");
-        y = distancePlayer;
-        x = followObject.transform.position.x;
-        z = followObject.transform.position.z;
-        cameraPos.Set(x,y, z);  
-        
+  
         UIHealthbarScript_ML.OnPlayerDeath += PlayerDies;
         PlayerMovement_ML.cameraTracking += PlayerMovement;
         PlayerInteractions.OnEnterCar += EnterCar;
@@ -91,44 +86,38 @@ public class TopDownCameraMovement_ML : MonoBehaviour
         //    zoomLevel += Input.mouseScrollDelta.y * sensitivity;
         //    zoomLevel = Mathf.Clamp(zoomLevel, 1, 7);
         //    theCamera.orthographicSize = zoomLevel;
-                Vector3 adjustPlayerPos = followObject.transform.position;
-                var offset = new Vector3(adjustPlayerPos.x, distancePlayer, adjustPlayerPos.z);
+            Vector3 adjustPlayerPos = followObject.transform.position;
+            var offset = new Vector3(adjustPlayerPos.x, distancePlayer, adjustPlayerPos.z);
+     
+            if (_playerMoveState == PlayerMoveState.Stopped)
+            {
+                playerStopCounter += Time.deltaTime + 1;
 
-                Debug.Log(transform.position.y);
-               //     transform.position = offset;
-
-            /**/        
-                    if (_playerMoveState == PlayerMoveState.Stopped)
-                    {
-                        playerStopCounter += Time.deltaTime + 1;
-        
-                        if (_cameraState == CameraState.OnPlayer)
-                        {
-                            transform.position = offset;
-                        }
-                    }
-                    
-                    if (_playerMoveState == PlayerMoveState.Moving && playerStopCounter > 3)
-                    {
-                        playerStopCounter = 0;
-                        StartCoroutine(DelayMoveCamera());
-                    }
-                    
-                    else if (_cameraState == CameraState.SearchForPlayer)
-                    {
-                        transform.position = Vector3.Lerp(transform.position, offset, Time.deltaTime);
-                       
-                        if (transform.position == adjustPlayerPos)
-                        {
-                            _cameraState = CameraState.OnPlayer;
-                        }
-                    }
-        
-                    else
-                    {
-                        transform.position = offset;
-                    }
-               /**/
+                if (_cameraState == CameraState.OnPlayer)
+                {
+                    transform.position = offset;
+                }
+            }
+            
+            if (_playerMoveState == PlayerMoveState.Moving && playerStopCounter > 3)
+            {
+                playerStopCounter = 0;
+                StartCoroutine(DelayMoveCamera());
+            }
+            
+            else if (_cameraState == CameraState.SearchForPlayer)
+            {
+                transform.position = Vector3.Lerp(transform.position, offset, Time.deltaTime);
+               
+                if (transform.position == adjustPlayerPos)
+                {
+                    _cameraState = CameraState.OnPlayer;
+                }
+            }
+            else
+            {
+                transform.position = offset;
+            }
         }
     }
     
