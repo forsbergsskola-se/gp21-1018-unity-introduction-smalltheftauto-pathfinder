@@ -26,9 +26,15 @@ public class QuestManager_TF : MonoBehaviour
         money.text = quest.moneyReward.ToString();
     }
 
+    public void CancelQuestOanel()
+    {
+        questPanel.SetActive(false);
+        questDetailPanel.SetActive(false);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("ThePlayer"))
         {
             questPanel.SetActive(true);
             this.gameObject.SetActive(false);
