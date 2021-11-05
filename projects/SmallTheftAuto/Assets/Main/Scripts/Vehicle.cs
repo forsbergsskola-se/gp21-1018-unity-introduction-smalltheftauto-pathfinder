@@ -22,12 +22,22 @@ public class Vehicle : MonoBehaviour
     private CarState _carState;
     public bool insideCar = false;
     private bool canExit = false;
-    
+
+    public delegate void CarPainEvent(int painAmount);
+    public static event CarPainEvent OnPainEvent;
 
     private GameObject storePlayer;
     public delegate void CarExitEvent(GameObject thePLayer);
     public static event CarExitEvent OnExitCar;
-    
+
+
+    private void PainEvent(int painAmount)
+    {
+        if (OnPainEvent != null)
+        {
+            OnPainEvent(painAmount);
+        }
+    }
     
     public delegate void CarSpeedEvent(float theSpeed);
     public static event CarSpeedEvent OnCarSpeeding;
@@ -139,6 +149,27 @@ public class Vehicle : MonoBehaviour
                         wheel.collider.brakeTorque = brakeTorqueToApply;
                     }
                 }
+            }
+            
+            else if (_carState == CarState.Broken)
+            {
+                for (int wheelNum = 0; wheelNum < wheels.Length; wheelNum++)
+                {
+
+                    var wheel = wheels[wheelNum];
+
+                    if (wheel.powered)
+                    {
+                        wheel.collider.motorTorque = 0;
+                    }
+
+                    if (wheel.hasBrakes)
+                    {
+                        wheel.collider.brakeTorque = 1;
+                    }
+                }
+                
+                PainEvent(1);
             }
         }
     }

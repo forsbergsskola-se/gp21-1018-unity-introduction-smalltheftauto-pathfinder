@@ -13,7 +13,7 @@ public enum CarState
 
 public class CarDamageScript : MonoBehaviour
 {
-    private float CarHealth = 5;
+    private float CarHealth = 100;
     private float currentSpeed = 0;
     private GameObject fireEmitter;
     private BoxCollider collider;

@@ -43,12 +43,26 @@ public class HealthUI : MonoBehaviour
     
     private void Start()
     {
+        PickupScript_ML.PickupPicked += HealPlayer;
         PainVolumeScript_ML.PainEvent += Damage;
         SaveSystem.OnGatherSaveData += SendSaveData;
         SaveSystem.OnSendSingleInt += ReceiveSaveData;
+        Vehicle.OnPainEvent += Damage;
         health = maxHealth;
     }
 
+    private void HealPlayer(PickupTypes pickupTypes)
+    {
+        if (pickupTypes == PickupTypes.Health)
+        {
+            health += 30;
+            if (health > maxHealth)
+            {
+                health = maxHealth;
+            }
+        }
+    }
+    
     private void SendSaveData()
     {
         SaveSystem.CurrentHeartHalves = health;
