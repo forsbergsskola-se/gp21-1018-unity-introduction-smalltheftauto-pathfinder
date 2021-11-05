@@ -8,8 +8,9 @@ public class QuestManager_TF : MonoBehaviour
 
     public Quest_TF quest;
     public Player_TF player;
-    public GameObject questPanel;
+    //public GameObject questPanel;
     public GameObject questDetailPanel;
+    public GameObject FXPrefab;
     public Text title;
     public Text description;
     public Text exp;
@@ -18,7 +19,7 @@ public class QuestManager_TF : MonoBehaviour
 
     public void OpenQuestPanel()
     {
-        questPanel.SetActive(false);
+       // questPanel.SetActive(false);
         questDetailPanel.SetActive(true);
         title.text = quest.title;
         description.text = quest.description;
@@ -28,7 +29,7 @@ public class QuestManager_TF : MonoBehaviour
 
     public void CancelQuestOanel()
     {
-        questPanel.SetActive(false);
+        //questPanel.SetActive(false);
         questDetailPanel.SetActive(false);
     }
 
@@ -36,7 +37,8 @@ public class QuestManager_TF : MonoBehaviour
     {
         if (other.CompareTag("ThePlayer"))
         {
-            questPanel.SetActive(true);
+            questDetailPanel.SetActive(true);
+            OpenQuestPanel();
             this.gameObject.SetActive(false);
         }
     }
@@ -47,6 +49,7 @@ public class QuestManager_TF : MonoBehaviour
         questDetailPanel.SetActive(false);
         quest.isActive = true;
         player.quest = quest;
+        FXPrefab.SetActive(false);
     }
 
 
