@@ -28,6 +28,12 @@ TagManager:
   - Ground
   - InteractSphere
   - Fire
+  - TTarget
+  - TTarget(1)
+  - PTargetA
+  - PTargetB
+  - PTargetC
+  - PTargetD
   layers:
   - Default
   - TransparentFX
