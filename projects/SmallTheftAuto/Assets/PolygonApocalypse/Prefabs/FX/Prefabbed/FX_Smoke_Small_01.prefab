@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4630631669264762}
   - component: {fileID: 198224742792077392}
   - component: {fileID: 199803518835287380}
-  - component: {fileID: 6607316735713769867}
+  - component: {fileID: 8409184982590534762}
   m_Layer: 0
   m_Name: FX_Smoke_Small_01
   m_TagString: Untagged
@@ -4676,7 +4676,7 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &6607316735713769867
+--- !u!114 &8409184982590534762
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4685,9 +4685,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 1543371530694626}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 768d1da7a583ec4478a0be829004cad4, type: 3}
+  m_Script: {fileID: 11500000, guid: f0f096f69e46b0c4197791ea4f51d70c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  particlePrefab: {fileID: 0}
-  theParticle: {fileID: 0}
-  emitParticle: 0

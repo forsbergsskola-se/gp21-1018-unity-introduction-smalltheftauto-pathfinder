@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class FireEmitter : MonoBehaviour
@@ -10,43 +11,89 @@ public class FireEmitter : MonoBehaviour
     public bool emitParticle = false;
     private Vector3 emitLocation;
     public Light light;
-    
+    int partsPerFrame = 20;
+    public AnimationCurve fireCurve;
     
     void Start()
     {
-        GetComponent<ParticleSystem>().Stop();
-        GetComponentInChildren<ParticleSystem>().Stop();
+        ParticleSystem.MinMaxCurve curve = new ParticleSystem.MinMaxCurve();
 
-        light.enabled = false;
+        light.enabled = false;  
+        CarDamageScript.OnParticleEmitt += SetBurst;
+        theParticle = GetComponent<ParticleSystem>();
+    //    GetComponent<ParticleSystem>().Stop();
+    //    GetComponentInChildren<ParticleSystem>().Stop();
+
+    //    light.enabled = false;
         
         //    SetEmit(new Vector3(0,0,0));
     }
 
 
-    public void SetEmit(Vector3 position)
+    public void SetEmit(Vector3 position, int numberParticles)
     {
+        theParticle.Emit(numberParticles);
         emitLocation = position;
         emitParticle = true;
-        GetComponent<ParticleSystem>().Play();
-        GetComponentInChildren<ParticleSystem>().Play();
-        light.enabled = true;
-        GetComponent<ParticleSystem>().transform.position = position;
+    //    theParticle.Play(true);
+    //    light.enabled = true;
+        theParticle.transform.position = position;
     }
+    
+  
     
     void Update()
     {
         if (emitParticle)
         {
-            GetComponent<ParticleSystem>().Play();
-            GetComponent<ParticleSystem>().Emit(1);
-            StartCoroutine(StopEmit());
+            
+        //    theParticle.Emit(100);
+            
+            
+        //    ParticleSystem.Particle[] particles_original = new ParticleSystem.Particle[theParticle.particleCount];
+        //    theParticle.GetParticles (particles_original);
+            
+        //    ParticleSystem.Particle[] particles_new = new ParticleSystem.Particle[partsPerFrame];
+        //    Vector3 spawnPos;
+            
+
+           StartCoroutine(StopEmit());
         }
     }
 
+    //new ParticleSystem.Burst(2.0f, 100),
+    //new ParticleSystem.Burst(4.0f, 100)
+    
+    private void SetBurst(Vector3 position,  bool isRandom)
+    {
+      var em = theParticle.emission;
+      em.enabled = true;
+
+      if (isRandom)
+      {
+          position += new Vector3(Randomize._random.Next(-2, 2), 0, Randomize._random.Next(-1, 1));
+      }
+
+    //  em.rateOverTime = 20.0f;
+      ParticleSystem.MinMaxCurve aCurve = new ParticleSystem.MinMaxCurve();
+      aCurve.curve = fireCurve;
+      em.rateOverTime = new ParticleSystem.MinMaxCurve(50.0f, fireCurve);
+      em.SetBursts(
+          new ParticleSystem.Burst[]{
+              new ParticleSystem.Burst(5, aCurve , 1, 0.001f),
+          });
+      theParticle.transform.position = position;
+      theParticle.Play();
+
+      StartCoroutine(StopEmit());
+    }
+    
     private IEnumerator StopEmit()
     {
         yield return new WaitForSeconds(30f);
         GetComponent<ParticleSystem>().Stop();
+        GetComponentInChildren<ParticleSystem>().Stop();
         emitParticle = false;
+        light.enabled = false;
     }
 }
