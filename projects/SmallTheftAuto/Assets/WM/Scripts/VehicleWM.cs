@@ -44,7 +44,7 @@ public class VehicleWM : MonoBehaviour
     {
         return Vector3.Distance(
             this.player.transform.position,
-            this.transform.position) < 1;
+            this.transform.position) < 2;
     }
 
     public void EnterCar()
