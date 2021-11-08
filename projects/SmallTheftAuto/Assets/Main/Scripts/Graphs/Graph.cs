@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class Graph
 {
+	// seems incredibly complex, was this authentically written? 
+	
 	List<Edge>	edges = new List<Edge>();
 	List<Node>	nodes = new List<Node>();
 	List<Node> pathList = new List<Node>();   

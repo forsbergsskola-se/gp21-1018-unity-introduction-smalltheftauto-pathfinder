@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TrafficProducer_WM : MonoBehaviour
 {
+    // why do you have this script twice? should be tidied up
+    
     public bool shouldSpawn;
     public Traffic_WM[] trafficPrefabs;
     public float[] moveSpeedRange;

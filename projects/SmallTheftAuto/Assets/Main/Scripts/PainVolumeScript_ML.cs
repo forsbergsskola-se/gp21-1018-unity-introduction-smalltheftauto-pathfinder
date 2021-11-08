@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class PainVolumeScript_ML : MonoBehaviour
 {
+    
+    // why damagAmount and damageAmount? Seems redundant
     public delegate void PainVolumeEvent(int damagAmount);
     public static event PainVolumeEvent PainEvent;
     private bool painReady = true;

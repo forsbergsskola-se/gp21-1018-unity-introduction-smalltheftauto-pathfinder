@@ -24,6 +24,7 @@ public class TopDownCameraMovement_ML : MonoBehaviour
     private PlayerMoveState _playerMoveState;
     private static float  zoomLevel = 10;
     private float distancePlayer = 20f;
+    // lots of variables included here that aren't used. 
     float yaw = 0f;
     float pitch = 0f;
     private float turnSpeed = 20;
@@ -36,6 +37,7 @@ public class TopDownCameraMovement_ML : MonoBehaviour
 
     private GameObject followObject;
     private GameObject interactSphere;
+    // there should be no reason to have theCamera and ThePlayer tags, just use camera and player
     private Camera theCamera;
     Quaternion bodyStartOrientation;
 
@@ -45,6 +47,7 @@ public class TopDownCameraMovement_ML : MonoBehaviour
     
     void Start()
     { 
+        // what is an InteractSphere? Can use a better name?
         interactSphere = GameObject.FindWithTag("InteractSphere");
         distancePlayer = transform.position.y;
        theCamera = GetComponentInChildren<Camera>();
@@ -74,6 +77,7 @@ public class TopDownCameraMovement_ML : MonoBehaviour
         _playerMoveState = playerMoveState;
     }
     
+    // empty method?
     private void PlayerDies()
     {
      //   Destroy(gameObject);

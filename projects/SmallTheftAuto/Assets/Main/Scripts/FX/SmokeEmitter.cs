@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SmokeEmitter : MonoBehaviour
 {
+    //no need for this 
+    
     // Start is called before the first frame update
     void Start()
     {

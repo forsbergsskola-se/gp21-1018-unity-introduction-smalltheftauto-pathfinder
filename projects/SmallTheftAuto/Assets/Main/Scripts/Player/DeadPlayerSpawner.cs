@@ -14,6 +14,8 @@ public class DeadPlayerSpawner : MonoBehaviour
 
     private void PlayerDeath()
     {
+        // this script is more comments than code. seems like it could be integrated to another script.
+        
         /*
         GameObject holdCharacter = Instantiate(DeadCharacter);
         holdCharacter.transform.position = transform.position;

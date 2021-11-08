@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PedestrianProducerD : MonoBehaviour
 {
+    // having 4 scripts for pedestrian producer and pedestrian seems unideal and should be avoided.
+    
     public bool shouldSpawn;
     public PedestrianD[] trafficPrefabs;
     public float[] moveSpeedRange;

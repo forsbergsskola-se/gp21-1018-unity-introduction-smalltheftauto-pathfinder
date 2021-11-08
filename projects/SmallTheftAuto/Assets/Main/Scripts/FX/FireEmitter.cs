@@ -74,6 +74,8 @@ public class FireEmitter : MonoBehaviour
         DamageCausingVolume.transform.position = position;
     }
     
+    // is it necessary to have coded all this as opposed to working with the particle object in the editor?
+    
     private void SetBurst(Vector3 position,  bool isRandom)
     {
       var em = theParticle.emission;
