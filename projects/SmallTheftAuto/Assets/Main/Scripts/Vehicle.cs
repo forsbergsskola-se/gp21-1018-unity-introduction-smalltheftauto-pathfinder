@@ -49,6 +49,7 @@ public class Vehicle : MonoBehaviour
 
     private void CarDestroyed()
     {
+        // should avoid using underscores like the rider default suggestions as it leads to unclear code
         _carState = CarState.Broken;
     }
     
@@ -94,6 +95,7 @@ public class Vehicle : MonoBehaviour
             {
                 var vertical = Input.GetAxis("Vertical");
 
+                // torque seems very overkill for a project like this
                 float motorTorqueToApply = 0;
                 float brakeTorqueToApply = 0;
 

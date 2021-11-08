@@ -5,6 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class AdjustCenterOfMass : MonoBehaviour
 {
+    // do you need a script for this?
+    
     [SerializeField] Vector3 centerOfMass = Vector3.zero;
 
     void Start()

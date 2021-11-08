@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SingleWay : MonoBehaviour
 {
+    // empty script, should be deleted
+    
     // Start is called before the first frame update
     void Start()
     {
