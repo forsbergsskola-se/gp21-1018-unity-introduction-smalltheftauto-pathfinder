@@ -7,7 +7,11 @@ public class PlayerInteractions : MonoBehaviour
     public delegate void CarEnterEvent(GameObject carToEnter);
     public static event CarEnterEvent OnEnterCar;
 
-
+/// <summary>
+///
+/// I think this looks nice but could be useful to have the OnEnterCar method in this script. It'd probably also be good to replace null with a different approach
+/// </summary>
+/// <param name="carToEnter"></param>
     private void EnterCar(GameObject carToEnter)
     {
         if (OnEnterCar != null)
