@@ -16,6 +16,8 @@ public class DestroyGoal : Quest.QuestGoal
         EventManager.Instance.AddListener<DestroyGameEvent>(OnDestroyObject);
     }
 
+    // TODO: I like how this system works. Maybe, Evaluate() could be called anytime `CurrentAmount` changes?
+    // Instead of having to call it manually. Reduces cognitive load.
     private void OnDestroyObject(DestroyGameEvent eventInfo)
     {
         if(eventInfo.destroyableName == Destroyable)
