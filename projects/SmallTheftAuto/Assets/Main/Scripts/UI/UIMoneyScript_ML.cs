@@ -11,8 +11,6 @@ public class UIMoneyScript_ML : MonoBehaviour
     
     void Start()
     {
-        // TODO: Try to avoid static events in the future. They have ruined two game projects that I've joined at a later point.
-        // They made stuff like restarting the app a tremendous amount of work.
         PickupScript_ML.PickupPicked += MoneyGot;
         UIHealthbarScript_ML.OnPlayerDeath += PlayerDies;
         SaveSystem.OnGatherSaveData += SendSaveDataToSaveSystem;
