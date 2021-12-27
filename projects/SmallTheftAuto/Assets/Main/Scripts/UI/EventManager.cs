@@ -2,6 +2,10 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
+// TODO: Cool, I can see the Broker Pattern in the making here.
+// But please remember that the best code is always the one that can be read by the colleagues.
+// I think that in this case utilizing a simpler approach would have gotten you much further.
+// The best implementation is always the one that gets you to the goal as simply as possible (KISS Principle)
 public class EventManager : MonoBehaviour
 {
     public bool LimitQueueProcesing = false;

@@ -82,6 +82,7 @@ public class GameMenu : MonoBehaviour
     private void ReadFromFile()
     {
         StreamReader reader = new StreamReader(_path);
+        // TODO: These values are never used.
         CurrentHeartHalves = Convert.ToInt32(reader.ReadLine());
         CurrentMoney = Convert.ToInt32(reader.ReadLine());
         x = Convert.ToSingle(reader.ReadLine());
